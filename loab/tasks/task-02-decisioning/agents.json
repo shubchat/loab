@@ -1,0 +1,24 @@
+{
+  "task_id": "task-02-decisioning",
+  "applicant": "AP-002-ferretti",
+  "agent_sequence": [
+    {
+      "step": 1,
+      "agent": "processing_officer",
+      "objective": "Process self-employed file, classify business overdraft, verify add-backs with ATO",
+      "handoff_to": "credit_manager",
+      "handoff_condition": "Near-prime score (634) and DTI > 6x trigger mandatory Credit Manager referral",
+      "handoff_payload": ["equifax_result", "income_assessment", "liability_schedule", "serviceability_summary", "referral_reason"]
+    },
+    {
+      "step": 2,
+      "agent": "credit_manager",
+      "objective": "Review referral, assess compensating factors, issue APPROVE or DECLINE with documented rationale",
+      "handoff_to": null,
+      "handoff_condition": "Final decision within Credit Manager authority",
+      "handoff_payload": ["credit_decision", "policy_exceptions_invoked", "adverse_action_letter"]
+    }
+  ],
+  "customer_simulation": true,
+  "customer_simulation_file": "customers/AP-002-ferretti/simulation_prompt.md"
+}

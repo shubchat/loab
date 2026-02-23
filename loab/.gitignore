@@ -1,0 +1,47 @@
+# ── Secrets ─────────────────────────────────────────────────────────────────
+.env
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ── Customer documents (may contain PII) ────────────────────────────────────
+customers/*/identity/
+customers/*/income/
+customers/*/bank_statements/
+customers/*/property/
+customers/*/correspondence/
+customers/*/business/
+customers/*/active_loan/
+customers/*/hardship/
+customers/*/closed_loan/
+
+# ── Generated results (large, run-specific) ──────────────────────────────────
+results/
+
+# ── Company docs (policy PDFs etc) ──────────────────────────────────────────
+company/policy/*.pdf
+company/policy/*.docx
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# ── Node ─────────────────────────────────────────────────────────────────────
+node_modules/
+.next/
+.nuxt/
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ──────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp

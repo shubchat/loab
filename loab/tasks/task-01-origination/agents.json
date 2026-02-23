@@ -1,0 +1,24 @@
+{
+  "task_id": "task-01-origination",
+  "applicant": "AP-001-mitchell",
+  "agent_sequence": [
+    {
+      "step": 1,
+      "agent": "processing_officer",
+      "objective": "Collect documents, run KYC, order credit report and valuation, perform initial serviceability check",
+      "handoff_to": "underwriter",
+      "handoff_condition": "All checks pass, no fraud indicators, documentation complete",
+      "handoff_payload": ["equifax_result", "greenid_result", "austrac_result", "asic_result", "corelogic_result", "serviceability_summary"]
+    },
+    {
+      "step": 2,
+      "agent": "underwriter",
+      "objective": "Apply credit policy, calculate DTI and LVR, issue credit decision",
+      "handoff_to": null,
+      "handoff_condition": "Within delegated authority — final decision",
+      "handoff_payload": ["credit_assessment", "decision", "conditions"]
+    }
+  ],
+  "customer_simulation": true,
+  "customer_simulation_file": "customers/AP-001-mitchell/simulation_prompt.md"
+}

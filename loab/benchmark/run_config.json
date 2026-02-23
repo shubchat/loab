@@ -1,0 +1,22 @@
+{
+  "run_id": "run-example",
+  "date": "YYYY-MM-DD",
+  "model_assignments": {
+    "processing_officer": "<model-id>",
+    "underwriter": "<model-id>",
+    "credit_manager": "<model-id>",
+    "collections_officer": "<model-id>",
+    "hardship_assessor": "<model-id>",
+    "fraud_analyst": "<model-id>",
+    "compliance_officer": "<model-id>"
+  },
+  "customer_simulation_model": "<model-id>",
+  "tasks_run": [
+    "task-01-origination",
+    "task-02-decisioning",
+    "task-03-servicing",
+    "task-04-collections",
+    "task-05-compliance"
+  ],
+  "notes": ""
+}

@@ -1,0 +1,9 @@
+{
+  "benchmark": "LOAB v1",
+  "description": "Lending Operations Agent Benchmark — leaderboard updated after each run",
+  "scoring": {
+    "max_score_per_task": 100,
+    "dimensions": ["decision_accuracy", "policy_compliance", "tool_use_correctness", "handoff_quality", "customer_communication"]
+  },
+  "runs": []
+}
