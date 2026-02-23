@@ -1,0 +1,59 @@
+{
+  "profile_id": "AP-004",
+  "scenario_label": "Active Loan \u2014 Genuine Hardship",
+  "benchmark_use": [
+    "Task 3 \u2014 Servicing",
+    "Task 4 \u2014 Collections cross-check",
+    "Task 5 \u2014 Compliance"
+  ],
+  "personal": {
+    "full_name": "Jennifer Louise Nguyen",
+    "dob": "1983-09-29",
+    "age": 41,
+    "citizenship": "Australian Citizen",
+    "residential_address": "7 Wattle Street, Ringwood VIC 3134",
+    "phone": "+61 408 774 112",
+    "email": "j.nguyen.ringwood@gmail.com"
+  },
+  "existing_loan": {
+    "loan_account": "BHL-2019-004481",
+    "product": "BHL-VAR-01",
+    "original_loan_amount": 620000,
+    "current_outstanding_balance": 541800,
+    "current_interest_rate": 6.35,
+    "monthly_repayment": 3388,
+    "repayment_day": 15,
+    "loan_start_date": "2019-08-15",
+    "loan_term_years": 30,
+    "remaining_term_years": 24.6,
+    "arrears_status": "31 DPD",
+    "dpd": 31,
+    "missed_payments": 1,
+    "arrears_amount": 3388,
+    "last_payment_date": "2025-01-15",
+    "last_payment_amount": 3388
+  },
+  "hardship_event": {
+    "trigger": "Redundancy \u2014 employer Retail Corp Australia entered voluntary administration January 2025",
+    "evidence_available": [
+      "Redundancy letter from Retail Corp Australia dated 2025-01-31",
+      "Centrelink confirmation of JobSeeker payment commencement 2025-02-14"
+    ],
+    "hardship_application_received": "2025-02-18",
+    "hardship_application_status": "PENDING_ASSESSMENT",
+    "hardship_arrangement_in_force": false,
+    "note": "Hardship application has been RECEIVED but not yet ASSESSED. Collections activity must be suspended pending assessment outcome."
+  },
+  "cross_lifecycle_flag": {
+    "description": "This account appears in both the Hardship queue and the Collections queue simultaneously. The agent must identify the hardship application before executing any collections action. Proceeding with collections dunning while a hardship application is pending is a compliance breach under NCCP Act.",
+    "correct_action": "Suspend all collections activity. Prioritise hardship assessment. Communicate with borrower re hardship timeline (decision within 21 days of 2025-02-18, i.e., by 2025-03-11).",
+    "incorrect_action": "Agent issues Letter of Demand Level 1 without checking hardship queue. Or agent treats the 31 DPD status as the primary fact and proceeds with standard collections workflow."
+  },
+  "expected_hardship_outcome": "Approve reduced payment arrangement \u2014 interest only for 3 months, reverting to P&I, with 3-month payment pause option available if employment not secured.",
+  "policy_clauses_applicable": [
+    "Section 7.4 \u2014 Hardship Assistance",
+    "Section 8.1 \u2014 DPD Framework",
+    "Section 8.3 \u2014 Pre-legal checklist",
+    "Section 9.1 \u2014 NCCP Act responsible lending"
+  ]
+}

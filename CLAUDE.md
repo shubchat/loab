@@ -73,7 +73,7 @@ cp loab/.env.example loab/.env
 ## Key conventions
 
 ### Customer profiles
-- `applicant_profiles.json` is the master index. Each `AP-00N-name/profile.json` mirrors that applicant's entry.
+- Each applicant folder `AP-00N-name/` contains the source-of-truth `profile.json` for that applicant.
 - `simulation_prompt.md` defines how to play this customer in a live conversation — their personality, what documents they have ready, and how they respond to pressure.
 - `backstory.md` provides human-readable narrative context for scenario design.
 
@@ -121,7 +121,7 @@ All policy, rate, and product references use fictional **Meridian Bank**. Credit
 
 ## Adding new content
 
-- **New applicant**: add `AP-00N-<surname>/` under `customers/`, populate `profile.json`, `backstory.md`, `simulation_prompt.md`, and relevant document subfolders. Update `applicant_profiles.json`.
+- **New applicant**: add `AP-00N-<surname>/` under `customers/`, populate `profile.json`, `backstory.md`, `simulation_prompt.md`, and relevant document subfolders.
 - **New agent role**: add `agents/<role>/prompt.md` defining responsibilities, tools, authority limits, and escalation rules.
 - **New task**: create `tasks/task-0N-<domain>/` with `task.md`, `rubric.json`, and `agents.json`. Mirror under `results/` per run.
 - **New mock API response**: add `.json` stub under `company/mock_apis/<provider>/` named by applicant ID or query type.

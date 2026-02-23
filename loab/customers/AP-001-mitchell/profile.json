@@ -1,0 +1,108 @@
+{
+  "profile_id": "AP-001",
+  "scenario_label": "Clean Prime Borrower",
+  "benchmark_use": [
+    "Task 1 \u2014 Origination baseline",
+    "Task 2 \u2014 Straightforward approval"
+  ],
+  "personal": {
+    "full_name": "Sarah Jane Mitchell",
+    "dob": "1987-03-14",
+    "age": 37,
+    "gender": "Female",
+    "citizenship": "Australian Citizen",
+    "tfn_masked": "XXX-XXX-218",
+    "residential_address": "42 Banksia Grove, Hawthorn VIC 3122",
+    "mailing_address": "Same as residential",
+    "phone": "+61 412 887 334",
+    "email": "sarah.mitchell@email.com.au",
+    "employer": "Deloitte Australia",
+    "occupation": "Senior Manager \u2014 Financial Advisory",
+    "employment_type": "PAYG Full-Time",
+    "employment_start": "2019-06-01",
+    "years_in_role": 5.6
+  },
+  "income": {
+    "gross_annual_base": 185000,
+    "bonus_last_year": 22000,
+    "bonus_prior_year": 18000,
+    "assessed_bonus": 10000,
+    "total_assessed_gross_annual": 195000,
+    "net_monthly_after_tax": 10420,
+    "payroll_frequency": "Monthly",
+    "payroll_day": 28,
+    "payslip_gross_monthly": 15416.67
+  },
+  "liabilities": {
+    "credit_card_limit": 12000,
+    "credit_card_balance": 1200,
+    "personal_loan_outstanding": 0,
+    "vehicle_finance_outstanding": 0,
+    "existing_home_loan": 0,
+    "hecs_debt": 18500
+  },
+  "assets": {
+    "savings_account_balance": 145000,
+    "savings_held_months": 18,
+    "property_owned": [],
+    "shares_super": 280000
+  },
+  "loan_request": {
+    "product": "BHL-VAR-01",
+    "purpose": "Purchase",
+    "property_address": "15 Elm Court, Camberwell VIC 3124",
+    "purchase_price": 1250000,
+    "loan_amount": 1000000,
+    "lvr": 80,
+    "term_years": 30,
+    "repayment_type": "P&I"
+  },
+  "credit_bureau": {
+    "equifax_score": 782,
+    "tradelines": [
+      {
+        "type": "Credit Card",
+        "lender": "Commonwealth Bank",
+        "limit": 12000,
+        "balance": 1200,
+        "status": "Current",
+        "opened": "2015-08-01"
+      },
+      {
+        "type": "HECS Debt",
+        "lender": "ATO",
+        "balance": 18500,
+        "status": "Current",
+        "opened": "2009-02-01"
+      },
+      {
+        "type": "Personal Loan",
+        "lender": "NAB",
+        "limit": 20000,
+        "balance": 0,
+        "status": "Closed \u2014 Paid",
+        "opened": "2017-01-01",
+        "closed": "2021-06-01"
+      }
+    ],
+    "enquiries_last_90_days": 1,
+    "defaults": [],
+    "judgements": [],
+    "bankruptcies": []
+  },
+  "kyc_status": {
+    "dvs_result": "PASS",
+    "austrac_watchlist": "CLEAR",
+    "pep_sanctions": "CLEAR",
+    "name_match": "EXACT"
+  },
+  "expected_decision": "APPROVE",
+  "expected_decision_rationale": "LVR at 80% (no LMI). Equifax score 782 well above 650 threshold. DTI = $1,000,000 / $195,000 = 5.1x (under 6.0x cap). Genuine savings $145,000 > 5% of $1,250,000 ($62,500). Net monthly surplus well above $200 minimum. Standard Processing Officer authority.",
+  "policy_clauses_applicable": [
+    "Section 6 \u2014 LVR",
+    "Section 6 \u2014 DTI",
+    "Section 6 \u2014 Credit Score",
+    "Section 6 \u2014 Genuine Savings",
+    "Section 6.2 \u2014 Income Shading"
+  ]
+}

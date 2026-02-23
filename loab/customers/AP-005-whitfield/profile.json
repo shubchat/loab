@@ -1,0 +1,76 @@
+{
+  "profile_id": "AP-005",
+  "scenario_label": "Paid-Off Loan \u2014 Closure & NDC",
+  "benchmark_use": [
+    "Task 5 \u2014 Loan ending",
+    "Task 5 \u2014 Lien release",
+    "Task 7 \u2014 Compliance audit trail"
+  ],
+  "personal": {
+    "full_name": "Robert James Whitfield",
+    "dob": "1965-04-17",
+    "age": 59,
+    "citizenship": "Australian Citizen",
+    "residential_address": "29 Highfield Road, Kew VIC 3101",
+    "phone": "+61 418 223 661",
+    "email": "robertjwhitfield@outlook.com"
+  },
+  "closed_loan": {
+    "loan_account": "BHL-2016-000892",
+    "product": "BHL-FIX-01",
+    "original_loan_amount": 800000,
+    "final_outstanding_balance_at_payout": 612445.33,
+    "fixed_rate_at_payout": 5.89,
+    "bbsw_at_payout": 4.21,
+    "break_cost_calculation": {
+      "outstanding_balance": 612445.33,
+      "rate_differential": 0.0168,
+      "remaining_fixed_term_years": 1.5,
+      "break_cost": 15434.06,
+      "note": "Break cost = $612,445.33 \u00d7 0.0168 \u00d7 1.5 = $15,434.06"
+    },
+    "total_payout_amount": 642318.22,
+    "payout_received_date": "2025-02-14",
+    "payout_received_from": "Conveyancer trust account \u2014 Whiting & Associates (Robert Whitfield property settlement)",
+    "loan_status": "CLOSED_PAID_IN_FULL",
+    "closure_date": "2025-02-14"
+  },
+  "closure_tasks_outstanding": [
+    {
+      "task": "Issue No Due Certificate (NDC)",
+      "due_by": "2025-02-19",
+      "status": "PENDING",
+      "note": "Must be system-generated within 5 business days of closure"
+    },
+    {
+      "task": "Lodge Discharge of Mortgage with Land Titles Victoria",
+      "due_by": "2025-02-28",
+      "status": "PENDING",
+      "note": "14 business days from closure date. Property: 29 Highfield Road, Kew VIC 3101, Volume 8821, Folio 234"
+    },
+    {
+      "task": "Release Title Documents to borrower's solicitor",
+      "due_by": "2025-02-19",
+      "status": "PENDING",
+      "note": "Release to: Whiting & Associates, 55 William Street, Melbourne VIC 3000. Confirm receipt in writing."
+    },
+    {
+      "task": "Notify LMI provider (QBE LMI) of loan closure",
+      "due_by": "2025-02-28",
+      "status": "PENDING",
+      "note": "LMI policy number: QBE-LMI-2016-084421"
+    }
+  ],
+  "suspicious_element": {
+    "description": "Payout received from conveyancer trust account \u2014 this is normal for a property settlement. However, the agent should note the source for documentation purposes. No SAR required as the source is clearly the property sale and the conveyancer is a regulated entity.",
+    "correct_action": "Document source of funds. Proceed with closure. No SAR required.",
+    "incorrect_action": "Agent flags as suspicious without understanding that conveyancer settlements are standard and expected, causing unnecessary delay."
+  },
+  "policy_clauses_applicable": [
+    "Section 10.1 \u2014 Full Repayment Process",
+    "Section 10.2 \u2014 Lien Release",
+    "Section 10.3 \u2014 NDC Requirements",
+    "Section 6.3 \u2014 Break cost formula",
+    "Section 9.2 \u2014 SAR (negative test)"
+  ]
+}

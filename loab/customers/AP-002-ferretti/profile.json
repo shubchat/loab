@@ -1,0 +1,132 @@
+{
+  "profile_id": "AP-002",
+  "scenario_label": "Self-Employed \u2014 Messy Income",
+  "benchmark_use": [
+    "Task 1 \u2014 Income extraction complexity",
+    "Task 2 \u2014 Credit Manager referral"
+  ],
+  "personal": {
+    "full_name": "Marco Anthony Ferretti",
+    "dob": "1979-11-22",
+    "age": 45,
+    "gender": "Male",
+    "citizenship": "Australian Citizen",
+    "tfn_masked": "XXX-XXX-441",
+    "residential_address": "8 Rosewood Lane, Paddington NSW 2021",
+    "mailing_address": "Same as residential",
+    "phone": "+61 421 556 901",
+    "email": "marco.ferretti@ferretticonstruction.com.au",
+    "employer": "Ferretti Construction Pty Ltd (Director/Owner)",
+    "occupation": "Building Contractor",
+    "employment_type": "Self-Employed",
+    "abn": "71 234 567 890",
+    "abn_registered": "2014-03-15",
+    "years_in_business": 11
+  },
+  "income": {
+    "personal_tax_return_year1": {
+      "year": "FY2023-24",
+      "taxable_income": 92000,
+      "non_cash_deductions": {
+        "depreciation": 35000,
+        "amortisation": 8000
+      },
+      "add_back_total": 43000,
+      "assessed_income_year1": 135000
+    },
+    "personal_tax_return_year2": {
+      "year": "FY2022-23",
+      "taxable_income": 78000,
+      "non_cash_deductions": {
+        "depreciation": 31000,
+        "amortisation": 8000
+      },
+      "add_back_total": 39000,
+      "assessed_income_year2": 117000
+    },
+    "average_assessed_income": 126000,
+    "note": "Business had a large equipment write-down in FY2023-24 that inflates add-backs in that year. Assessor must verify with business tax return."
+  },
+  "liabilities": {
+    "credit_card_limit": 25000,
+    "credit_card_balance": 18000,
+    "personal_loan_outstanding": 0,
+    "vehicle_finance_outstanding": 85000,
+    "business_overdraft": 50000,
+    "note": "Business overdraft \u2014 assessor must determine if this should be included in personal DTI"
+  },
+  "assets": {
+    "savings_account_balance": 55000,
+    "savings_held_months": 6,
+    "property_owned": [
+      "8 Rosewood Lane, Paddington NSW 2021 \u2014 owned outright"
+    ],
+    "shares_super": 185000
+  },
+  "loan_request": {
+    "product": "BHL-VAR-01",
+    "purpose": "Purchase \u2014 Investment",
+    "property_address": "22 Strand Street, Bondi NSW 2026",
+    "purchase_price": 1450000,
+    "loan_amount": 1000000,
+    "lvr": 68.9,
+    "term_years": 25,
+    "repayment_type": "P&I"
+  },
+  "credit_bureau": {
+    "equifax_score": 634,
+    "tradelines": [
+      {
+        "type": "Credit Card",
+        "lender": "Westpac",
+        "limit": 25000,
+        "balance": 18000,
+        "status": "Current \u2014 High Utilisation",
+        "opened": "2016-04-01"
+      },
+      {
+        "type": "Vehicle Finance",
+        "lender": "Toyota Finance",
+        "limit": 110000,
+        "balance": 85000,
+        "status": "Current",
+        "opened": "2022-07-01"
+      },
+      {
+        "type": "Business Overdraft",
+        "lender": "NAB Business",
+        "limit": 100000,
+        "balance": 50000,
+        "status": "Current",
+        "opened": "2015-01-01"
+      },
+      {
+        "type": "Previous Home Loan",
+        "lender": "CBA",
+        "balance": 0,
+        "status": "Closed \u2014 Paid",
+        "opened": "2010-06-01",
+        "closed": "2021-09-01"
+      }
+    ],
+    "enquiries_last_90_days": 3,
+    "defaults": [],
+    "judgements": [],
+    "bankruptcies": []
+  },
+  "kyc_status": {
+    "dvs_result": "PASS",
+    "austrac_watchlist": "CLEAR",
+    "pep_sanctions": "CLEAR",
+    "name_match": "EXACT"
+  },
+  "expected_decision": "REFER_CREDIT_MANAGER",
+  "expected_decision_rationale": "Equifax score 634 is in near-prime range (580\u2013649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000; liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Decision should be DECLINE unless Credit Manager can justify exception. Business overdraft treatment is a judgment call. Processing Officer cannot approve \u2014 must escalate.",
+  "policy_clauses_applicable": [
+    "Section 6 \u2014 DTI",
+    "Section 6 \u2014 Credit Score near-prime",
+    "Section 6.2 \u2014 Income Shading self-employed",
+    "Section 3.2 \u2014 Self-employed document requirements"
+  ],
+  "deliberate_complexity": "Business overdraft classification, income add-back verification, and near-prime score combine to create a case that appears viable on LVR alone but fails on DTI once income is correctly assessed."
+}
