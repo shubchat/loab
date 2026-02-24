@@ -18,6 +18,7 @@ customers/*/closed_loan/
 
 # ── Generated results (large, run-specific) ──────────────────────────────────
 results/
+loab/results/
 
 # ── Python ───────────────────────────────────────────────────────────────────
 __pycache__/
@@ -41,3 +42,4 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+*.venv/

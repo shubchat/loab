@@ -2,13 +2,13 @@
   "run_id": "run-example",
   "date": "YYYY-MM-DD",
   "model_assignments": {
-    "processing_officer": "<model-id>",
-    "underwriter": "<model-id>",
-    "credit_manager": "<model-id>",
-    "collections_officer": "<model-id>",
-    "hardship_assessor": "<model-id>",
-    "fraud_analyst": "<model-id>",
-    "compliance_officer": "<model-id>"
+    "processing_officer": "azure/gpt-5.2",
+    "underwriter": "azure/gpt-5.2",
+    "credit_manager": "azure/gpt-5.2",
+    "collections_officer": "azure/gpt-5.2",
+    "hardship_assessor": "azure/gpt-5.2",
+    "fraud_analyst": "azure/gpt-5.2",
+    "compliance_officer": "azure/gpt-5.2"
   },
   "customer_simulation_model": "<model-id>",
   "tasks_run": [

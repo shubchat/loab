@@ -1,1 +1,1 @@
-# stdlib only; no external Python dependencies required for mock API server
+litellm>=1.40.0

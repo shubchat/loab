@@ -7,9 +7,24 @@ Agents play bank roles (processing officer, underwriter, fraud analyst, etc.) an
 ## Quick start
 
 ```bash
-cp /loab/.env.example .env
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+cp loab/.env.example loab/.env
 # Fill in at least one provider API key and set DEFAULT_*_MODEL values
 ```
+
+### Azure OpenAI (LiteLLM)
+
+Set the Azure environment variables in `loab/.env`:
+
+```
+AZURE_API_KEY=...
+AZURE_API_BASE=https://<resource>.openai.azure.com/
+AZURE_API_VERSION=2024-12-01-preview
+```
+
+Use the Azure deployment name in model assignments, e.g. `azure/gpt-5.2`.
 
 ## Structure
 

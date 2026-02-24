@@ -64,6 +64,9 @@ loab/
 ## Environment setup
 
 ```bash
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
 cp loab/.env.example loab/.env
 # Fill in at least one provider key and set DEFAULT_*_MODEL values
 ```
@@ -71,6 +74,18 @@ cp loab/.env.example loab/.env
 `.env` supports all major providers: Anthropic, OpenAI, Google Gemini, Mistral, Cohere, AWS Bedrock, Azure OpenAI, xAI. Each agent role has a `DEFAULT_<ROLE>_MODEL` variable (format: `provider/model-id`, e.g. `anthropic/claude-opus-4-6`). These defaults can be overridden per-run in `benchmark/run_config.json`.
 
 `.env` and all customer document subfolders and `results/` are gitignored.
+
+### Azure OpenAI (LiteLLM)
+
+Set the Azure environment variables in `loab/.env`:
+
+```
+AZURE_API_KEY=...
+AZURE_API_BASE=https://<resource>.openai.azure.com/
+AZURE_API_VERSION=2024-12-01-preview
+```
+
+Use the Azure deployment name in model assignments, e.g. `azure/gpt-5.2`.
 
 ## Running the MCP server
 
