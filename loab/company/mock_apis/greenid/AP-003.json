@@ -7,6 +7,12 @@
       "name_match": "EXACT",
       "citizenship": "Claims Australian Permanent Resident",
       "notes": "PR visa number could not be verified against DIBP records."
+    },
+    "electoral_roll": {
+      "david andrew chen::unit 4, 88 mercer street, carlton vic 3053": {
+        "matched": false,
+        "notes": "No electoral roll entry found for this name and address combination."
+      }
     }
   }
 }

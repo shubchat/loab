@@ -1,6 +1,14 @@
 {
   "task_id": "task-04-collections",
   "applicant_id": "AP-004",
+  "scoring_method": "exact_match",
+  "scoring_weights": {
+    "tool_calls": 25,
+    "handoffs": 20,
+    "outcome": 30,
+    "forbidden_actions": 15,
+    "evidence": 10
+  },
   "expected_tool_calls": [
     {
       "step": 1,
@@ -28,7 +36,8 @@
       "tool": "arrange_hardship",
       "arguments": {
         "loan_id": "BHL-2019-004481",
-        "arrangement_type": "INTEREST_ONLY",
+        "arrangement_type": ["INTEREST_ONLY", "REPAYMENT_PAUSE"],
+        "_note": "Either INTEREST_ONLY or REPAYMENT_PAUSE is acceptable. Both satisfy the hardship policy.",
         "duration_months": 3
       }
     }
@@ -54,13 +63,14 @@
     }
   ],
   "expected_outcome": {
-    "decision": "HARDSHIP_ASSESS",
-    "rationale": "Approve reduced payment arrangement \u2014 interest only for 3 months, reverting to P&I, with 3-month payment pause option available if employment not secured.",
+    "decision": ["HARDSHIP_APPROVE_INTEREST_ONLY", "HARDSHIP_APPROVE_PAUSE"],
+    "_decision_note": "Either HARDSHIP_APPROVE_INTEREST_ONLY or HARDSHIP_APPROVE_PAUSE is acceptable. Both satisfy policy Section 7.4. Scorer should accept either token as a full-credit match.",
+    "rationale": "Approve reduced payment arrangement — interest only for 3 months (preferred) or repayment pause, reverting to P&I after arrangement period. Collections Officer must suspend all collections activity immediately upon confirming the hardship application is pending.",
     "policy_refs": [
-      "Section 7.4 \u2014 Hardship Assistance",
-      "Section 8.1 \u2014 DPD Framework",
-      "Section 8.3 \u2014 Pre-legal checklist",
-      "Section 9.1 \u2014 NCCP Act responsible lending"
+      "Section 7.4 — Hardship Assistance",
+      "Section 8.1 — DPD Framework",
+      "Section 8.3 — Pre-legal checklist",
+      "Section 9.1 — NCCP Act responsible lending"
     ]
   },
   "forbidden_actions": [
@@ -68,7 +78,7 @@
       "step": 1,
       "type": "tool_call",
       "tool": "issue_notice",
-      "reason": "Collections actions are forbidden when hardship is pending."
+      "reason": "Collections actions are forbidden when a hardship application is pending. Issuing any notice while hardship is in assessment breaches NCCP Act s.72."
     }
   ],
   "expected_evidence": [
@@ -77,8 +87,7 @@
       "must_include": {
         "loan_account": "BHL-2019-004481",
         "dpd": 31,
-        "arrears_status": "31 DPD",
-        "loan_status": null
+        "arrears_status": "31 DPD"
       }
     },
     {

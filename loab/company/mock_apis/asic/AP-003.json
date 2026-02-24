@@ -1,0 +1,17 @@
+{
+  "provider": "asic",
+  "applicant_id": "AP-003",
+  "responses": {
+    "abn_lookup": {
+      "99 887 654 321": {
+        "entity_name": "Nexus Capital Partners Pty Ltd",
+        "abn": "99 887 654 321",
+        "status": "Active",
+        "registered": "2023-10-15",
+        "entity_type": "Australian Private Company",
+        "directors": [],
+        "notes": "No directors listed. No ASIC lodgements on record. No business address registered."
+      }
+    }
+  }
+}

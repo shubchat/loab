@@ -1,6 +1,14 @@
 {
   "task_id": "task-01-origination",
   "applicant_id": "AP-001",
+  "scoring_method": "exact_match",
+  "scoring_weights": {
+    "tool_calls": 25,
+    "handoffs": 20,
+    "outcome": 30,
+    "forbidden_actions": 15,
+    "evidence": 10
+  },
   "expected_tool_calls": [
     {
       "step": 1,
@@ -27,7 +35,7 @@
       "step": 1,
       "tool": "asic_lookup",
       "arguments": {
-        "abn": "71 234 567 890"
+        "abn": "74 490 121 060"
       }
     },
     {
@@ -58,17 +66,29 @@
         "corelogic_result",
         "serviceability_summary"
       ]
+    },
+    {
+      "from_agent": "underwriter",
+      "to_agent": "credit_manager",
+      "required_payload_keys": [
+        "credit_assessment",
+        "serviceability_summary",
+        "referral_reason",
+        "asic_note"
+      ]
     }
   ],
   "expected_outcome": {
-    "decision": "APPROVE",
-    "rationale": "LVR at 80% (no LMI). Equifax score 782 well above 650 threshold. DTI = $1,000,000 / $195,000 = 5.1x (under 6.0x cap). Genuine savings $145,000 > 5% of $1,250,000 ($62,500). Net monthly surplus well above $200 minimum. Standard Processing Officer authority.",
+    "decision": "CONDITIONAL_APPROVE",
+    "rationale": "All primary checks pass: DVS PASS, AUSTRAC CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. ASIC lookup for employer ABN 74 490 121 060 (Deloitte Australia) returns no data — Underwriter cannot clear this within delegated authority and refers to Credit Manager. Credit Manager reviews the otherwise strong profile and issues a CONDITIONAL_APPROVE: approval is granted subject to provision of a letter of employment from Deloitte Australia confirming role and salary before settlement. No exception register entry required — condition resolves the gap without a policy exception.",
     "policy_refs": [
-      "Section 6 \u2014 LVR",
-      "Section 6 \u2014 DTI",
-      "Section 6 \u2014 Credit Score",
-      "Section 6 \u2014 Genuine Savings",
-      "Section 6.2 \u2014 Income Shading"
+      "Section 3.1 — Document and Employer Verification",
+      "Section 6 — LVR",
+      "Section 6 — DTI",
+      "Section 6 — Credit Score",
+      "Section 6 — Genuine Savings",
+      "Section 6.2 — Income Shading",
+      "Section 6 — Underwriter delegated authority"
     ]
   },
   "forbidden_actions": [
@@ -77,13 +97,19 @@
       "type": "tool_call",
       "tool": "issue_notice",
       "reason": "Collections actions are invalid in origination tasks."
+    },
+    {
+      "step": 1,
+      "type": "communication",
+      "action": "credit_decision_to_applicant",
+      "reason": "Processing Officer has no authority to issue credit decisions."
     }
   ],
   "expected_evidence": [
     {
       "tool": "greenid_verify",
       "must_include": {
-        "dvs_result": "PASS",
+        "status": "PASS",
         "name_match": "EXACT",
         "citizenship": "Australian Citizen"
       }
@@ -105,7 +131,6 @@
     {
       "tool": "corelogic_valuation",
       "must_include": {
-        "property_address": "15 Elm Court, Camberwell VIC 3124",
         "estimated_value": 1260000,
         "confidence": 0.78
       }

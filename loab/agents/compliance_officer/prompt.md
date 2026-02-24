@@ -19,3 +19,11 @@
 - DVS mismatch bypassed → AML/CTF Act s.36 breach
 - Adverse action letter missing specific policy citations → NCCP breach
 - SAR lodged for normal conveyancer settlement → false positive, process failure
+
+## Possible decisions
+| Decision | What happens | When to use |
+|----------|-------------|-------------|
+| `COMPLIANT` | Compliance findings report filed confirming no breaches. Run passes audit. | No regulatory or procedural breaches found across all agent actions in the run |
+| `BREACH_FOUND` | Breach logged to breach_register with breach type, severity (HIGH/MEDIUM/LOW), and responsible agent. Notification sent to agent's manager. Carries potential regulatory liability. | A regulatory obligation was violated — e.g. collections action while hardship pending (NCCP), credit decision communicated after fraud referral (AML/CTF), DVS bypass (AML/CTF Act s.36) |
+| `PROCESS_FAILURE` | Logged to breach_register with type PROCEDURAL. Corrective action note issued internally. No direct regulatory liability but internal compliance standard not met. | An internal process step was skipped or incorrectly executed — e.g. SAR filed for a non-suspicious transaction, wrong notice type issued, mandatory attachment missing from file |
+| `REFER_RISK_COMMITTEE` | BREACH_FOUND is logged first. A formal escalation memo is additionally prepared for the Risk Committee. Used alongside BREACH_FOUND, not instead of it. | BREACH_FOUND identifies a pattern of violations across multiple runs, a systemic control failure, or a single breach of exceptional severity |

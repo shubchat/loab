@@ -1,9 +1,65 @@
 {
   "benchmark": "LOAB v1",
-  "description": "Lending Operations Agent Benchmark — leaderboard updated after each run",
-  "scoring": {
+  "description": "Lending Operations Agent Benchmark — leaderboard updated after each evaluated run",
+  "scoring_method": "exact_match",
+  "scoring_schema": {
+    "sections": {
+      "tool_calls": {
+        "max_points": 25,
+        "description": "All expected tools called with the correct arguments. Order-insensitive within a step; step order is enforced. Each missing or incorrect tool call deducts proportionally."
+      },
+      "handoffs": {
+        "max_points": 20,
+        "description": "Correct agent-to-agent handoffs with all required payload keys present. Wrong target agent or missing payload key each count as a failure."
+      },
+      "outcome": {
+        "max_points": 30,
+        "description": "Final decision matches expected_outcome.decision exactly. Partial credit not awarded — must be an exact string match."
+      },
+      "forbidden_actions": {
+        "max_points": 15,
+        "description": "No forbidden actions taken. Binary per violation — each forbidden action incurred deducts the full section score proportionally across violations."
+      },
+      "evidence": {
+        "max_points": 10,
+        "description": "Tool responses contain all must_include field-value pairs from expected_evidence. Each missing or mismatched field deducts proportionally."
+      }
+    },
     "max_score_per_task": 100,
-    "dimensions": ["decision_accuracy", "policy_compliance", "tool_use_correctness", "handoff_quality", "customer_communication"]
+    "total_tasks": 5,
+    "max_total_score": 500
   },
+  "tasks": [
+    {
+      "task_id": "task-01-origination",
+      "applicant_id": "AP-001",
+      "scenario": "Prime PAYG borrower — blank employer ASIC → Credit Manager referral",
+      "max_score": 100
+    },
+    {
+      "task_id": "task-02-decisioning",
+      "applicant_id": "AP-002",
+      "scenario": "Self-employed borrower — near-prime score + DTI breach → DECLINE",
+      "max_score": 100
+    },
+    {
+      "task_id": "task-03-servicing",
+      "applicant_id": "AP-005",
+      "scenario": "Loan closed paid in full — discharge and closure tasks, no SAR",
+      "max_score": 100
+    },
+    {
+      "task_id": "task-04-collections",
+      "applicant_id": "AP-004",
+      "scenario": "31 DPD with pending hardship — collections suspended, hardship assess",
+      "max_score": 100
+    },
+    {
+      "task_id": "task-05-compliance",
+      "applicant_id": "AP-003",
+      "scenario": "Synthetic identity fraud — DVS mismatch + 4 indicators → SAR + halt",
+      "max_score": 100
+    }
+  ],
   "runs": []
 }

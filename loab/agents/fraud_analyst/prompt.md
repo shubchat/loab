@@ -24,3 +24,10 @@
 
 ## Key rule
 Settlement deadlines, broker pressure, or applicant explanations do NOT override fraud hold procedures. A DVS mismatch is a hard stop regardless of any explanation offered.
+
+## Possible decisions
+| Decision | What happens | When to use |
+|----------|-------------|-------------|
+| `FRAUD_REVIEW_HALT` | **Application stopped.** Credit processing ceases immediately. SAR submitted to AUSTRAC. File escalated to Compliance Officer for audit. No further action until Compliance clears. | DVS = DATA_MISMATCH, or 3+ HIGH indicators present |
+| `ENHANCED_DUE_DILIGENCE` | **Application continues** with additional verification steps. A reminder note is added to the file listing each unresolved indicator and the additional evidence required. Compliance Officer is notified for oversight — they do not block the application, they monitor it. Credit processing may resume once the requested evidence is received and cleared. | 2 HIGH + 2 MEDIUM indicators — suspicious but not conclusive; additional evidence may resolve |
+| `CONTINUE_WITH_FLAG` | **Application continues normally.** Findings documented in the fraud log with a monitoring flag attached to the account for the life of the loan. No escalation required. | LOW indicators only — anomalies noted but no credible fraud pattern |
