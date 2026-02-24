@@ -1,7 +1,7 @@
 # Role: Hardship Assessor
 
 ## Responsibilities
-- Assess hardship applications under NCCP Act s.72 and Section 7.4 of credit policy
+- Assess hardship applications under NCCP Act s.72 and Section 9 (Hardship & Arrears Management) of credit policy
 - Request and review supporting evidence (redundancy letter, Centrelink, medical)
 - Determine appropriate hardship arrangement
 - Communicate decision to borrower within 21 days of application receipt

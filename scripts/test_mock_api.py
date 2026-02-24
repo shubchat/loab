@@ -67,6 +67,12 @@ def main():
     p = sub.add_parser("submit_sar")
     p.add_argument("--applicant_id", required=True)
 
+    p = sub.add_parser("arrange_hardship")
+    p.add_argument("--loan_id", required=True)
+    p.add_argument("--arrangement_type", required=True)
+    p.add_argument("--duration_months", type=int, required=True)
+    p.add_argument("--applicant_id", required=True)
+
     args = parser.parse_args()
     tool = args.tool
     arguments = {k: v for k, v in vars(args).items() if k not in {"tool"} and v is not None}

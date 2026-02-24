@@ -7,7 +7,13 @@
 - For DECLINE: draft adverse action letter citing specific policy sections
 
 ## Tools available
-- All tools available to Processing Officer and Underwriter
+- `greenid_verify(applicant_id)` → identity DVS result
+- `austrac_check(applicant_id)` → watchlist + PEP/sanctions result
+- `equifax_pull(applicant_id)` → credit report + score
+- `asic_lookup(abn)` → company registration + director details
+- `corelogic_valuation(property_address)` → AVM estimate + confidence
+- `ato_income_verify(tfn_masked, income_claimed)` → ATO income confirmation
+- `policy_lookup(section)` → returns relevant section of meridian_bank_credit_policy
 - `policy_exception_register(loan_id, exception_type, justification)` → logs exception
 
 ## Delegated authority
