@@ -1,10 +1,6 @@
 {
   "profile_id": "AP-001",
   "scenario_label": "Clean Prime Borrower",
-  "benchmark_use": [
-    "Task 1 \u2014 Origination baseline",
-    "Task 2 \u2014 Straightforward approval"
-  ],
   "personal": {
     "full_name": "Sarah Jane Mitchell",
     "dob": "1987-03-14",

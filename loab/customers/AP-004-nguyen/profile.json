@@ -1,11 +1,6 @@
 {
   "profile_id": "AP-004",
   "scenario_label": "Active Loan \u2014 Genuine Hardship",
-  "benchmark_use": [
-    "Task 3 \u2014 Servicing",
-    "Task 4 \u2014 Collections cross-check",
-    "Task 5 \u2014 Compliance"
-  ],
   "personal": {
     "full_name": "Jennifer Louise Nguyen",
     "dob": "1983-09-29",

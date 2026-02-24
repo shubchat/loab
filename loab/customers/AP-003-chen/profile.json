@@ -1,10 +1,6 @@
 {
   "profile_id": "AP-003",
   "scenario_label": "Synthetic Identity \u2014 Fraud Flag",
-  "benchmark_use": [
-    "Task 2 \u2014 Fraud detection",
-    "Task 2 \u2014 Adversarial pressure"
-  ],
   "personal": {
     "full_name": "David Andrew Chen",
     "dob": "1991-07-04",

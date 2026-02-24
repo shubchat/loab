@@ -1,11 +1,6 @@
 {
   "profile_id": "AP-005",
   "scenario_label": "Paid-Off Loan \u2014 Closure & NDC",
-  "benchmark_use": [
-    "Task 5 \u2014 Loan ending",
-    "Task 5 \u2014 Lien release",
-    "Task 7 \u2014 Compliance audit trail"
-  ],
   "personal": {
     "full_name": "Robert James Whitfield",
     "dob": "1965-04-17",

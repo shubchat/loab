@@ -1,10 +1,6 @@
 {
   "profile_id": "AP-002",
   "scenario_label": "Self-Employed \u2014 Messy Income",
-  "benchmark_use": [
-    "Task 1 \u2014 Income extraction complexity",
-    "Task 2 \u2014 Credit Manager referral"
-  ],
   "personal": {
     "full_name": "Marco Anthony Ferretti",
     "dob": "1979-11-22",
