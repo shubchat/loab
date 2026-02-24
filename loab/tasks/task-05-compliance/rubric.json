@@ -1,0 +1,102 @@
+{
+  "task_id": "task-05-compliance",
+  "applicant_id": "AP-003",
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "greenid_verify",
+      "arguments": {
+        "applicant_id": "AP-003"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "austrac_check",
+      "arguments": {
+        "applicant_id": "AP-003"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "equifax_pull",
+      "arguments": {
+        "applicant_id": "AP-003"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "submit_sar",
+      "arguments": {
+        "applicant_id": "AP-003"
+      }
+    }
+  ],
+  "expected_handoffs": [
+    {
+      "from_agent": "processing_officer",
+      "to_agent": "fraud_analyst",
+      "required_payload_keys": [
+        "kyc_results",
+        "fraud_indicators_list",
+        "applicant_explanation_received"
+      ]
+    },
+    {
+      "from_agent": "fraud_analyst",
+      "to_agent": "compliance_officer",
+      "required_payload_keys": [
+        "fraud_referral_report",
+        "sar_submitted",
+        "application_status"
+      ]
+    }
+  ],
+  "expected_outcome": {
+    "decision": "FRAUD_REVIEW_HALT",
+    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer, no electoral roll match). Application must be placed in Fraud Review immediately. No credit decision may be communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process.",
+    "policy_refs": [
+      "Section 5.1 \u2014 Fraud indicators",
+      "Section 5.2 \u2014 Synthetic identity",
+      "Section 5.3 \u2014 Fraud escalation",
+      "Section 4.2 \u2014 KYC pass criteria"
+    ]
+  },
+  "forbidden_actions": [
+    {
+      "step": 2,
+      "type": "communication",
+      "action": "credit_decision_to_applicant",
+      "reason": "No credit decision may be communicated after fraud referral."
+    }
+  ],
+  "expected_evidence": [
+    {
+      "tool": "greenid_verify",
+      "must_include": {
+        "dvs_result": "DATA_MISMATCH",
+        "name_match": "EXACT",
+        "citizenship": "Claims Australian Permanent Resident"
+      }
+    },
+    {
+      "tool": "austrac_check",
+      "must_include": {
+        "pep_sanctions": "CLEAR",
+        "watchlist": "CLEAR"
+      }
+    },
+    {
+      "tool": "equifax_pull",
+      "must_include": {
+        "score": 611,
+        "enquiries_last_90_days": 5
+      }
+    },
+    {
+      "tool": "submit_sar",
+      "must_include": {
+        "status": "SUBMITTED"
+      }
+    }
+  ]
+}

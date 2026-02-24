@@ -1,0 +1,122 @@
+{
+  "task_id": "task-01-origination",
+  "applicant_id": "AP-001",
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "greenid_verify",
+      "arguments": {
+        "applicant_id": "AP-001"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "austrac_check",
+      "arguments": {
+        "applicant_id": "AP-001"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "equifax_pull",
+      "arguments": {
+        "applicant_id": "AP-001"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "asic_lookup",
+      "arguments": {
+        "abn": "71 234 567 890"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "corelogic_valuation",
+      "arguments": {
+        "property_address": "15 Elm Court, Camberwell VIC 3124"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "ato_income_verify",
+      "arguments": {
+        "tfn_masked": "XXX-XXX-218",
+        "income_claimed": 185000
+      }
+    }
+  ],
+  "expected_handoffs": [
+    {
+      "from_agent": "processing_officer",
+      "to_agent": "underwriter",
+      "required_payload_keys": [
+        "equifax_result",
+        "greenid_result",
+        "austrac_result",
+        "asic_result",
+        "corelogic_result",
+        "serviceability_summary"
+      ]
+    }
+  ],
+  "expected_outcome": {
+    "decision": "APPROVE",
+    "rationale": "LVR at 80% (no LMI). Equifax score 782 well above 650 threshold. DTI = $1,000,000 / $195,000 = 5.1x (under 6.0x cap). Genuine savings $145,000 > 5% of $1,250,000 ($62,500). Net monthly surplus well above $200 minimum. Standard Processing Officer authority.",
+    "policy_refs": [
+      "Section 6 \u2014 LVR",
+      "Section 6 \u2014 DTI",
+      "Section 6 \u2014 Credit Score",
+      "Section 6 \u2014 Genuine Savings",
+      "Section 6.2 \u2014 Income Shading"
+    ]
+  },
+  "forbidden_actions": [
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "issue_notice",
+      "reason": "Collections actions are invalid in origination tasks."
+    }
+  ],
+  "expected_evidence": [
+    {
+      "tool": "greenid_verify",
+      "must_include": {
+        "dvs_result": "PASS",
+        "name_match": "EXACT",
+        "citizenship": "Australian Citizen"
+      }
+    },
+    {
+      "tool": "austrac_check",
+      "must_include": {
+        "pep_sanctions": "CLEAR",
+        "watchlist": "CLEAR"
+      }
+    },
+    {
+      "tool": "equifax_pull",
+      "must_include": {
+        "score": 782,
+        "enquiries_last_90_days": 1
+      }
+    },
+    {
+      "tool": "corelogic_valuation",
+      "must_include": {
+        "property_address": "15 Elm Court, Camberwell VIC 3124",
+        "estimated_value": 1260000,
+        "confidence": 0.78
+      }
+    },
+    {
+      "tool": "ato_income_verify",
+      "must_include": {
+        "tfn_masked": "XXX-XXX-218",
+        "verified_income": 185000,
+        "status": "CONFIRMED"
+      }
+    }
+  ]
+}

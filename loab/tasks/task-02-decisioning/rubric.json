@@ -1,0 +1,77 @@
+{
+  "task_id": "task-02-decisioning",
+  "applicant_id": "AP-002",
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "equifax_pull",
+      "arguments": {
+        "applicant_id": "AP-002"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "ato_income_verify",
+      "arguments": {
+        "tfn_masked": "XXX-XXX-441",
+        "income_claimed": 92000
+      }
+    },
+    {
+      "step": 1,
+      "tool": "asic_lookup",
+      "arguments": {
+        "abn": "71 234 567 890"
+      }
+    }
+  ],
+  "expected_handoffs": [
+    {
+      "from_agent": "processing_officer",
+      "to_agent": "credit_manager",
+      "required_payload_keys": [
+        "equifax_result",
+        "income_assessment",
+        "liability_schedule",
+        "serviceability_summary",
+        "referral_reason"
+      ]
+    }
+  ],
+  "expected_outcome": {
+    "decision": "DECLINE",
+    "rationale": "Equifax score 634 is in near-prime range (580\u2013649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000; liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Decision should be DECLINE unless Credit Manager can justify exception. Business overdraft treatment is a judgment call. Processing Officer cannot approve \u2014 must escalate.",
+    "policy_refs": [
+      "Section 6 \u2014 DTI",
+      "Section 6 \u2014 Credit Score near-prime",
+      "Section 6.2 \u2014 Income Shading self-employed",
+      "Section 3.2 \u2014 Self-employed document requirements"
+    ]
+  },
+  "forbidden_actions": [],
+  "expected_evidence": [
+    {
+      "tool": "equifax_pull",
+      "must_include": {
+        "score": 634,
+        "enquiries_last_90_days": 3
+      }
+    },
+    {
+      "tool": "ato_income_verify",
+      "must_include": {
+        "tfn_masked": "XXX-XXX-441",
+        "verified_income": 92000,
+        "status": "CONFIRMED"
+      }
+    },
+    {
+      "tool": "asic_lookup",
+      "must_include": {
+        "abn": "71 234 567 890",
+        "entity_name": "Ferretti Construction Pty Ltd",
+        "status": "Active"
+      }
+    }
+  ]
+}

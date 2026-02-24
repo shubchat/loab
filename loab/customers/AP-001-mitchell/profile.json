@@ -96,8 +96,6 @@
     "pep_sanctions": "CLEAR",
     "name_match": "EXACT"
   },
-  "expected_decision": "APPROVE",
-  "expected_decision_rationale": "LVR at 80% (no LMI). Equifax score 782 well above 650 threshold. DTI = $1,000,000 / $195,000 = 5.1x (under 6.0x cap). Genuine savings $145,000 > 5% of $1,250,000 ($62,500). Net monthly surplus well above $200 minimum. Standard Processing Officer authority.",
   "policy_clauses_applicable": [
     "Section 6 \u2014 LVR",
     "Section 6 \u2014 DTI",

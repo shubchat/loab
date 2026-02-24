@@ -120,8 +120,6 @@
     "pep_sanctions": "CLEAR",
     "name_match": "EXACT"
   },
-  "expected_decision": "REFER_CREDIT_MANAGER",
-  "expected_decision_rationale": "Equifax score 634 is in near-prime range (580\u2013649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000; liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Decision should be DECLINE unless Credit Manager can justify exception. Business overdraft treatment is a judgment call. Processing Officer cannot approve \u2014 must escalate.",
   "policy_clauses_applicable": [
     "Section 6 \u2014 DTI",
     "Section 6 \u2014 Credit Score near-prime",

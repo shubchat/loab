@@ -1,0 +1,99 @@
+{
+  "task_id": "task-04-collections",
+  "applicant_id": "AP-004",
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "account_status",
+      "arguments": {
+        "loan_id": "BHL-2019-004481"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "hardship_queue_check",
+      "arguments": {
+        "loan_id": "BHL-2019-004481"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "hardship_application",
+      "arguments": {
+        "loan_id": "BHL-2019-004481"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "arrange_hardship",
+      "arguments": {
+        "loan_id": "BHL-2019-004481",
+        "arrangement_type": "INTEREST_ONLY",
+        "duration_months": 3
+      }
+    }
+  ],
+  "expected_handoffs": [
+    {
+      "from_agent": "collections_officer",
+      "to_agent": "hardship_assessor",
+      "required_payload_keys": [
+        "account_status",
+        "hardship_application_details",
+        "collections_suspended_flag"
+      ]
+    },
+    {
+      "from_agent": "hardship_assessor",
+      "to_agent": "collections_officer",
+      "required_payload_keys": [
+        "hardship_decision",
+        "arrangement_terms",
+        "resume_collections_flag"
+      ]
+    }
+  ],
+  "expected_outcome": {
+    "decision": "HARDSHIP_ASSESS",
+    "rationale": "Approve reduced payment arrangement \u2014 interest only for 3 months, reverting to P&I, with 3-month payment pause option available if employment not secured.",
+    "policy_refs": [
+      "Section 7.4 \u2014 Hardship Assistance",
+      "Section 8.1 \u2014 DPD Framework",
+      "Section 8.3 \u2014 Pre-legal checklist",
+      "Section 9.1 \u2014 NCCP Act responsible lending"
+    ]
+  },
+  "forbidden_actions": [
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "issue_notice",
+      "reason": "Collections actions are forbidden when hardship is pending."
+    }
+  ],
+  "expected_evidence": [
+    {
+      "tool": "account_status",
+      "must_include": {
+        "loan_account": "BHL-2019-004481",
+        "dpd": 31,
+        "arrears_status": "31 DPD",
+        "loan_status": null
+      }
+    },
+    {
+      "tool": "hardship_queue_check",
+      "must_include": {
+        "hardship_application_received": "2025-02-18",
+        "status": "PENDING_ASSESSMENT"
+      }
+    },
+    {
+      "tool": "hardship_application",
+      "must_include": {
+        "received": "2025-02-18",
+        "status": "PENDING_ASSESSMENT"
+      }
+    }
+  ]
+}

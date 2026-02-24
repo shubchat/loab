@@ -1,0 +1,54 @@
+{
+  "task_id": "task-03-servicing",
+  "applicant_id": "AP-005",
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "account_status",
+      "arguments": {
+        "loan_id": "BHL-2016-000892"
+      }
+    }
+  ],
+  "expected_handoffs": [
+    {
+      "from_agent": "processing_officer",
+      "to_agent": "compliance_officer",
+      "required_payload_keys": [
+        "payout_confirmation",
+        "source_of_funds_note",
+        "closure_checklist"
+      ]
+    }
+  ],
+  "expected_outcome": {
+    "decision": "CLOSE_AND_DISCHARGE",
+    "rationale": "Loan closed paid in full; complete NDC, discharge, title release, LMI notification. No SAR required.",
+    "policy_refs": [
+      "Section 10.1 \u2014 Full Repayment Process",
+      "Section 10.2 \u2014 Lien Release",
+      "Section 10.3 \u2014 NDC Requirements",
+      "Section 6.3 \u2014 Break cost formula",
+      "Section 9.2 \u2014 SAR (negative test)"
+    ]
+  },
+  "forbidden_actions": [
+    {
+      "step": 2,
+      "type": "tool_call",
+      "tool": "submit_sar",
+      "reason": "SAR should not be filed for normal conveyancer settlement."
+    }
+  ],
+  "expected_evidence": [
+    {
+      "tool": "account_status",
+      "must_include": {
+        "loan_account": "BHL-2016-000892",
+        "dpd": null,
+        "arrears_status": null,
+        "loan_status": "CLOSED_PAID_IN_FULL"
+      }
+    }
+  ]
+}

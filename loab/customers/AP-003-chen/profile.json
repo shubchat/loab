@@ -95,8 +95,6 @@
     "pep_sanctions": "CLEAR",
     "name_match": "EXACT"
   },
-  "expected_decision": "FRAUD_REVIEW_HALT",
-  "expected_decision_rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer, no electoral roll match). Application must be placed in Fraud Review immediately. No credit decision may be communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process.",
   "policy_clauses_applicable": [
     "Section 5.1 \u2014 Fraud indicators",
     "Section 5.2 \u2014 Synthetic identity",
