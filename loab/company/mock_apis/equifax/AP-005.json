@@ -1,0 +1,15 @@
+{
+  "provider": "equifax",
+  "applicant_id": "AP-005",
+  "responses": {
+    "credit_report": {
+      "score": 760,
+      "tradelines": [],
+      "enquiries_last_90_days": 0,
+      "defaults": [],
+      "judgements": [],
+      "bankruptcies": [],
+      "notes": "Closed loan scenario; credit report not central."
+    }
+  }
+}

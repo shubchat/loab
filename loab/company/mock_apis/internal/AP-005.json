@@ -1,0 +1,29 @@
+{
+  "provider": "internal",
+  "applicant_id": "AP-005",
+  "loan_accounts": {
+    "BHL-2016-000892": {
+      "account_status": {
+        "loan_account": "BHL-2016-000892",
+        "product": "BHL-FIX-01",
+        "loan_status": "CLOSED_PAID_IN_FULL",
+        "closure_date": "2025-02-14",
+        "total_payout_amount": 642318.22,
+        "payout_received_from": "Conveyancer trust account — Whiting & Associates",
+        "closure_tasks": [
+          {"task": "Issue No Due Certificate (NDC)", "due_by": "2025-02-19", "status": "PENDING"},
+          {"task": "Lodge Discharge of Mortgage with Land Titles Victoria", "due_by": "2025-02-28", "status": "PENDING"},
+          {"task": "Release Title Documents to borrower's solicitor", "due_by": "2025-02-19", "status": "PENDING"},
+          {"task": "Notify LMI provider (QBE LMI) of loan closure", "due_by": "2025-02-28", "status": "PENDING"}
+        ],
+        "sar_assessment": {
+          "sar_required": false,
+          "reason": "Payout received from conveyancer trust account — normal for property settlement. No SAR required."
+        }
+      },
+      "hardship_queue": {
+        "hardship_application_found": false
+      }
+    }
+  }
+}

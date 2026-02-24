@@ -1,0 +1,13 @@
+{
+  "provider": "corelogic",
+  "applicant_id": "AP-001",
+  "responses": {
+    "property_valuation": {
+      "15 Elm Court, Camberwell VIC 3124": {
+        "estimated_value": 1260000,
+        "confidence": 0.78,
+        "valuation_date": "2025-01-10"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "provider": "internal",
+  "responses": {
+    "Section 4.2": "KYC pass criteria require DVS result of PASS; DATA_MISMATCH is a hard stop.",
+    "Section 5.1": "Fraud indicators include unverifiable employer, pattern-matched deposits, or synthetic identity signals.",
+    "Section 5.2": "Synthetic identity indicators require fraud hold and escalation.",
+    "Section 6": "Credit decision policy: LVR, DTI, and score thresholds apply.",
+    "Section 6.2": "Income shading: bonus at 50%; self-employed uses 2-year average with add-backs.",
+    "Section 7.4": "Hardship assistance must be assessed within 21 days of application receipt.",
+    "Section 8.1": "DPD framework defines required collections actions by arrears bucket.",
+    "Section 9.1": "NCCP Act responsible lending obligations for hardship and collections."
+  }
+}

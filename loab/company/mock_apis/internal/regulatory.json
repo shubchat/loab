@@ -1,0 +1,8 @@
+{
+  "provider": "internal",
+  "responses": {
+    "NCCP Act s.72": "Requires suspension of collections while a hardship application is pending.",
+    "AML/CTF Act s.36": "DVS mismatch requires enhanced due diligence and potential SAR submission.",
+    "Privacy Act APP 6": "Use of personal information limited to primary purpose unless consented."
+  }
+}

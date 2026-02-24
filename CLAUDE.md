@@ -52,6 +52,8 @@ loab/
 │           ├── handoffs.json          ← what each agent passed to the next
 │           └── score.json             ← scored against rubric.json
 │
+├── plans/                 ← implementation plans (one file per plan)
+│
 ├── README.md                 ← project overview + quick start (loab root)
 └── benchmark/
     ├── run_config.json       ← which models, which tasks, scoring setup for a run
@@ -69,6 +71,32 @@ cp loab/.env.example loab/.env
 `.env` supports all major providers: Anthropic, OpenAI, Google Gemini, Mistral, Cohere, AWS Bedrock, Azure OpenAI, xAI. Each agent role has a `DEFAULT_<ROLE>_MODEL` variable (format: `provider/model-id`, e.g. `anthropic/claude-opus-4-6`). These defaults can be overridden per-run in `benchmark/run_config.json`.
 
 `.env` and all customer document subfolders and `results/` are gitignored.
+
+## Running the MCP server
+
+The mock API server is a stdlib-only Python 3 script — no install required.
+
+```bash
+# Basic start (paths resolved from __file__, works from any cwd)
+python loab/company/mock_apis/server/mcp_server.py
+
+# With task context (server resolves applicant automatically from task)
+LOAB_TASK_ID=task-01-origination python loab/company/mock_apis/server/mcp_server.py
+
+# With run tracking (write-tool events appended to results/<run-id>/events.jsonl)
+LOAB_TASK_ID=task-04-collections LOAB_RUN_ID=run-20250224-001 \
+  python loab/company/mock_apis/server/mcp_server.py
+```
+
+**Environment variables:**
+| Variable | Purpose |
+|----------|---------|
+| `LOAB_TASK_ID` | Resolves applicant context when `applicant_id` is not passed in tool args |
+| `LOAB_RUN_ID` | If set, write-tool events (`issue_notice`, `arrange_hardship`, `breach_register`, etc.) are appended to `results/<run-id>/events.jsonl` |
+
+**Tool call resolution order for `applicant_id`:** explicit arg → `LOAB_TASK_ID` context file → soft error.
+
+**Write tools** (`submit_sar`, `issue_notice`, `payment_arrangement`, `arrange_hardship`, `breach_register`, `policy_exception_register`) always return success and additionally persist to `events.jsonl` when `LOAB_RUN_ID` is set. The events log is the audit trail for the scorer.
 
 ## Key conventions
 
@@ -107,6 +135,10 @@ Each task's `agents.json` defines:
 
 ### Mock APIs (`company/mock_apis/<provider>/`)
 JSON stubs keyed by applicant ID. Agents invoke these as tool calls during a run. Providers: `equifax`, `asic`, `greenid`, `austrac`, `ato`, `corelogic`.
+Internal bank tools are mocked under `company/mock_apis/internal/`. A stdlib-only MCP server lives at `company/mock_apis/server/`.
+
+### Plans
+Implementation plans live in `loab/plans/` — one file per task, named descriptively (e.g., `mock_apis.md`). Create or update the relevant plan file before starting any non-trivial implementation.
 
 ### Benchmark config (`benchmark/run_config.json`)
 Defines the run before execution: which AI model plays each agent role, which tasks are included, and the customer simulation model. Edit this before each benchmark run.

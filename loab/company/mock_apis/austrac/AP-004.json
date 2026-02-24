@@ -1,0 +1,10 @@
+{
+  "provider": "austrac",
+  "applicant_id": "AP-004",
+  "responses": {
+    "watchlist": {
+      "pep_sanctions": "CLEAR",
+      "watchlist": "CLEAR"
+    }
+  }
+}

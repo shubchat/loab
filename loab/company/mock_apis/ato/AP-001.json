@@ -1,0 +1,14 @@
+{
+  "provider": "ato",
+  "applicant_id": "AP-001",
+  "responses": {
+    "income_verify": {
+      "XXX-XXX-218": {
+        "last_financial_year": "FY2023-24",
+        "verified_income": 185000,
+        "employment_type": "PAYG",
+        "status": "CONFIRMED"
+      }
+    }
+  }
+}

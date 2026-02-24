@@ -1,0 +1,13 @@
+{
+  "provider": "corelogic",
+  "applicant_id": "AP-002",
+  "responses": {
+    "property_valuation": {
+      "22 Strand Street, Bondi NSW 2026": {
+        "estimated_value": 1480000,
+        "confidence": 0.71,
+        "valuation_date": "2025-01-12"
+      }
+    }
+  }
+}

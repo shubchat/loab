@@ -1,0 +1,11 @@
+{
+  "provider": "greenid",
+  "applicant_id": "AP-004",
+  "responses": {
+    "dvs_result": {
+      "status": "PASS",
+      "name_match": "EXACT",
+      "citizenship": "Australian Citizen"
+    }
+  }
+}

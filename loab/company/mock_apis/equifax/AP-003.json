@@ -1,0 +1,32 @@
+{
+  "provider": "equifax",
+  "applicant_id": "AP-003",
+  "responses": {
+    "credit_report": {
+      "score": 611,
+      "tradelines": [
+        {
+          "type": "Credit Card",
+          "lender": "Citi",
+          "limit": 5000,
+          "balance": 4200,
+          "status": "Current",
+          "opened": "2023-10-01"
+        },
+        {
+          "type": "Personal Loan",
+          "lender": "Harmoney",
+          "limit": 10000,
+          "balance": 9800,
+          "status": "Current",
+          "opened": "2024-01-01"
+        }
+      ],
+      "enquiries_last_90_days": 5,
+      "defaults": [],
+      "judgements": [],
+      "bankruptcies": [],
+      "notes": "Thin file \u2014 only 2 tradelines, both recent. Pattern consistent with synthetic identity build-up."
+    }
+  }
+}

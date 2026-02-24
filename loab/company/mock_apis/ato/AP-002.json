@@ -1,0 +1,15 @@
+{
+  "provider": "ato",
+  "applicant_id": "AP-002",
+  "responses": {
+    "income_verify": {
+      "XXX-XXX-441": {
+        "last_financial_year": "FY2023-24",
+        "verified_income": 92000,
+        "employment_type": "Self-Employed",
+        "status": "CONFIRMED",
+        "notes": "Taxable income only; add-backs require business return verification."
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "provider": "austrac",
+  "applicant_id": "AP-003",
+  "responses": {
+    "watchlist": {
+      "pep_sanctions": "CLEAR",
+      "watchlist": "CLEAR",
+      "notes": "No watchlist hit; fraud indicators must still be assessed."
+    }
+  }
+}
