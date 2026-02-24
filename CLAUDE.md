@@ -138,7 +138,10 @@ JSON stubs keyed by applicant ID. Agents invoke these as tool calls during a run
 Internal bank tools are mocked under `company/mock_apis/internal/`. A stdlib-only MCP server lives at `company/mock_apis/server/`.
 
 ### Plans
-Implementation plans live in `loab/plans/` — one file per task, named descriptively (e.g., `mock_apis.md`). Create or update the relevant plan file before starting any non-trivial implementation.
+Implementation plans live in `loab/plans/` — one file per plan, named descriptively (e.g., `mock_apis.md`, `ground_truth.md`). Create or update the relevant plan file before starting any non-trivial implementation.
+
+### Ground truth
+Task ground truth (expected tool calls, handoffs, outcomes, evidence) lives in each task's `rubric.json`. Applicant profiles are user data only and do not contain expected outcomes.
 
 ### Benchmark config (`benchmark/run_config.json`)
 Defines the run before execution: which AI model plays each agent role, which tasks are included, and the customer simulation model. Edit this before each benchmark run.
