@@ -10,7 +10,7 @@
     "residential_address": "Unit 4, 88 Mercer Street, Carlton VIC 3053",
     "phone": "+61 403 221 889",
     "email": "d.chen.aus@gmail.com",
-    "employer": "Nexus Capital Partners Pty Ltd",
+    "employer": "Bluegate Capital Partners Pty Ltd",
     "occupation": "Investment Analyst",
     "employment_type": "PAYG Full-Time",
     "employment_start": "2023-09-01",
@@ -38,7 +38,7 @@
       "policy_ref": "Section 5.1"
     },
     {
-      "indicator": "Employer ABN (Nexus Capital Partners) registered 14 months ago \u2014 consistent with employment start date but the company has no ASIC-listed directors, no reported revenue, and no web presence",
+      "indicator": "Employer ABN (Bluegate Capital Partners) registered 14 months ago \u2014 consistent with employment start date but the company has no ASIC-listed directors, no reported revenue, and no web presence",
       "severity": "HIGH",
       "policy_ref": "Section 5.1"
     },
@@ -64,7 +64,7 @@
     "tradelines": [
       {
         "type": "Credit Card",
-        "lender": "Citi",
+        "lender": "Atlas Bank",
         "limit": 5000,
         "balance": 4200,
         "status": "Current",
@@ -72,7 +72,7 @@
       },
       {
         "type": "Personal Loan",
-        "lender": "Harmoney",
+        "lender": "Brightbridge Finance",
         "limit": 10000,
         "balance": 9800,
         "status": "Current",

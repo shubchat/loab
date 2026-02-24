@@ -9,12 +9,12 @@
         "loan_status": "CLOSED_PAID_IN_FULL",
         "closure_date": "2025-02-14",
         "total_payout_amount": 642318.22,
-        "payout_received_from": "Conveyancer trust account — Whiting & Associates",
+        "payout_received_from": "Conveyancer trust account — Hawthorne & Co",
         "closure_tasks": [
           {"task": "Issue No Due Certificate (NDC)", "due_by": "2025-02-19", "status": "PENDING"},
           {"task": "Lodge Discharge of Mortgage with Land Titles Victoria", "due_by": "2025-02-28", "status": "PENDING"},
           {"task": "Release Title Documents to borrower's solicitor", "due_by": "2025-02-19", "status": "PENDING"},
-          {"task": "Notify LMI provider (QBE LMI) of loan closure", "due_by": "2025-02-28", "status": "PENDING"}
+          {"task": "Notify LMI provider (Paramount LMI) of loan closure", "due_by": "2025-02-28", "status": "PENDING"}
         ],
         "sar_assessment": {
           "sar_required": false,

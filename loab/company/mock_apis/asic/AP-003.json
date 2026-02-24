@@ -4,7 +4,7 @@
   "responses": {
     "abn_lookup": {
       "99 887 654 321": {
-        "entity_name": "Nexus Capital Partners Pty Ltd",
+        "entity_name": "Bluegate Capital Partners Pty Ltd",
         "abn": "99 887 654 321",
         "status": "Active",
         "registered": "2023-10-15",

@@ -12,7 +12,7 @@
     "mailing_address": "Same as residential",
     "phone": "+61 412 887 334",
     "email": "sarah.mitchell@email.com.au",
-    "employer": "Deloitte Australia",
+    "employer": "Mariner Advisory",
     "occupation": "Senior Manager \u2014 Financial Advisory",
     "employment_type": "PAYG Full-Time",
     "employment_start": "2019-06-01",
@@ -58,7 +58,7 @@
     "tradelines": [
       {
         "type": "Credit Card",
-        "lender": "Commonwealth Bank",
+        "lender": "Harbor Bank",
         "limit": 12000,
         "balance": 1200,
         "status": "Current",
@@ -73,7 +73,7 @@
       },
       {
         "type": "Personal Loan",
-        "lender": "NAB",
+        "lender": "Summit Bank",
         "limit": 20000,
         "balance": 0,
         "status": "Closed \u2014 Paid",

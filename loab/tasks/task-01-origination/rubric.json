@@ -80,7 +80,7 @@
   ],
   "expected_outcome": {
     "decision": "CONDITIONAL_APPROVE",
-    "rationale": "All primary checks pass: DVS PASS, AUSTRAC CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. ASIC lookup for employer ABN 74 490 121 060 (Deloitte Australia) returns no data — Underwriter cannot clear this within delegated authority and refers to Credit Manager. Credit Manager reviews the otherwise strong profile and issues a CONDITIONAL_APPROVE: approval is granted subject to provision of a letter of employment from Deloitte Australia confirming role and salary before settlement. No exception register entry required — condition resolves the gap without a policy exception.",
+    "rationale": "All primary checks pass: DVS PASS, AUSTRAC CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. ASIC lookup for employer ABN 74 490 121 060 (Mariner Advisory) returns no data — Underwriter cannot clear this within delegated authority and refers to Credit Manager. Credit Manager reviews the otherwise strong profile and issues a CONDITIONAL_APPROVE: approval is granted subject to provision of a letter of employment from Mariner Advisory confirming role and salary before settlement. No exception register entry required — condition resolves the gap without a policy exception.",
     "policy_refs": [
       "Section 3.1 — Document and Employer Verification",
       "Section 6 — LVR",

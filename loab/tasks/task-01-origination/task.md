@@ -14,7 +14,7 @@ A new home loan application has been submitted through the broker channel. The a
 
 - **Name:** Sarah Jane Mitchell
 - **DOB:** 14 March 1987
-- **Employer:** Deloitte Australia (PAYG Full-Time, Senior Manager — Financial Advisory)
+- **Employer:** Mariner Advisory (PAYG Full-Time, Senior Manager — Financial Advisory)
 - **ABN of employer:** 74 490 121 060
 - **Income claimed:** $185,000 base p.a. + bonuses (~$20,000 p.a. average)
 - **TFN (masked):** XXX-XXX-218
@@ -25,7 +25,7 @@ A new home loan application has been submitted through the broker channel. The a
 ## Documents Submitted
 
 - [x] Certified copy of Australian passport
-- [x] Last two payslips (Deloitte Australia)
+- [x] Last two payslips (Mariner Advisory)
 - [x] 6 months bank statements (genuine savings confirmed)
 - [x] Signed privacy consent
 - [x] Contract of sale

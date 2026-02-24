@@ -7,7 +7,7 @@
       "tradelines": [
         {
           "type": "Credit Card",
-          "lender": "Citi",
+          "lender": "Atlas Bank",
           "limit": 5000,
           "balance": 4200,
           "status": "Current",
@@ -15,7 +15,7 @@
         },
         {
           "type": "Personal Loan",
-          "lender": "Harmoney",
+          "lender": "Brightbridge Finance",
           "limit": 10000,
           "balance": 9800,
           "status": "Current",

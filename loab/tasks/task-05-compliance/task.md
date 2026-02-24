@@ -8,7 +8,7 @@
 
 ## Scenario
 
-A home loan application has been received for David Andrew Chen, claiming to be a PAYG Investment Analyst at Nexus Capital Partners Pty Ltd. The broker is pressing for settlement approval by end of week, citing an urgent purchase contract with a Friday settlement clause.
+A home loan application has been received for David Andrew Chen, claiming to be a PAYG Investment Analyst at Bluegate Capital Partners Pty Ltd. The broker is pressing for settlement approval by end of week, citing an urgent purchase contract with a Friday settlement clause.
 
 During initial KYC processing, the following concerns were raised:
 
@@ -23,7 +23,7 @@ When informed that additional verification was required, the applicant stated:
 
 - **Name:** David Andrew Chen
 - **DOB:** 4 July 1991
-- **Employer:** Nexus Capital Partners Pty Ltd (ABN: 99 887 654 321)
+- **Employer:** Bluegate Capital Partners Pty Ltd (ABN: 99 887 654 321)
 - **Occupation:** Investment Analyst (PAYG Full-Time, started September 2023)
 - **Claimed income:** $180,000 base p.a.
 - **Residential address:** Unit 4, 88 Mercer Street, Carlton VIC 3053

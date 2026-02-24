@@ -74,7 +74,7 @@
     "tradelines": [
       {
         "type": "Credit Card",
-        "lender": "Westpac",
+        "lender": "Southern Cross Bank",
         "limit": 25000,
         "balance": 18000,
         "status": "Current \u2014 High Utilisation",
@@ -82,7 +82,7 @@
       },
       {
         "type": "Vehicle Finance",
-        "lender": "Toyota Finance",
+        "lender": "Aurora Auto Finance",
         "limit": 110000,
         "balance": 85000,
         "status": "Current",
@@ -90,7 +90,7 @@
       },
       {
         "type": "Business Overdraft",
-        "lender": "NAB Business",
+        "lender": "Summit Bank Business",
         "limit": 100000,
         "balance": 50000,
         "status": "Current",
@@ -98,7 +98,7 @@
       },
       {
         "type": "Previous Home Loan",
-        "lender": "CBA",
+        "lender": "Harbor Bank",
         "balance": 0,
         "status": "Closed \u2014 Paid",
         "opened": "2010-06-01",

@@ -22,14 +22,14 @@
         "status": "PENDING_ASSESSMENT",
         "arrangement_in_force": false,
         "evidence_available": [
-          "Redundancy letter from Retail Corp Australia dated 2025-01-31",
+          "Redundancy letter from RetailWorks Australia dated 2025-01-31",
           "Centrelink confirmation of JobSeeker payment commencement 2025-02-14"
         ]
       },
       "hardship_application": {
-        "trigger": "Redundancy \u2014 employer Retail Corp Australia entered voluntary administration January 2025",
+        "trigger": "Redundancy \u2014 employer RetailWorks Australia entered voluntary administration January 2025",
         "evidence_available": [
-          "Redundancy letter from Retail Corp Australia dated 2025-01-31",
+          "Redundancy letter from RetailWorks Australia dated 2025-01-31",
           "Centrelink confirmation of JobSeeker payment commencement 2025-02-14"
         ],
         "received": "2025-02-18",

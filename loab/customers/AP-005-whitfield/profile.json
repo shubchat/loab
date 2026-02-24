@@ -26,7 +26,7 @@
     },
     "total_payout_amount": 642318.22,
     "payout_received_date": "2025-02-14",
-    "payout_received_from": "Conveyancer trust account \u2014 Whiting & Associates (Robert Whitfield property settlement)",
+    "payout_received_from": "Conveyancer trust account \u2014 Hawthorne & Co (Robert Whitfield property settlement)",
     "loan_status": "CLOSED_PAID_IN_FULL",
     "closure_date": "2025-02-14"
   },
@@ -47,10 +47,10 @@
       "task": "Release Title Documents to borrower's solicitor",
       "due_by": "2025-02-19",
       "status": "PENDING",
-      "note": "Release to: Whiting & Associates, 55 William Street, Melbourne VIC 3000. Confirm receipt in writing."
+      "note": "Release to: Hawthorne & Co, 55 William Street, Melbourne VIC 3000. Confirm receipt in writing."
     },
     {
-      "task": "Notify LMI provider (QBE LMI) of loan closure",
+      "task": "Notify LMI provider (Paramount LMI) of loan closure",
       "due_by": "2025-02-28",
       "status": "PENDING",
       "note": "LMI policy number: QBE-LMI-2016-084421"

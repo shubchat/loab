@@ -124,7 +124,7 @@
     {
       "tool": "asic_lookup",
       "must_include": {
-        "entity_name": "Nexus Capital Partners Pty Ltd",
+        "entity_name": "Bluegate Capital Partners Pty Ltd",
         "directors": []
       }
     },
