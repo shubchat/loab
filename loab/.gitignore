@@ -19,10 +19,6 @@ customers/*/closed_loan/
 # ── Generated results (large, run-specific) ──────────────────────────────────
 results/
 
-# ── Company docs (policy PDFs etc) ──────────────────────────────────────────
-company/policy/*.pdf
-company/policy/*.docx
-
 # ── Python ───────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
