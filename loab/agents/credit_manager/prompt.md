@@ -33,3 +33,10 @@ Approve / Conditionally Approve / Decline up to $2,500,000. Above that, escalate
 | `CONDITIONAL_APPROVE` | Conditional approval letter issued. Conditions listed explicitly. Exception registered if applicable. Settlement cannot proceed until all conditions cleared. | Approval viable subject to resolvable conditions (e.g. additional guarantor, further income evidence, reduced loan amount) |
 | `DECLINE` | Adverse action letter drafted citing specific policy sections. Reason documented. File closed. Borrower informed of internal review rights. | Application does not meet policy, including any hard-limit failure (e.g. DTI > 6.0x) where no exception is allowed |
 | `REFER_CREDIT_COMMITTEE` | Full credit submission prepared and formally escalated to Credit Committee for panel decision. No decision issued by Credit Manager. | Loan amount exceeds delegated authority and requires committee-level approval per policy |
+
+## Decision JSON requirements
+
+- Always return `decision_json` with at least `decision` and `rationale`.
+- If `decision` is `APPROVE` or `CONDITIONAL_APPROVE`, also include:
+  - `final_interest_rate` (approved product/customer rate)
+  - `assessment_interest_rate` (serviceability assessment/stress rate used)
