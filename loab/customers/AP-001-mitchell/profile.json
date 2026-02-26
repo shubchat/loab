@@ -18,8 +18,8 @@
   },
   "income": {
     "gross_annual_base": 185000,
-    "bonus_last_year": 22000,
-    "bonus_prior_year": 18000,
+    "bonus_last_year": 42000,
+    "bonus_prior_year": 36000,
     "payroll_frequency": "Monthly"
   },
   "liabilities": {
@@ -41,7 +41,7 @@
     "dependants": 0
   },
   "expenses": {
-    "declared_monthly_living_expenses": 3400
+    "declared_monthly_living_expenses": 2180
   },
   "loan_request": {
     "product": "BML-OO-VAR-01",
