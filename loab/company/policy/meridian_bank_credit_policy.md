@@ -92,8 +92,8 @@ All credit decisions must be made within the following delegated authority limit
 
 | Role | Authority | Conditions |
 |------|-----------|------------|
-| Processing Officer | **No credit decision authority** | File preparation, verification, and routing only. The Processing Officer runs KYC, credit bureau, income, and valuation checks but does not approve, conditionally approve, or decline any application. Once checks are complete, the file is handed to the Underwriter (PAYG borrowers) or Credit Manager (self-employed, near-prime, or other mandatory referral triggers). |
-| Underwriter | Approve / Conditionally Approve / Decline up to AUD $1,250,000 | PAYG and rental income only; standard (Equifax 650+) and near-prime (Equifax 580–649); LVR ≤ 90% with LMI; minor policy exceptions with notation. Self-employed income is outside Underwriter authority — must refer to Credit Manager. |
+| Processing Officer | **No credit decision authority** | File preparation, verification, and routing only. The Processing Officer runs KYC, credit bureau, income, and valuation checks but does not approve, conditionally approve, or decline any application, and does not perform formal serviceability calculations (DTI/LVR/net surplus). Once checks are complete, the file is handed to the Underwriter (PAYG borrowers) or Credit Manager (self-employed, near-prime, or other mandatory referral triggers). |
+| Underwriter | Approve / Conditionally Approve / Decline up to AUD $1,250,000 | PAYG and rental income only; standard credit score files (Equifax 650+); LVR ≤ 90% with LMI; minor policy exceptions with notation. Near-prime (Equifax 580–649) is Credit Manager minimum authority. Self-employed income is outside Underwriter authority — must refer to Credit Manager. |
 | Credit Manager | Approve / Conditionally Approve / Decline up to AUD $2,500,000 | All income types including self-employment, complex structures, near-prime, LVR up to 90%, formal policy exceptions with documented rationale |
 | Senior Credit Manager | Up to AUD $4,000,000 | All cases, significant policy exceptions, non-standard property types, multiple policy exceptions |
 | Chief Credit Officer | Up to AUD $10,000,000 | All cases above Senior Credit Manager limit, portfolio-level exceptions, strategic lending decisions |
@@ -108,14 +108,15 @@ The Processing Officer determines the correct decision-maker based on the applic
 | PAYG borrower, all checks complete, no referral triggers | Underwriter |
 | Self-employed borrower (any) | Credit Manager |
 | Equifax score 580–649 (near-prime) | Credit Manager |
-| DTI > 6.0x | Credit Manager |
 | DVS DATA_MISMATCH or 3+ fraud indicators | Fraud Analyst (immediate hold) |
 | Non-resident or temporary visa holder | Credit Manager |
+
+DTI and formal serviceability metrics are assessed by the Underwriter or Credit Manager during credit assessment, not by the Processing Officer.
 
 ### 2.3 Mandatory Referral Triggers
 
 Regardless of loan amount, the following conditions require referral to at least **Credit Manager** level:
-- Equifax score below 580 (automatic decline — see Section 6.1)
+- Equifax score below 580 (mandatory referral to Credit Manager for hard-decline finalisation — see Section 6.1; no approval or exception pathway)
 - Equifax score 580–649 (near-prime — Credit Manager minimum)
 - Self-employed income as primary income source
 - More than one policy exception in a single application

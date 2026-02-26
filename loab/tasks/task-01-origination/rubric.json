@@ -29,13 +29,6 @@
     },
     {
       "step": 1,
-      "tool": "asic_lookup",
-      "arguments": {
-        "abn": "74 490 121 060"
-      }
-    },
-    {
-      "step": 1,
       "tool": "corelogic_valuation",
       "arguments": {
         "property_address": "15 Elm Court, Camberwell VIC 3124"
@@ -48,6 +41,41 @@
         "tfn": "218001",
         "income_claimed": 185000
       }
+    },
+    {
+      "step": 2,
+      "tool": "product_lookup",
+      "arguments": {
+        "product_code": "BML-OO-VAR-01"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 5.5"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 3.1"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 6"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 6.2"
+      }
     }
   ],
   "expected_handoffs": [
@@ -57,25 +85,23 @@
       "required_payload_keys": [
         "equifax_result",
         "greenid_result",
-        "asic_result",
+        "ato_result",
         "corelogic_result",
-        "serviceability_summary"
-      ]
-    },
+        "verification_summary"
+      ],
+      "step": 1
+    }
+  ],
+  "expected_step_decisions": [
     {
-      "from_agent": "underwriter",
-      "to_agent": "credit_manager",
-      "required_payload_keys": [
-        "credit_assessment",
-        "serviceability_summary",
-        "referral_reason",
-        "asic_note"
-      ]
+      "step": 1,
+      "agent": "processing_officer",
+      "decision": "REFER_UNDERWRITER"
     }
   ],
   "expected_outcome": {
-    "decision": "CONDITIONAL_APPROVE",
-    "rationale": "All primary checks pass: DVS PASS, watchlist/PEP CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. ASIC lookup for employer ABN 74 490 121 060 (Mariner Advisory) returns no data \u2014 Underwriter cannot clear this within delegated authority and refers to Credit Manager. Credit Manager reviews the otherwise strong profile and issues a CONDITIONAL_APPROVE: approval is granted subject to provision of a letter of employment from Mariner Advisory confirming role and salary before settlement. No exception register entry required \u2014 condition resolves the gap without a policy exception.",
+    "decision": "APPROVE",
+    "rationale": "All primary checks pass: DVS PASS, watchlist/PEP CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. PAYG employment verified via payslips/payroll deposits; no escalation required.",
     "policy_refs": [
       "Section 3.1 \u2014 Document and Employer Verification",
       "Section 6 \u2014 LVR",
@@ -90,6 +116,12 @@
     {
       "step": 1,
       "type": "tool_call",
+      "tool": "asic_lookup",
+      "reason": "AP-001 is PAYG. Employer verification is via payslips/payroll deposits in this task; ASIC ABN lookup is self-employed only."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
       "tool": "issue_notice",
       "reason": "Collections actions are invalid in origination tasks."
     },
@@ -98,6 +130,15 @@
       "type": "communication",
       "action": "credit_decision_to_applicant",
       "reason": "Processing Officer has no authority to issue credit decisions."
+    },
+    {
+      "step": 2,
+      "type": "decision",
+      "decision": [
+        "REFER_CREDIT_MANAGER",
+        "DECLINE"
+      ],
+      "reason": "Clean PAYG prime file should be approvable within Underwriter authority when required checks pass."
     }
   ],
   "expected_evidence": [
@@ -109,21 +150,24 @@
         "citizenship": "Australian Citizen",
         "watchlist": "CLEAR",
         "pep_sanctions": "CLEAR"
-      }
+      },
+      "step": 1
     },
     {
       "tool": "equifax_pull",
       "must_include": {
         "score": 782,
         "enquiries_last_90_days": 1
-      }
+      },
+      "step": 1
     },
     {
       "tool": "corelogic_valuation",
       "must_include": {
         "estimated_value": 1260000,
         "confidence": 0.78
-      }
+      },
+      "step": 1
     },
     {
       "tool": "ato_income_verify",
@@ -131,7 +175,81 @@
         "tfn": "218001",
         "verified_income": 185000,
         "status": "CONFIRMED"
+      },
+      "step": 1
+    },
+    {
+      "step": 2,
+      "tool": "product_lookup",
+      "must_include": {
+        "max_lvr": 90,
+        "max_dti": 6.0
       }
+    },
+    {
+      "step": 2,
+      "tool": "product_lookup",
+      "must_include": {
+        "data_contains": "6.24"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "product_lookup",
+      "must_include": {
+        "data_contains": "lvr_lte_80"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "elevated buffer (4.0%)"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Document and employer verification requirements"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Credit risk thresholds"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Income shading rules"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "DTI bands and risk classification"
+      }
+    },
+    {
+      "step": 2,
+      "must_include": {
+        "data_contains": "10.24"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "agent": "processing_officer"
+    },
+    {
+      "step": 2,
+      "agent": "underwriter"
     }
   ]
 }

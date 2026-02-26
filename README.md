@@ -2,7 +2,7 @@
 
 Evaluates AI agents across the full Australian mortgage lifecycle: origination, credit decisioning, loan servicing, collections, and compliance.
 
-Agents play bank roles (processing officer, underwriter, fraud analyst, etc.) and hand off to each other based on policy rules. A synthetic customer persona is simultaneously active in conversation. Any LLM can be assigned to any role via `.env` or `/loab/benchmark/run_config.json`.
+Agents play bank roles (processing officer, underwriter, fraud analyst, etc.) and hand off to each other based on policy rules. The current runner is profile-driven (customer data comes from `profile.json`); customer simulation prompts exist but are not yet orchestrated live in `scripts/run_task.py`. Any LLM can be assigned to any role via `.env` or `/loab/benchmark/run_config.json`.
 
 ## Quick start
 
@@ -34,7 +34,7 @@ loab/
 ├── company/                  ← Meridian Bank artefacts + mock APIs
 ├── customers/                ← synthetic applicant profiles + simulation prompts
 ├── agents/                   ← bank role definitions (prompt.md per role)
-├── tasks/                    ← task definitions, rubrics, agent handoff sequences
+├── tasks/                    ← task definitions (`task.md`, `pendingfiles.json`, `rubric.json`)
 ├── results/                  ← run outputs (gitignored)
 └── benchmark/                ← run_config.json, scoring rubric, leaderboard
 ```

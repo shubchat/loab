@@ -3,21 +3,21 @@
   "responses": {
     "kyc_check": {
       "David Andrew Chen|1991-07-04|Unit 4, 88 Mercer Street, Carlton VIC 3053": {
-        "status": "DATA_MISMATCH",
+        "dvs_result": "DATA_MISMATCH",
         "name_match": "EXACT",
         "citizenship": "Claims Australian Permanent Resident",
         "watchlist": "CLEAR",
         "pep_sanctions": "CLEAR"
       },
       "Marco Anthony Ferretti|1979-11-22|8 Rosewood Lane, Paddington NSW 2021": {
-        "status": "PASS",
+        "dvs_result": "PASS",
         "name_match": "EXACT",
         "citizenship": "Australian Citizen",
         "watchlist": "CLEAR",
         "pep_sanctions": "CLEAR"
       },
       "Sarah Jane Mitchell|1987-03-14|42 Banksia Grove, Hawthorn VIC 3122": {
-        "status": "PASS",
+        "dvs_result": "PASS",
         "name_match": "EXACT",
         "citizenship": "Australian Citizen",
         "watchlist": "CLEAR",

@@ -10,42 +10,31 @@
   },
   "expected_tool_calls": [
     {
-      "step": 1,
-      "tool": "account_status",
+      "step": 2,
+      "tool": "policy_lookup",
       "arguments": {
-        "loan_id": "BHL-2016-000892"
+        "section": "Section 10.1"
       }
     },
     {
       "step": 2,
-      "tool": "issue_notice",
+      "tool": "policy_lookup",
       "arguments": {
-        "loan_id": "BHL-2016-000892",
-        "notice_type": "NDC"
+        "section": "Section 10.2"
       }
     },
     {
       "step": 2,
-      "tool": "issue_notice",
+      "tool": "policy_lookup",
       "arguments": {
-        "loan_id": "BHL-2016-000892",
-        "notice_type": "DISCHARGE_OF_MORTGAGE"
+        "section": "Section 10.3"
       }
     },
     {
       "step": 2,
-      "tool": "issue_notice",
+      "tool": "policy_lookup",
       "arguments": {
-        "loan_id": "BHL-2016-000892",
-        "notice_type": "TITLE_RELEASE"
-      }
-    },
-    {
-      "step": 2,
-      "tool": "issue_notice",
-      "arguments": {
-        "loan_id": "BHL-2016-000892",
-        "notice_type": "LMI_NOTIFICATION"
+        "section": "Section 9.2"
       }
     }
   ],
@@ -57,7 +46,8 @@
         "payout_confirmation",
         "source_of_funds_note",
         "closure_checklist"
-      ]
+      ],
+      "step": 1
     }
   ],
   "expected_outcome": {
@@ -77,15 +67,38 @@
       "type": "tool_call",
       "tool": "submit_sar",
       "reason": "SAR should not be filed for normal conveyancer settlement. Source of funds is sale proceeds from primary residence \u2014 no suspicious activity."
+    },
+    {
+      "step": 2,
+      "type": "tool_call",
+      "tool": "breach_register",
+      "reason": "Expected compliant closure path should not create a breach record."
     }
   ],
   "expected_evidence": [
     {
-      "tool": "account_status",
+      "step": 2,
+      "tool": "policy_lookup",
       "must_include": {
-        "loan_account": "BHL-2016-000892",
-        "loan_status": "CLOSED_PAID_IN_FULL"
+        "data_contains": "Full repayment process"
       }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "SAR must NOT be submitted for normal loan repayment from conventional sources"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "agent": "processing_officer"
+    },
+    {
+      "step": 2,
+      "agent": "compliance_officer"
     }
   ]
 }

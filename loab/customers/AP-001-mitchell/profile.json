@@ -4,6 +4,7 @@
     "full_name": "Sarah Jane Mitchell",
     "dob": "1987-03-14",
     "citizenship": "Australian Citizen",
+    "tfn": "218001",
     "tfn_masked": "XXX-XXX-218",
     "residential_address": "42 Banksia Grove, Hawthorn VIC 3122",
     "mailing_address": "Same as residential",

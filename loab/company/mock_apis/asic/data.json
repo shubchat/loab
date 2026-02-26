@@ -2,7 +2,17 @@
   "provider": "asic",
   "responses": {
     "abn_lookup": {
-      "74 490 121 060": {},
+      "74 490 121 060": {
+        "entity_name": "Mariner Advisory Pty Ltd",
+        "abn": "74 490 121 060",
+        "status": "Active",
+        "registered": "2008-05-12",
+        "entity_type": "Australian Private Company",
+        "directors": [
+          "Helen Margaret Rowe",
+          "Daniel Peter Lawson"
+        ]
+      },
       "71 234 567 890": {
         "entity_name": "Ferretti Construction Pty Ltd",
         "abn": "71 234 567 890",

@@ -3,12 +3,14 @@
   "responses": {
     "income_verify": {
       "441001": {
+        "tfn": "441001",
         "last_financial_year": "FY2023-24",
         "verified_income": 92000,
         "employment_type": "Self-Employed",
         "status": "CONFIRMED"
       },
       "218001": {
+        "tfn": "218001",
         "last_financial_year": "FY2023-24",
         "verified_income": 185000,
         "employment_type": "PAYG",
