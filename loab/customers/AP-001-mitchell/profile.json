@@ -36,6 +36,13 @@
     "property_owned": [],
     "shares_super": 280000
   },
+  "household": {
+    "marital_status": "Single",
+    "dependants": 0
+  },
+  "expenses": {
+    "declared_monthly_living_expenses": 3400
+  },
   "loan_request": {
     "product": "BML-OO-VAR-01",
     "purpose": "Purchase",

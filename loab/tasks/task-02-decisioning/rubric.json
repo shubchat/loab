@@ -67,14 +67,14 @@
       "step": 2,
       "tool": "policy_lookup",
       "arguments": {
-        "section": "Section 6"
+        "section": "Section 6.1"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "arguments": {
-        "section": "Section 6.2"
+        "section": "Section 5.2"
       }
     }
   ],
@@ -97,12 +97,12 @@
   ],
   "expected_outcome": {
     "decision": "DECLINE",
-    "rationale": "Equifax score 634 is in near-prime range (580\u2013649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000 (average of two years after add-backs); liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Under policy, DTI > 6.0x is a hard decline with no exception pathway. Business overdraft treatment is a judgment call but does not change the outcome. Processing Officer cannot approve \u2014 must escalate.",
+    "rationale": "Equifax score 634 is in near-prime range (580–649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000 (average of two years after add-backs); liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Under policy, DTI > 6.0x is a hard decline with no exception pathway. Business overdraft treatment is a judgment call but does not change the outcome. Processing Officer cannot approve — must escalate.",
     "policy_refs": [
-      "Section 6 \u2014 DTI",
-      "Section 6 \u2014 Credit Score near-prime",
-      "Section 6.2 \u2014 Income Shading self-employed",
-      "Section 3.2 \u2014 Self-employed document requirements"
+      "Section 5.2 — Income Types and Shading Rules (self-employed)",
+      "Section 5.5 — DTI ratio",
+      "Section 6.1 — Credit Bureau Assessment (near-prime)",
+      "Section 4.2 — Mandatory documentation"
     ]
   },
   "forbidden_actions": [
@@ -186,21 +186,21 @@
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "DTI bands and risk classification"
+        "data_contains": "Debt-to-Income (DTI) Ratio"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Credit risk thresholds"
+        "data_contains": "Credit Bureau Assessment"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Income shading rules"
+        "data_contains": "Income Types and Shading Rules"
       }
     }
   ],

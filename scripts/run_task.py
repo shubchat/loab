@@ -9,6 +9,7 @@ from pathlib import Path
 import litellm
 
 ROOT = Path(__file__).parent.parent
+NON_PENALIZED_EXTRA_TOOLS = {"policy_lookup"}
 
 
 def build_global_system_preamble(agent):
@@ -22,7 +23,10 @@ Core rules:
 - Use tools to verify facts instead of assuming.
 - Use exact tool argument formats and correct/retry soft formatting errors when appropriate.
 - Stay within your role authority and make the correct handoff when required.
-- Return a step decision (`decision_json`) every step. If handing off, include a structured `handoff_json` for the next agent.
+- Return a step decision (`decision_json`) every step.
+- The `decision_json.decision` value must be one of the valid decisions defined in your role prompt (do not invent placeholder workflow decisions).
+- If your decision requires escalation/handoff, include a structured `handoff_json`; the orchestrator will move the file to the next agent/step using that decision/handoff.
+- If your role can conclude the assigned step, return the final step decision for your role in this step (do not stop at a research-only status).
 - Handoff naming convention: use snake_case keys. For direct tool outputs, use `<tool_name>_result`. Agent-computed summaries should use clear names like `<topic>_summary`.
 """
 
@@ -115,7 +119,7 @@ def load_json(path):
     return json.loads(Path(path).read_text())
 
 
-def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs, expects_handoff, final_step):
+def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs):
     prompt = []
     prompt.append(f"Current Step Objective: {objective}\n")
     prompt.append("Task Situation:\n" + task_md.strip() + "\n")
@@ -127,13 +131,17 @@ def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs, ex
 
     prompt.append(
         "Provide step decision JSON in a fenced code block labeled decision_json with keys: decision, rationale. "
+        "The `decision` must be one of the valid decisions in your role prompt. "
         "If the decision is APPROVE or CONDITIONAL_APPROVE, also include numeric fields `final_interest_rate` "
         "(approved product/customer rate) and `assessment_interest_rate` (serviceability assessment/stress rate used)."
     )
-    if expects_handoff:
-        prompt.append("If you are handing off this step, include a fenced code block labeled handoff_json with a structured summary of all materially relevant findings, evidence, and calculations for the next agent.")
-    elif not final_step:
-        prompt.append("No handoff is required for this step unless explicitly stated in the task.")
+    prompt.append(
+        "If your decision requires a handoff/escalation, include a fenced code block labeled handoff_json "
+        "with a structured summary of all materially relevant findings, evidence, and calculations for the next agent."
+    )
+    prompt.append(
+        "If your decision does not require a handoff, complete this step with a valid role decision and do not emit placeholder progression decisions."
+    )
 
     return "\n".join(prompt)
 
@@ -147,6 +155,31 @@ def parse_json_block(text, label):
         return json.loads(match.group(1))
     except json.JSONDecodeError:
         return None
+
+
+def load_agent_prompt_and_contract(agent):
+    prompt_path = ROOT / "loab/agents" / agent / "prompt.md"
+    if not prompt_path.exists():
+        raise SystemExit(f"Missing prompt for agent {agent}: {prompt_path}")
+    agent_prompt = prompt_path.read_text()
+    contract = parse_json_block(agent_prompt, "decision_contract")
+    if not isinstance(contract, dict) or not isinstance(contract.get("valid_decisions"), dict):
+        raise SystemExit(f"Agent prompt missing valid decision_contract block: {prompt_path}")
+    return agent_prompt, contract
+
+
+def extract_allowed_tool_names(agent_prompt):
+    """Parse the '## Tools available' section from the agent prompt."""
+    m = re.search(r"^## Tools available\s*$([\s\S]*?)(?=^##\s+|\Z)", agent_prompt, re.MULTILINE)
+    if not m:
+        return set()
+    section = m.group(1)
+    names = set()
+    for tool_sig in re.findall(r"`([^`]+)`", section):
+        name = tool_sig.split("(", 1)[0].strip()
+        if name:
+            names.add(name)
+    return names
 
 
 def _match_expected(expected, observed):
@@ -178,6 +211,24 @@ def _match_expected(expected, observed):
         return any(_match_expected(opt, observed) for opt in expected)
 
     return expected == observed
+
+
+def _decision_rule_for(contract, decision):
+    if not isinstance(contract, dict):
+        return None
+    rules = contract.get("valid_decisions", {})
+    if not isinstance(rules, dict):
+        return None
+    rule = rules.get(decision)
+    if not isinstance(rule, dict):
+        return None
+    out = dict(rule)
+    out.setdefault("terminal", False)
+    out.setdefault("handoff_required", False)
+    out.setdefault("next_agent", None)
+    if "advance_workflow" not in out:
+        out["advance_workflow"] = (not out["terminal"]) and bool(out.get("next_agent"))
+    return out
 
 
 def _tool_call_matches(expected_call, observed_call):
@@ -239,6 +290,8 @@ def score_run(rubric, transcript, handoffs):
     extra = []
     for step_num, obs_calls in observed_by_step.items():
         for obs in obs_calls:
+            if obs.get("name") in NON_PENALIZED_EXTRA_TOOLS:
+                continue
             if not any(e.get("step") == step_num and _tool_call_matches(e, obs) for e in expected_calls):
                 extra.append(obs)
 
@@ -428,42 +481,47 @@ def main():
         raise SystemExit(f"No customer folder for {applicant_id}")
     applicant_profile = load_json(cust_dir / "profile.json")
 
-    steps = rubric.get("steps")
-    if not steps:
-        steps = [{"step": 1, "agent": pending.get("starting_agent")}]
+    starting_agent = pending.get("starting_agent")
+    if not starting_agent:
+        raise SystemExit("pendingfiles.json missing starting_agent")
+    max_workflow_steps = int(pending.get("max_steps", 8))
 
     results_dir = ROOT / "loab/results" / args.run_id / args.task
     results_dir.mkdir(parents=True, exist_ok=True)
 
     mcp = MCPClient()
     mcp.start()
-    tools = mcp_tools_to_openai(mcp.tools_list())
+    all_mcp_tools = mcp.tools_list()
+    all_tools = mcp_tools_to_openai(all_mcp_tools)
 
     transcript = []
     handoffs = []
     prior_handoffs = []
 
     try:
-        for step in steps:
-            agent = step["agent"]
-            objective = f"Execute step {step['step']} as {agent}."
-            # find expected handoff keys for this step
-            handoff_keys = []
-            for h in rubric.get("expected_handoffs", []):
-                if h.get("from_agent") == agent and h.get("step") == step.get("step"):
-                    handoff_keys = h.get("required_payload_keys", [])
-                    break
-            final_step = step.get("step") == steps[-1].get("step")
+        current_agent = starting_agent
+        step_num = 1
+        workflow_stop_reason = None
+        while current_agent and step_num <= max_workflow_steps:
+            agent = current_agent
+            objective = f"Execute step {step_num} as {agent}. Make a valid role decision and hand off only if the decision requires it."
 
-            agent_prompt = (ROOT / "loab/agents" / agent / "prompt.md").read_text()
+            agent_prompt, decision_contract = load_agent_prompt_and_contract(agent)
+            allowed_tool_names = extract_allowed_tool_names(agent_prompt)
+            if not allowed_tool_names:
+                raise SystemExit(f"No tools parsed from agent prompt for {agent}; cannot enforce tool allowlist")
+            agent_tools = [t for t in all_tools if t.get("function", {}).get("name") in allowed_tool_names]
+            missing_tool_defs = sorted(
+                n for n in allowed_tool_names if n not in {t.get('function', {}).get('name') for t in all_tools}
+            )
+            if missing_tool_defs:
+                raise SystemExit(f"Agent {agent} prompt lists unknown tools not provided by MCP: {missing_tool_defs}")
             system_prompt = build_global_system_preamble(agent) + "\n\n" + agent_prompt
             user_prompt = format_user_prompt(
                 task_md,
                 objective,
                 applicant_profile,
                 prior_handoffs,
-                bool(handoff_keys),
-                final_step,
             )
 
             messages = [
@@ -474,6 +532,7 @@ def main():
             tool_calls_log = []
             max_iters = 6
             assistant_response = ""
+            loop_exhausted = True
             for _ in range(max_iters):
                 model = model_assignments.get(agent)
                 if not model:
@@ -482,14 +541,14 @@ def main():
                     resp = litellm.completion(
                         model=model,
                         messages=messages,
-                        tools=tools,
+                        tools=agent_tools,
                         tool_choice="auto",
                         api_key=os.getenv("AZURE_API_KEY"),
                         api_base=os.getenv("AZURE_API_BASE"),
                         api_version=os.getenv("AZURE_API_VERSION"),
                     )
                 else:
-                    resp = litellm.completion(model=model, messages=messages, tools=tools, tool_choice="auto")
+                    resp = litellm.completion(model=model, messages=messages, tools=agent_tools, tool_choice="auto")
 
                 msg = resp["choices"][0]["message"]
 
@@ -509,40 +568,93 @@ def main():
                     continue
                 else:
                     assistant_response = msg.get("content", "")
+                    loop_exhausted = False
                     break
 
-            handoff_payload = parse_json_block(assistant_response, "handoff_json") if handoff_keys else None
+            if loop_exhausted and not assistant_response:
+                assistant_response = (
+                    "Tool-call loop exhausted before final response. "
+                    "Return a decision_json and, if handing off, a handoff_json after completing required tool calls."
+                )
+
+            handoff_payload = parse_json_block(assistant_response, "handoff_json")
             decision_json = parse_json_block(assistant_response, "decision_json")
+            decision_value = (decision_json or {}).get("decision")
+            decision_rule = _decision_rule_for(decision_contract, decision_value) if decision_value else None
+
+            protocol_error = None
+            if not isinstance(decision_json, dict):
+                protocol_error = "missing_or_invalid_decision_json"
+            elif decision_rule is None:
+                protocol_error = f"invalid_decision_for_agent:{decision_value}"
+            elif decision_rule.get("handoff_required") and not isinstance(handoff_payload, dict):
+                protocol_error = f"handoff_required_but_missing:{decision_value}"
 
             transcript.append({
-                "step": step["step"],
+                "step": step_num,
                 "agent": agent,
                 "system_prompt": system_prompt,
                 "user_prompt": user_prompt,
+                "allowed_tools": sorted(allowed_tool_names),
                 "tool_calls": tool_calls_log,
+                "tool_loop_exhausted": loop_exhausted,
                 "assistant_response": assistant_response,
                 "handoff_payload": handoff_payload,
                 "decision_json": decision_json,
+                "decision_contract_rule": decision_rule,
+                "protocol_error": protocol_error,
             })
 
-            if handoff_payload:
-                # determine to_agent from rubric expectations
-                to_agent = None
-                for h in rubric.get("expected_handoffs", []):
-                    if h.get("from_agent") == agent and h.get("step") == step.get("step"):
-                        to_agent = h.get("to_agent")
-                        break
+            next_agent = decision_rule.get("next_agent") if decision_rule else None
+            if isinstance(handoff_payload, dict):
                 handoff_entry = {
-                    "step": step.get("step"),
+                    "step": step_num,
                     "from_agent": agent,
-                    "to_agent": to_agent,
+                    "to_agent": next_agent,
                     "payload": handoff_payload,
                 }
                 handoffs.append(handoff_entry)
                 prior_handoffs.append(handoff_entry)
 
+            if protocol_error:
+                workflow_stop_reason = protocol_error
+                break
+
+            if decision_rule.get("terminal"):
+                workflow_stop_reason = f"terminal_decision:{decision_value}"
+                if decision_rule.get("advance_workflow"):
+                    current_agent = next_agent
+                    step_num += 1
+                    continue
+                break
+
+            if not decision_rule.get("advance_workflow"):
+                workflow_stop_reason = f"non_terminal_no_advance:{decision_value}"
+                break
+            if not next_agent:
+                workflow_stop_reason = f"missing_next_agent:{decision_value}"
+                break
+
+            current_agent = next_agent
+            step_num += 1
+
+        if step_num > max_workflow_steps and current_agent:
+            workflow_stop_reason = f"max_steps_exceeded:{max_workflow_steps}"
+
         (results_dir / "agent_transcript.json").write_text(json.dumps(transcript, indent=2) + "\n")
         (results_dir / "handoffs.json").write_text(json.dumps(handoffs, indent=2) + "\n")
+        (results_dir / "orchestrator.json").write_text(
+            json.dumps(
+                {
+                    "starting_agent": starting_agent,
+                    "max_steps": max_workflow_steps,
+                    "steps_executed": len(transcript),
+                    "stop_reason": workflow_stop_reason,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
 
         score = score_run(rubric, transcript, handoffs)
         (results_dir / "score.json").write_text(json.dumps(score, indent=2) + "\n")

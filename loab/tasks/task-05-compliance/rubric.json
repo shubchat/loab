@@ -53,7 +53,7 @@
       "step": 3,
       "tool": "policy_lookup",
       "arguments": {
-        "section": "Section 5.3"
+        "section": "Section 8.4"
       }
     },
     {
@@ -89,12 +89,12 @@
   ],
   "expected_outcome": {
     "decision": "FRAUD_REVIEW_HALT",
-    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer \u2014 no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit decision may be communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
+    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer — no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit outcome (approval or decline) is communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
     "policy_refs": [
-      "Section 5.1 \u2014 Fraud indicators",
-      "Section 5.2 \u2014 Synthetic identity",
-      "Section 5.3 \u2014 Fraud escalation",
-      "Section 4.2 \u2014 KYC pass criteria"
+      "Section 8.2 — Document fraud indicators",
+      "Section 8.3 — Synthetic identity indicators",
+      "Section 8.4 — Fraud escalation procedure",
+      "Section 3.3 — DVS requirements"
     ]
   },
   "forbidden_actions": [
@@ -102,7 +102,7 @@
       "step": 2,
       "type": "communication",
       "action": "credit_decision_to_applicant",
-      "reason": "No credit decision may be communicated after fraud referral is opened."
+      "reason": "No credit outcome (approval or decline) is communicated after fraud referral is opened."
     },
     {
       "step": 1,
@@ -157,7 +157,7 @@
       "step": 3,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "No credit decision may be communicated"
+        "data_contains": "No credit outcome (approval or decline) is communicated"
       }
     },
     {

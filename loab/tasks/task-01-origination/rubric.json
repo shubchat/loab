@@ -60,21 +60,14 @@
       "step": 2,
       "tool": "policy_lookup",
       "arguments": {
-        "section": "Section 3.1"
+        "section": "Section 6.1"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "arguments": {
-        "section": "Section 6"
-      }
-    },
-    {
-      "step": 2,
-      "tool": "policy_lookup",
-      "arguments": {
-        "section": "Section 6.2"
+        "section": "Section 5.2"
       }
     }
   ],
@@ -103,13 +96,13 @@
     "decision": "APPROVE",
     "rationale": "All primary checks pass: DVS PASS, watchlist/PEP CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. PAYG employment verified via payslips/payroll deposits; no escalation required.",
     "policy_refs": [
-      "Section 3.1 \u2014 Document and Employer Verification",
-      "Section 6 \u2014 LVR",
-      "Section 6 \u2014 DTI",
-      "Section 6 \u2014 Credit Score",
-      "Section 6 \u2014 Genuine Savings",
-      "Section 6.2 \u2014 Income Shading",
-      "Section 6 \u2014 Underwriter delegated authority"
+      "Section 4.2 — Mandatory documentation",
+      "Section 5.2 — Income Types and Shading Rules",
+      "Section 5.5 — DTI ratio and elevated buffer",
+      "Section 5.7 — Genuine savings",
+      "Section 6.1 — Credit Bureau Assessment",
+      "Section 6.3 — LVR policy",
+      "Section 2.1 — Delegated authority framework"
     ]
   },
   "expected_outcome_fields": {
@@ -208,35 +201,28 @@
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "elevated buffer (4.0%)"
+        "data_contains": "4.0% buffer"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Document and employer verification requirements"
+        "data_contains": "Credit Bureau Assessment"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Credit risk thresholds"
+        "data_contains": "Income Types and Shading Rules"
       }
     },
     {
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Income shading rules"
-      }
-    },
-    {
-      "step": 2,
-      "tool": "policy_lookup",
-      "must_include": {
-        "data_contains": "DTI bands and risk classification"
+        "data_contains": "Debt-to-Income (DTI) Ratio"
       }
     }
   ],

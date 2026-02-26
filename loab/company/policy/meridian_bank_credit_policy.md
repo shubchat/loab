@@ -302,6 +302,37 @@ The maximum DTI ratio is **6.0x**. DTI is calculated as total new proposed debt 
 
 After deducting all liabilities (including the proposed loan repayment at the assessed buffer rate), all credit commitments, and HEM or declared living expenses (whichever is higher), the borrower must demonstrate a minimum net monthly surplus of **AUD $300 per month**. A surplus below $300 results in a decline regardless of DTI compliance.
 
+For deterministic credit assessments in the LOAB benchmark environment, the following calculation conventions apply unless a task or applicant file explicitly provides a verified override value:
+
+- **Monthly gross assessed income** = Gross Annual Assessed Income / 12
+- **Monthly net income (benchmark proxy)** = Monthly gross assessed income x **70%**. Staff and agents must not invent alternative tax/Medicare proxy percentages.
+- **Proposed loan assessed repayment (P&I)** = Standard amortising monthly repayment using:
+  - proposed loan amount,
+  - requested loan term (months), and
+  - assessed interest rate (product rate + applicable serviceability buffer)
+- **Proposed loan assessed repayment (IO)** = Interest-only monthly repayment during the IO period, unless the task explicitly requires P&I assessment during IO.
+- **Credit card monthly commitment** = **3.0% of total credit card limit** (not current balance)
+- **Personal loan / vehicle finance / existing mortgage commitments**:
+  - use the explicit monthly repayment amount if provided in the file
+  - if outstanding balance is zero, treat the commitment as zero
+  - if outstanding balance is greater than zero and no monthly repayment is provided, the file is incomplete for approval and must not be approved until the repayment amount is verified
+- **HECS/HELP debt**:
+  - excluded from DTI calculation (DTI remains based on proposed debt and assessed gross income)
+  - include in monthly commitments only if an explicit monthly repayment amount is provided in the file
+  - do not estimate HECS/HELP repayments using ad hoc percentages
+- **Living expenses used in surplus test** = higher of:
+  - declared monthly living expenses, and
+  - HEM benchmark for the household composition (Section 5.4)
+- **Household composition requirement for HEM**:
+  - household type and number of dependants must be available to apply HEM correctly
+  - if household composition is missing, the file is incomplete for final approval (request further information or condition the approval)
+- **Net monthly surplus test** = Monthly Net Income - (Assessed Proposed Loan Repayment + All Monthly Commitments + Living Expenses Used)
+- **Pass threshold** = Net monthly surplus must be **>= AUD $300**
+- **Rounding and reporting**:
+  - round DTI and LVR to 2 decimal places for reporting
+  - round monthly repayment and monthly surplus to nearest whole dollar for reporting
+  - use the underlying unrounded calculation values for pass/fail determination
+
 ### 5.7 Genuine Savings
 
 For purchase transactions, borrowers contributing less than 20% of the purchase price from their own resources must demonstrate genuine savings of at least **5% of the purchase price**. Genuine savings must have been held for a minimum of **3 continuous months** in an account in the applicant's name.
@@ -339,6 +370,8 @@ The following tradeline events trigger mandatory review and may result in declin
 - All tradelines opened within the same 6-month window — potential synthetic identity flag; refer to Financial Crime
 
 ### 6.3 LVR Policy
+
+**LVR Calculation:** LVR = Loan Amount / Security Value, where Security Value is the **lower of the purchase price and the independent valuation** (CoreLogic AVM or full valuation). For refinance applications, Security Value is the most recent independent valuation only.
 
 | Loan Purpose / Type | Maximum LVR | Conditions |
 |--------------------|-------------|------------|

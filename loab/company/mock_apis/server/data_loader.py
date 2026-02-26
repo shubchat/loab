@@ -126,7 +126,19 @@ class MockApiData:
     def get_internal_policy(self, section):
         data = self.load_policy() or {}
         responses = data.get("responses", {})
+        if section is None:
+            return _soft_error("Missing policy section", responses.keys())
+        if not isinstance(section, str):
+            section = str(section)
         if section not in responses:
+            # Normalize: accept "6" as "Section 6", "5.5" as "Section 5.5", etc.
+            normalized = section.strip()
+            if not normalized:
+                return _soft_error("Missing policy section", responses.keys())
+            if not normalized.lower().startswith("section"):
+                normalized = f"Section {normalized}"
+            if normalized in responses:
+                return {"ok": True, "data": responses[normalized]}
             return _soft_error(f"No policy section {section}", responses.keys())
         return {"ok": True, "data": responses[section]}
 
