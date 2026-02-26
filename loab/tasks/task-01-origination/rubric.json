@@ -112,6 +112,10 @@
       "Section 6 \u2014 Underwriter delegated authority"
     ]
   },
+  "expected_outcome_fields": {
+    "final_interest_rate": 6.24,
+    "assessment_interest_rate": 10.24
+  },
   "forbidden_actions": [
     {
       "step": 1,
@@ -233,12 +237,6 @@
       "tool": "policy_lookup",
       "must_include": {
         "data_contains": "DTI bands and risk classification"
-      }
-    },
-    {
-      "step": 2,
-      "must_include": {
-        "data_contains": "10.24"
       }
     }
   ],

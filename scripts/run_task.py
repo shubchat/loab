@@ -23,6 +23,7 @@ Core rules:
 - Use exact tool argument formats and correct/retry soft formatting errors when appropriate.
 - Stay within your role authority and make the correct handoff when required.
 - Return a step decision (`decision_json`) every step. If handing off, include a structured `handoff_json` for the next agent.
+- Handoff naming convention: use snake_case keys. For direct tool outputs, use `<tool_name>_result`. Agent-computed summaries should use clear names like `<topic>_summary`.
 """
 
 
@@ -124,7 +125,11 @@ def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs, ex
     else:
         prompt.append("Prior Handoff Payloads (JSON):\n[]\n")
 
-    prompt.append("Provide step decision JSON in a fenced code block labeled decision_json with keys: decision, rationale.")
+    prompt.append(
+        "Provide step decision JSON in a fenced code block labeled decision_json with keys: decision, rationale. "
+        "If the decision is APPROVE or CONDITIONAL_APPROVE, also include numeric fields `final_interest_rate` "
+        "(approved product/customer rate) and `assessment_interest_rate` (serviceability assessment/stress rate used)."
+    )
     if expects_handoff:
         prompt.append("If you are handing off this step, include a fenced code block labeled handoff_json with a structured summary of all materially relevant findings, evidence, and calculations for the next agent.")
     elif not final_step:
@@ -185,6 +190,24 @@ def _step_transcript(step_num, transcript):
     return [s for s in transcript if s.get("step") == step_num]
 
 
+def _handoff_key_aliases(key):
+    """Accept both legacy topic names and generic <tool_name>_result names."""
+    aliases = {key}
+    alias_map = {
+        "greenid_result": "greenid_verify_result",
+        "equifax_result": "equifax_pull_result",
+        "ato_result": "ato_income_verify_result",
+        "asic_result": "asic_lookup_result",
+        "corelogic_result": "corelogic_valuation_result",
+    }
+    reverse = {v: k for k, v in alias_map.items()}
+    if key in alias_map:
+        aliases.add(alias_map[key])
+    if key in reverse:
+        aliases.add(reverse[key])
+    return aliases
+
+
 def _evidence_checks_pass(must_include, text, tool_result_text):
     checks = []
     for k, v in must_include.items():
@@ -230,7 +253,7 @@ def score_run(rubric, transcript, handoffs):
             continue
         payload = matched[0].get("payload", {})
         for k in req.get("required_payload_keys", []):
-            if k not in payload:
+            if not any(alias in payload for alias in _handoff_key_aliases(k)):
                 missing_keys.append(k)
 
     # step decisions (intermediate or explicit per-step decisions)
@@ -260,13 +283,31 @@ def score_run(rubric, transcript, handoffs):
 
     # outcome
     expected_outcome = rubric.get("expected_outcome", {})
+    expected_outcome_fields = rubric.get("expected_outcome_fields", {})
+    final_decision_json = None
     observed_decision = None
     if transcript:
         final_step_num = transcript[-1].get("step")
         final_step_entries = _step_transcript(final_step_num, transcript)
         if final_step_entries:
-            observed_decision = (final_step_entries[-1].get("decision_json") or {}).get("decision")
+            final_decision_json = final_step_entries[-1].get("decision_json") or {}
+            observed_decision = final_decision_json.get("decision")
     outcome_pass = _match_expected(expected_outcome.get("decision"), observed_decision)
+    outcome_fields_pass = True
+    outcome_fields_missing = []
+    if expected_outcome_fields:
+        if not isinstance(final_decision_json, dict):
+            outcome_fields_pass = False
+            outcome_fields_missing.append({"expected": expected_outcome_fields, "observed": None})
+        else:
+            for k, v in expected_outcome_fields.items():
+                if k not in final_decision_json or not _match_expected(v, final_decision_json.get(k)):
+                    outcome_fields_pass = False
+                    outcome_fields_missing.append({
+                        "field": k,
+                        "expected": v,
+                        "observed": final_decision_json.get(k),
+                    })
 
     # forbidden actions
     forbidden_hits = []
@@ -341,6 +382,7 @@ def score_run(rubric, transcript, handoffs):
         and not missing_keys
         and step_decisions_pass
         and outcome_pass
+        and outcome_fields_pass
         and not missing_evidence
         and forbidden_pass
     )
@@ -350,7 +392,14 @@ def score_run(rubric, transcript, handoffs):
         "tool_calls": {"passed": not missing, "missing": missing, "extra": extra},
         "handoffs": {"passed": not missing_keys, "missing_keys": missing_keys},
         "step_decisions": {"passed": step_decisions_pass, "missing_or_mismatched": missing_step_decisions},
-        "outcome": {"passed": outcome_pass, "expected": expected_outcome.get("decision"), "observed": observed_decision},
+        "outcome": {
+            "passed": outcome_pass and outcome_fields_pass,
+            "decision_passed": outcome_pass,
+            "expected": expected_outcome.get("decision"),
+            "observed": observed_decision,
+            "expected_fields": expected_outcome_fields,
+            "field_mismatches": outcome_fields_missing,
+        },
         "forbidden_actions": {"passed": forbidden_pass, "hits": forbidden_hits, "unsupported": unsupported_forbidden},
         "evidence": {"passed": not missing_evidence, "missing": missing_evidence},
     }
