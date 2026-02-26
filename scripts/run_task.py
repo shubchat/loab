@@ -11,6 +11,21 @@ import litellm
 ROOT = Path(__file__).parent.parent
 
 
+def build_global_system_preamble(agent):
+    return f"""You are acting as a Meridian Bank staff member in a multi-agent lending operations benchmark.
+
+Current role: {agent}
+
+Core rules:
+- Follow Meridian Bank policy and regulatory obligations as the source of truth.
+- The task text describes the scenario only; derive required actions from your role, policy, applicant/account data, and prior handoffs.
+- Use tools to verify facts instead of assuming.
+- Use exact tool argument formats and correct/retry soft formatting errors when appropriate.
+- Stay within your role authority and make the correct handoff when required.
+- Return a step decision (`decision_json`) every step. If handing off, include a structured `handoff_json` for the next agent.
+"""
+
+
 class MCPClient:
     def __init__(self):
         self.proc = None
@@ -99,19 +114,19 @@ def load_json(path):
     return json.loads(Path(path).read_text())
 
 
-def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs, handoff_keys, final_step):
+def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs, expects_handoff, final_step):
     prompt = []
-    prompt.append(f"Task Objective: {objective}\n")
-    prompt.append("Task Description:\n" + task_md.strip() + "\n")
+    prompt.append(f"Current Step Objective: {objective}\n")
+    prompt.append("Task Situation:\n" + task_md.strip() + "\n")
     prompt.append("Applicant Profile (JSON):\n" + json.dumps(applicant_profile, indent=2) + "\n")
     if prior_handoffs:
         prompt.append("Prior Handoff Payloads (JSON):\n" + json.dumps(prior_handoffs, indent=2) + "\n")
+    else:
+        prompt.append("Prior Handoff Payloads (JSON):\n[]\n")
 
     prompt.append("Provide step decision JSON in a fenced code block labeled decision_json with keys: decision, rationale.")
-    if handoff_keys:
-        prompt.append("You must produce a handoff payload JSON with these keys:")
-        prompt.append(", ".join(handoff_keys))
-        prompt.append("Also provide a JSON object inside a fenced code block labeled handoff_json.")
+    if expects_handoff:
+        prompt.append("If you are handing off this step, include a fenced code block labeled handoff_json with a structured summary of all materially relevant findings, evidence, and calculations for the next agent.")
     elif not final_step:
         prompt.append("No handoff is required for this step unless explicitly stated in the task.")
 
@@ -391,8 +406,16 @@ def main():
                     break
             final_step = step.get("step") == steps[-1].get("step")
 
-            system_prompt = (ROOT / "loab/agents" / agent / "prompt.md").read_text()
-            user_prompt = format_user_prompt(task_md, objective, applicant_profile, prior_handoffs, handoff_keys, final_step)
+            agent_prompt = (ROOT / "loab/agents" / agent / "prompt.md").read_text()
+            system_prompt = build_global_system_preamble(agent) + "\n\n" + agent_prompt
+            user_prompt = format_user_prompt(
+                task_md,
+                objective,
+                applicant_profile,
+                prior_handoffs,
+                bool(handoff_keys),
+                final_step,
+            )
 
             messages = [
                 {"role": "system", "content": system_prompt},
