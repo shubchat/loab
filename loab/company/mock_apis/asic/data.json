@@ -1,0 +1,27 @@
+{
+  "provider": "asic",
+  "responses": {
+    "abn_lookup": {
+      "74 490 121 060": {},
+      "71 234 567 890": {
+        "entity_name": "Ferretti Construction Pty Ltd",
+        "abn": "71 234 567 890",
+        "status": "Active",
+        "registered": "2014-03-15",
+        "entity_type": "Australian Private Company",
+        "directors": [
+          "Marco Anthony Ferretti"
+        ]
+      },
+      "99 887 654 321": {
+        "entity_name": "Bluegate Capital Partners Pty Ltd",
+        "abn": "99 887 654 321",
+        "status": "Active",
+        "registered": "2023-10-15",
+        "entity_type": "Australian Private Company",
+        "directors": [],
+        "notes": "No directors listed. No ASIC lodgements on record. No business address registered."
+      }
+    }
+  }
+}

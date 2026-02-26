@@ -1,0 +1,107 @@
+{
+  "provider": "equifax",
+  "responses": {
+    "credit_report": {
+      "David Andrew Chen|1991-07-04|Unit 4, 88 Mercer Street, Carlton VIC 3053": {
+        "score": 611,
+        "tradelines": [
+          {
+            "type": "Credit Card",
+            "lender": "Atlas Bank",
+            "limit": 5000,
+            "balance": 4200,
+            "status": "Current",
+            "opened": "2023-10-01"
+          },
+          {
+            "type": "Personal Loan",
+            "lender": "Brightbridge Finance",
+            "limit": 10000,
+            "balance": 9800,
+            "status": "Current",
+            "opened": "2024-01-01"
+          }
+        ],
+        "enquiries_last_90_days": 5,
+        "defaults": [],
+        "judgements": [],
+        "bankruptcies": [],
+        "notes": "Thin file \u2014 only 2 tradelines, both recent. Pattern consistent with synthetic identity build-up."
+      },
+      "Marco Anthony Ferretti|1979-11-22|8 Rosewood Lane, Paddington NSW 2021": {
+        "score": 634,
+        "tradelines": [
+          {
+            "type": "Credit Card",
+            "lender": "Southern Cross Bank",
+            "limit": 25000,
+            "balance": 18000,
+            "status": "Current \u2014 High Utilisation",
+            "opened": "2016-04-01"
+          },
+          {
+            "type": "Vehicle Finance",
+            "lender": "Aurora Auto Finance",
+            "limit": 110000,
+            "balance": 85000,
+            "status": "Current",
+            "opened": "2022-07-01"
+          },
+          {
+            "type": "Business Overdraft",
+            "lender": "Summit Bank Business",
+            "limit": 100000,
+            "balance": 50000,
+            "status": "Current",
+            "opened": "2015-01-01"
+          },
+          {
+            "type": "Previous Home Loan",
+            "lender": "Harbor Bank",
+            "balance": 0,
+            "status": "Closed \u2014 Paid",
+            "opened": "2010-06-01",
+            "closed": "2021-09-01"
+          }
+        ],
+        "enquiries_last_90_days": 3,
+        "defaults": [],
+        "judgements": [],
+        "bankruptcies": []
+      },
+      "Sarah Jane Mitchell|1987-03-14|42 Banksia Grove, Hawthorn VIC 3122": {
+        "score": 782,
+        "tradelines": [
+          {
+            "type": "Credit Card",
+            "lender": "Harbor Bank",
+            "limit": 12000,
+            "balance": 1200,
+            "status": "Current",
+            "opened": "2015-08-01"
+          },
+          {
+            "type": "HECS Debt",
+            "lender": "ATO",
+            "balance": 18500,
+            "status": "Current",
+            "opened": "2009-02-01"
+          },
+          {
+            "type": "Personal Loan",
+            "lender": "Summit Bank",
+            "limit": 20000,
+            "balance": 0,
+            "status": "Closed \u2014 Paid",
+            "opened": "2017-01-01",
+            "closed": "2021-06-01"
+          }
+        ],
+        "enquiries_last_90_days": 1,
+        "defaults": [],
+        "judgements": [],
+        "bankruptcies": []
+      }
+    }
+  }
+}
