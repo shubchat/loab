@@ -148,9 +148,8 @@ Each task's `agents.json` defines:
 - `customer_simulation` — whether a customer persona is active in the conversation
 - `compliance_trap` / `adversarial_note` — flags deliberate failure modes the benchmark is testing
 
-### Mock APIs (`company/mock_apis/<provider>/`)
-JSON stubs keyed by applicant ID. Agents invoke these as tool calls during a run. Providers: `equifax`, `asic`, `greenid`, `austrac`, `ato`, `corelogic`.
-Internal bank tools are mocked under `company/mock_apis/internal/`. A stdlib-only MCP server lives at `company/mock_apis/server/`.
+### Mock APIs (`company/mock_apis/<provider>/data.json`)
+Provider data lives in `company/mock_apis/<provider>/data.json`, with responses keyed by the API's natural input (e.g., `full_name` + `dob` + `residential_address` for Equifax/GreenID KYC, `abn` for ASIC, `property_address` for CoreLogic, `tfn` for ATO). Internal bank tools are mocked under `company/mock_apis/internal/`. A stdlib-only MCP server lives at `company/mock_apis/server/`.
 
 ### Plans
 Implementation plans live in `loab/plans/` — one file per plan, named descriptively (e.g., `mock_apis.md`, `ground_truth.md`). Create or update the relevant plan file before starting any non-trivial implementation.
@@ -167,7 +166,7 @@ Defines the run before execution: which AI model plays each agent role, which ta
 - `score.json` records dimension scores against `rubric.json`.
 
 ### Lender: Meridian Bank
-All policy, rate, and product references use fictional **Meridian Bank**. Credit policy: `company/policy/meridian_bank_credit_policy.pdf`.
+All policy, rate, and product references use fictional **Meridian Bank**. Credit policy: `company/policy/meridian_bank_credit_policy.md`.
 
 ## Adding new content
 

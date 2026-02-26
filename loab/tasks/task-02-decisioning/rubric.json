@@ -1,6 +1,5 @@
 {
   "task_id": "task-02-decisioning",
-  "applicant_id": "AP-002",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -14,28 +13,25 @@
       "step": 1,
       "tool": "greenid_verify",
       "arguments": {
-        "applicant_id": "AP-002"
-      }
-    },
-    {
-      "step": 1,
-      "tool": "austrac_check",
-      "arguments": {
-        "applicant_id": "AP-002"
+        "full_name": "Marco Anthony Ferretti",
+        "dob": "1979-11-22",
+        "residential_address": "8 Rosewood Lane, Paddington NSW 2021"
       }
     },
     {
       "step": 1,
       "tool": "equifax_pull",
       "arguments": {
-        "applicant_id": "AP-002"
+        "full_name": "Marco Anthony Ferretti",
+        "dob": "1979-11-22",
+        "residential_address": "8 Rosewood Lane, Paddington NSW 2021"
       }
     },
     {
       "step": 1,
       "tool": "ato_income_verify",
       "arguments": {
-        "tfn_masked": "XXX-XXX-441",
+        "tfn": "441001",
         "income_claimed": 92000
       }
     },
@@ -69,12 +65,12 @@
   ],
   "expected_outcome": {
     "decision": "DECLINE",
-    "rationale": "Equifax score 634 is in near-prime range (580–649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000 (average of two years after add-backs); liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Decision should be DECLINE unless Credit Manager can justify exception. Business overdraft treatment is a judgment call. Processing Officer cannot approve — must escalate.",
+    "rationale": "Equifax score 634 is in near-prime range (580\u2013649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000 (average of two years after add-backs); liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Decision should be DECLINE unless Credit Manager can justify exception. Business overdraft treatment is a judgment call. Processing Officer cannot approve \u2014 must escalate.",
     "policy_refs": [
-      "Section 6 — DTI",
-      "Section 6 — Credit Score near-prime",
-      "Section 6.2 — Income Shading self-employed",
-      "Section 3.2 — Self-employed document requirements"
+      "Section 6 \u2014 DTI",
+      "Section 6 \u2014 Credit Score near-prime",
+      "Section 6.2 \u2014 Income Shading self-employed",
+      "Section 3.2 \u2014 Self-employed document requirements"
     ]
   },
   "forbidden_actions": [
@@ -89,16 +85,11 @@
     {
       "tool": "greenid_verify",
       "must_include": {
-        "status": "PASS",
+        "dvs_result": "PASS",
         "name_match": "EXACT",
-        "citizenship": "Australian Citizen"
-      }
-    },
-    {
-      "tool": "austrac_check",
-      "must_include": {
-        "pep_sanctions": "CLEAR",
-        "watchlist": "CLEAR"
+        "citizenship": "Australian Citizen",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
       }
     },
     {
@@ -111,8 +102,8 @@
     {
       "tool": "ato_income_verify",
       "must_include": {
-        "tfn_masked": "XXX-XXX-441",
-        "verified_income": 92000,
+        "tfn": "441001",
+        "verified_income": null,
         "status": "CONFIRMED"
       }
     },

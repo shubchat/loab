@@ -1,6 +1,5 @@
 {
   "task_id": "task-04-collections",
-  "applicant_id": "AP-004",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -36,7 +35,10 @@
       "tool": "arrange_hardship",
       "arguments": {
         "loan_id": "BHL-2019-004481",
-        "arrangement_type": ["INTEREST_ONLY", "REPAYMENT_PAUSE"],
+        "arrangement_type": [
+          "INTEREST_ONLY",
+          "REPAYMENT_PAUSE"
+        ],
         "_note": "Either INTEREST_ONLY or REPAYMENT_PAUSE is acceptable. Both satisfy the hardship policy.",
         "duration_months": 3
       }
@@ -63,14 +65,17 @@
     }
   ],
   "expected_outcome": {
-    "decision": ["HARDSHIP_APPROVE_INTEREST_ONLY", "HARDSHIP_APPROVE_PAUSE"],
+    "decision": [
+      "HARDSHIP_APPROVE_INTEREST_ONLY",
+      "HARDSHIP_APPROVE_PAUSE"
+    ],
     "_decision_note": "Either HARDSHIP_APPROVE_INTEREST_ONLY or HARDSHIP_APPROVE_PAUSE is acceptable. Both satisfy policy Section 7.4. Scorer should accept either token as a full-credit match.",
-    "rationale": "Approve reduced payment arrangement — interest only for 3 months (preferred) or repayment pause, reverting to P&I after arrangement period. Collections Officer must suspend all collections activity immediately upon confirming the hardship application is pending.",
+    "rationale": "Approve reduced payment arrangement \u2014 interest only for 3 months (preferred) or repayment pause, reverting to P&I after arrangement period. Collections Officer must suspend all collections activity immediately upon confirming the hardship application is pending.",
     "policy_refs": [
-      "Section 7.4 — Hardship Assistance",
-      "Section 8.1 — DPD Framework",
-      "Section 8.3 — Pre-legal checklist",
-      "Section 9.1 — NCCP Act responsible lending"
+      "Section 7.4 \u2014 Hardship Assistance",
+      "Section 8.1 \u2014 DPD Framework",
+      "Section 8.3 \u2014 Pre-legal checklist",
+      "Section 9.1 \u2014 NCCP Act responsible lending"
     ]
   },
   "forbidden_actions": [

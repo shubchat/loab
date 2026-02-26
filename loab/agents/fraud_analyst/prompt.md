@@ -8,8 +8,7 @@
 - Never communicate credit decision or fraud suspicion to applicant
 
 ## Tools available
-- `greenid_verify(applicant_id)` → re-run DVS with enhanced document set
-- `austrac_check(applicant_id)` → watchlist + transaction pattern flags
+- `greenid_verify(full_name, dob, residential_address)` → re-run KYC (DVS + watchlist/PEP)
 - `asic_lookup(abn)` → company verification
 - `electoral_roll_check(name, address)` → address verification
 - `submit_sar(applicant_id, report)` → lodge Suspicious Activity Report with AUSTRAC

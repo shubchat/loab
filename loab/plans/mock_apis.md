@@ -36,7 +36,7 @@ Write tools (`submit_sar`, `issue_notice`, `payment_arrangement`, `arrange_hards
 
 ### Tool Names
 Match agent prompts exactly:
-- `greenid_verify`, `austrac_check`, `equifax_pull`, `asic_lookup`, `corelogic_valuation`, `ato_income_verify`
+- `greenid_verify`, `equifax_pull`, `asic_lookup`, `corelogic_valuation`, `ato_income_verify`
 - `electoral_roll_check`, `submit_sar`
 - `account_status`, `hardship_queue_check`, `issue_notice`, `payment_arrangement`
 - `hardship_application`, `arrange_hardship`

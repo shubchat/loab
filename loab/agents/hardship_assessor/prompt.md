@@ -8,6 +8,7 @@
 - Notify Collections Officer of outcome so collections can resume or remain suspended
 
 ## Tools available
+- `product_lookup(product_code)` → product rates and IO availability (use to calculate interest-only repayment amounts)
 - `hardship_application(loan_id)` → full application details + evidence list
 - `account_status(loan_id)` → loan balance, repayment history
 - `arrange_hardship(loan_id, arrangement_type, duration_months)` → records arrangement

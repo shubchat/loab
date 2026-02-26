@@ -50,12 +50,11 @@ def _log_event(tool_name, args, result):
 
 def _tool_list():
     tools = [
-        {"name": "greenid_verify", "description": "Identity DVS result", "inputSchema": {"type": "object", "properties": {"applicant_id": {"type": "string"}}}},
-        {"name": "austrac_check", "description": "Watchlist + PEP/sanctions result", "inputSchema": {"type": "object", "properties": {"applicant_id": {"type": "string"}}}},
-        {"name": "equifax_pull", "description": "Credit report + score", "inputSchema": {"type": "object", "properties": {"applicant_id": {"type": "string"}}}},
+        {"name": "greenid_verify", "description": "KYC (DVS + watchlist/PEP)", "inputSchema": {"type": "object", "properties": {"full_name": {"type": "string"}, "dob": {"type": "string"}, "residential_address": {"type": "string"}}}},
+        {"name": "equifax_pull", "description": "Credit report + score", "inputSchema": {"type": "object", "properties": {"full_name": {"type": "string"}, "dob": {"type": "string"}, "residential_address": {"type": "string"}}}},
         {"name": "asic_lookup", "description": "Company registration + director details", "inputSchema": {"type": "object", "properties": {"abn": {"type": "string"}}}},
         {"name": "corelogic_valuation", "description": "AVM estimate + confidence", "inputSchema": {"type": "object", "properties": {"property_address": {"type": "string"}}}},
-        {"name": "ato_income_verify", "description": "ATO income confirmation", "inputSchema": {"type": "object", "properties": {"tfn_masked": {"type": "string"}, "income_claimed": {"type": "number"}}}},
+        {"name": "ato_income_verify", "description": "ATO income confirmation", "inputSchema": {"type": "object", "properties": {"tfn": {"type": "string"}, "income_claimed": {"type": "number"}}}},
         {"name": "electoral_roll_check", "description": "Address verification", "inputSchema": {"type": "object", "properties": {"name": {"type": "string"}, "address": {"type": "string"}}}},
         {"name": "submit_sar", "description": "Lodge Suspicious Activity Report", "inputSchema": {"type": "object", "properties": {"applicant_id": {"type": "string"}, "report": {"type": "object"}}}},
         {"name": "account_status", "description": "Loan status + arrears", "inputSchema": {"type": "object", "properties": {"loan_id": {"type": "string"}, "applicant_id": {"type": "string"}}}},
@@ -64,6 +63,7 @@ def _tool_list():
         {"name": "payment_arrangement", "description": "Record repayment arrangement", "inputSchema": {"type": "object", "properties": {"loan_id": {"type": "string"}, "amount": {"type": "number"}, "frequency": {"type": "string"}, "duration": {"type": "string"}}}},
         {"name": "hardship_application", "description": "Hardship application details", "inputSchema": {"type": "object", "properties": {"loan_id": {"type": "string"}, "applicant_id": {"type": "string"}}}},
         {"name": "arrange_hardship", "description": "Record hardship arrangement", "inputSchema": {"type": "object", "properties": {"loan_id": {"type": "string"}, "arrangement_type": {"type": "string"}, "duration_months": {"type": "number"}}}},
+        {"name": "product_lookup", "description": "Product rates, LVR limits, and eligibility criteria by product code (e.g. BML-OO-VAR-01)", "inputSchema": {"type": "object", "properties": {"product_code": {"type": "string"}}, "required": ["product_code"]}},
         {"name": "policy_lookup", "description": "Credit policy reference", "inputSchema": {"type": "object", "properties": {"section": {"type": "string"}}}},
         {"name": "regulatory_reference", "description": "Regulatory reference", "inputSchema": {"type": "object", "properties": {"act": {"type": "string"}, "section": {"type": "string"}}}},
         {"name": "breach_register", "description": "Log breach finding", "inputSchema": {"type": "object", "properties": {"run_id": {"type": "string"}, "agent": {"type": "string"}, "breach_type": {"type": "string"}, "severity": {"type": "string"}}}},
@@ -75,43 +75,42 @@ def _tool_list():
 def _resolve_applicant(args):
     return DATA.resolve_applicant_id(args.get("applicant_id"), args.get("task_id"))
 
+def _identity_key(args):
+    full_name = args.get("full_name") or ""
+    dob = args.get("dob") or ""
+    address = args.get("residential_address") or ""
+    return f"{full_name}|{dob}|{address}"
+
 
 def _call_tool(name, args):
     args = args or {}
 
     if name == "greenid_verify":
-        applicant_id = _resolve_applicant(args)
-        return DATA.get_response("greenid", applicant_id, "dvs_result")
-
-    if name == "austrac_check":
-        applicant_id = _resolve_applicant(args)
-        return DATA.get_response("austrac", applicant_id, "watchlist")
+        key = _identity_key(args)
+        return DATA.get_response("greenid", "kyc_check", key)
 
     if name == "equifax_pull":
-        applicant_id = _resolve_applicant(args)
-        return DATA.get_response("equifax", applicant_id, "credit_report")
+        key = _identity_key(args)
+        return DATA.get_response("equifax", "credit_report", key)
 
     if name == "asic_lookup":
-        applicant_id = _resolve_applicant(args)
         abn = args.get("abn")
-        return DATA.get_response("asic", applicant_id, "abn_lookup", abn)
+        return DATA.get_response("asic", "abn_lookup", abn)
 
     if name == "corelogic_valuation":
-        applicant_id = _resolve_applicant(args)
         address = args.get("property_address")
-        return DATA.get_response("corelogic", applicant_id, "property_valuation", address)
+        return DATA.get_response("corelogic", "property_valuation", address)
 
     if name == "ato_income_verify":
-        applicant_id = _resolve_applicant(args)
-        tfn = args.get("tfn_masked")
-        return DATA.get_response("ato", applicant_id, "income_verify", tfn)
+        tfn = args.get("tfn")
+        return DATA.get_response("ato", "income_verify", tfn)
 
     if name == "electoral_roll_check":
         applicant_id = _resolve_applicant(args)
         name_key = args.get("name") or ""
         address_key = args.get("address") or ""
         key = f"{name_key}::{address_key}"
-        return DATA.get_response("greenid", applicant_id, "electoral_roll", key)
+        return DATA.get_response("greenid", "electoral_roll", key, applicant_id=applicant_id)
 
     if name == "submit_sar":
         result = {"ok": True, "data": {"status": "SUBMITTED", "applicant_id": args.get("applicant_id")}}
@@ -159,6 +158,9 @@ def _call_tool(name, args):
         result = {"ok": True, "data": {"status": "RECORDED", **args}}
         _log_event("arrange_hardship", args, result)
         return result
+
+    if name == "product_lookup":
+        return DATA.get_product(args.get("product_code"))
 
     if name == "policy_lookup":
         return DATA.get_internal_policy(args.get("section"))

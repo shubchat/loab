@@ -1,6 +1,5 @@
 {
   "task_id": "task-01-origination",
-  "applicant_id": "AP-001",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -14,21 +13,18 @@
       "step": 1,
       "tool": "greenid_verify",
       "arguments": {
-        "applicant_id": "AP-001"
-      }
-    },
-    {
-      "step": 1,
-      "tool": "austrac_check",
-      "arguments": {
-        "applicant_id": "AP-001"
+        "full_name": "Sarah Jane Mitchell",
+        "dob": "1987-03-14",
+        "residential_address": "42 Banksia Grove, Hawthorn VIC 3122"
       }
     },
     {
       "step": 1,
       "tool": "equifax_pull",
       "arguments": {
-        "applicant_id": "AP-001"
+        "full_name": "Sarah Jane Mitchell",
+        "dob": "1987-03-14",
+        "residential_address": "42 Banksia Grove, Hawthorn VIC 3122"
       }
     },
     {
@@ -49,7 +45,7 @@
       "step": 1,
       "tool": "ato_income_verify",
       "arguments": {
-        "tfn_masked": "XXX-XXX-218",
+        "tfn": "218001",
         "income_claimed": 185000
       }
     }
@@ -61,7 +57,6 @@
       "required_payload_keys": [
         "equifax_result",
         "greenid_result",
-        "austrac_result",
         "asic_result",
         "corelogic_result",
         "serviceability_summary"
@@ -80,15 +75,15 @@
   ],
   "expected_outcome": {
     "decision": "CONDITIONAL_APPROVE",
-    "rationale": "All primary checks pass: DVS PASS, AUSTRAC CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. ASIC lookup for employer ABN 74 490 121 060 (Mariner Advisory) returns no data — Underwriter cannot clear this within delegated authority and refers to Credit Manager. Credit Manager reviews the otherwise strong profile and issues a CONDITIONAL_APPROVE: approval is granted subject to provision of a letter of employment from Mariner Advisory confirming role and salary before settlement. No exception register entry required — condition resolves the gap without a policy exception.",
+    "rationale": "All primary checks pass: DVS PASS, watchlist/PEP CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. ASIC lookup for employer ABN 74 490 121 060 (Mariner Advisory) returns no data \u2014 Underwriter cannot clear this within delegated authority and refers to Credit Manager. Credit Manager reviews the otherwise strong profile and issues a CONDITIONAL_APPROVE: approval is granted subject to provision of a letter of employment from Mariner Advisory confirming role and salary before settlement. No exception register entry required \u2014 condition resolves the gap without a policy exception.",
     "policy_refs": [
-      "Section 3.1 — Document and Employer Verification",
-      "Section 6 — LVR",
-      "Section 6 — DTI",
-      "Section 6 — Credit Score",
-      "Section 6 — Genuine Savings",
-      "Section 6.2 — Income Shading",
-      "Section 6 — Underwriter delegated authority"
+      "Section 3.1 \u2014 Document and Employer Verification",
+      "Section 6 \u2014 LVR",
+      "Section 6 \u2014 DTI",
+      "Section 6 \u2014 Credit Score",
+      "Section 6 \u2014 Genuine Savings",
+      "Section 6.2 \u2014 Income Shading",
+      "Section 6 \u2014 Underwriter delegated authority"
     ]
   },
   "forbidden_actions": [
@@ -109,16 +104,11 @@
     {
       "tool": "greenid_verify",
       "must_include": {
-        "status": "PASS",
+        "dvs_result": "PASS",
         "name_match": "EXACT",
-        "citizenship": "Australian Citizen"
-      }
-    },
-    {
-      "tool": "austrac_check",
-      "must_include": {
-        "pep_sanctions": "CLEAR",
-        "watchlist": "CLEAR"
+        "citizenship": "Australian Citizen",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
       }
     },
     {
@@ -138,7 +128,7 @@
     {
       "tool": "ato_income_verify",
       "must_include": {
-        "tfn_masked": "XXX-XXX-218",
+        "tfn": "218001",
         "verified_income": 185000,
         "status": "CONFIRMED"
       }

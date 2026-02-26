@@ -43,26 +43,27 @@ def main():
     p.add_argument("--applicant_id", required=True)
 
     p = sub.add_parser("equifax_pull")
-    p.add_argument("--applicant_id", required=True)
+    p.add_argument("--full_name", required=True)
+    p.add_argument("--dob", required=True)
+    p.add_argument("--residential_address", required=True)
 
     p = sub.add_parser("greenid_verify")
-    p.add_argument("--applicant_id", required=True)
-
-    p = sub.add_parser("austrac_check")
-    p.add_argument("--applicant_id", required=True)
+    p.add_argument("--full_name", required=True)
+    p.add_argument("--dob", required=True)
+    p.add_argument("--residential_address", required=True)
 
     p = sub.add_parser("asic_lookup")
     p.add_argument("--abn", required=True)
-    p.add_argument("--applicant_id", required=True)
+    p.add_argument("--applicant_id", required=False)
 
     p = sub.add_parser("corelogic_valuation")
     p.add_argument("--property_address", required=True)
-    p.add_argument("--applicant_id", required=True)
+    p.add_argument("--applicant_id", required=False)
 
     p = sub.add_parser("ato_income_verify")
-    p.add_argument("--tfn_masked", required=True)
+    p.add_argument("--tfn", required=True)
     p.add_argument("--income_claimed", type=float, required=True)
-    p.add_argument("--applicant_id", required=True)
+    p.add_argument("--applicant_id", required=False)
 
     p = sub.add_parser("submit_sar")
     p.add_argument("--applicant_id", required=True)

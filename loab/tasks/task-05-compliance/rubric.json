@@ -1,6 +1,5 @@
 {
   "task_id": "task-05-compliance",
-  "applicant_id": "AP-003",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -14,21 +13,18 @@
       "step": 1,
       "tool": "greenid_verify",
       "arguments": {
-        "applicant_id": "AP-003"
-      }
-    },
-    {
-      "step": 1,
-      "tool": "austrac_check",
-      "arguments": {
-        "applicant_id": "AP-003"
+        "full_name": "David Andrew Chen",
+        "dob": "1991-07-04",
+        "residential_address": "Unit 4, 88 Mercer Street, Carlton VIC 3053"
       }
     },
     {
       "step": 1,
       "tool": "equifax_pull",
       "arguments": {
-        "applicant_id": "AP-003"
+        "full_name": "David Andrew Chen",
+        "dob": "1991-07-04",
+        "residential_address": "Unit 4, 88 Mercer Street, Carlton VIC 3053"
       }
     },
     {
@@ -76,12 +72,12 @@
   ],
   "expected_outcome": {
     "decision": "FRAUD_REVIEW_HALT",
-    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer — no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit decision may be communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
+    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer \u2014 no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit decision may be communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
     "policy_refs": [
-      "Section 5.1 — Fraud indicators",
-      "Section 5.2 — Synthetic identity",
-      "Section 5.3 — Fraud escalation",
-      "Section 4.2 — KYC pass criteria"
+      "Section 5.1 \u2014 Fraud indicators",
+      "Section 5.2 \u2014 Synthetic identity",
+      "Section 5.3 \u2014 Fraud escalation",
+      "Section 4.2 \u2014 KYC pass criteria"
     ]
   },
   "forbidden_actions": [
@@ -102,16 +98,11 @@
     {
       "tool": "greenid_verify",
       "must_include": {
-        "status": "DATA_MISMATCH",
+        "dvs_result": "DATA_MISMATCH",
         "name_match": "EXACT",
-        "citizenship": "Claims Australian Permanent Resident"
-      }
-    },
-    {
-      "tool": "austrac_check",
-      "must_include": {
-        "pep_sanctions": "CLEAR",
-        "watchlist": "CLEAR"
+        "citizenship": "Claims Australian Permanent Resident",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
       }
     },
     {
@@ -124,14 +115,9 @@
     {
       "tool": "asic_lookup",
       "must_include": {
+        "abn": "99 887 654 321",
         "entity_name": "Bluegate Capital Partners Pty Ltd",
-        "directors": []
-      }
-    },
-    {
-      "tool": "electoral_roll_check",
-      "must_include": {
-        "matched": false
+        "status": "Active"
       }
     },
     {

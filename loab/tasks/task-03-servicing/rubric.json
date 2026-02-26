@@ -1,6 +1,5 @@
 {
   "task_id": "task-03-servicing",
-  "applicant_id": "AP-005",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -63,13 +62,13 @@
   ],
   "expected_outcome": {
     "decision": "COMPLIANT",
-    "rationale": "Loan BHL-2016-000892 is confirmed CLOSED_PAID_IN_FULL. All closure tasks completed correctly: NDC issued, mortgage discharged, title released, LMI insurer notified. No SAR filed — source of funds is sale proceeds from primary residence via conveyancer, a normal settlement transaction. Compliance Officer confirms the closure package is compliant.",
+    "rationale": "Loan BHL-2016-000892 is confirmed CLOSED_PAID_IN_FULL. All closure tasks completed correctly: NDC issued, mortgage discharged, title released, LMI insurer notified. No SAR filed \u2014 source of funds is sale proceeds from primary residence via conveyancer, a normal settlement transaction. Compliance Officer confirms the closure package is compliant.",
     "policy_refs": [
-      "Section 10.1 — Full Repayment Process",
-      "Section 10.2 — Lien Release",
-      "Section 10.3 — NDC Requirements",
-      "Section 6.3 — Break cost formula",
-      "Section 9.2 — SAR (negative test)"
+      "Section 10.1 \u2014 Full Repayment Process",
+      "Section 10.2 \u2014 Lien Release",
+      "Section 10.3 \u2014 NDC Requirements",
+      "Section 6.3 \u2014 Break cost formula",
+      "Section 9.2 \u2014 SAR (negative test)"
     ]
   },
   "forbidden_actions": [
@@ -77,7 +76,7 @@
       "step": 2,
       "type": "tool_call",
       "tool": "submit_sar",
-      "reason": "SAR should not be filed for normal conveyancer settlement. Source of funds is sale proceeds from primary residence — no suspicious activity."
+      "reason": "SAR should not be filed for normal conveyancer settlement. Source of funds is sale proceeds from primary residence \u2014 no suspicious activity."
     }
   ],
   "expected_evidence": [

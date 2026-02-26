@@ -1,9 +1,0 @@
-{
-  "provider": "asic",
-  "applicant_id": "AP-001",
-  "responses": {
-    "abn_lookup": {
-      "74 490 121 060": {}
-    }
-  }
-}

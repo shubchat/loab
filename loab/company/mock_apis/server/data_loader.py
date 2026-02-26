@@ -2,6 +2,7 @@ import json
 import os
 from pathlib import Path
 
+
 def _soft_error(message, available=None):
     payload = {"ok": False, "error": message}
     if available is not None:
@@ -32,19 +33,34 @@ class MockApiData:
         task_id = task_id or os.environ.get("LOAB_TASK_ID")
         if not task_id:
             return None
-        ctx = self.root.parent.parent / "tasks" / task_id / "context" / "applicant.json"
-        data = _read_json(ctx)
+        pending = self.root.parent.parent / "tasks" / task_id / "pendingfiles.json"
+        data = _read_json(pending)
         if not data:
             return None
-        return data.get("applicant_id")
+        applicants = data.get("applicants", [])
+        return applicants[0] if applicants else None
 
-    def load_provider_file(self, provider, applicant_id):
-        path = self.root / provider / f"{applicant_id}.json"
-        return _read_json(path)
+    def load_provider_file(self, provider, applicant_id=None):
+        # Provider folder data.json
+        provider_file = self.root / provider / "data.json"
+        if provider_file.exists():
+            return _read_json(provider_file)
+        # Fallback: provider.json (legacy)
+        legacy = self.root / f"{provider}.json"
+        if legacy.exists():
+            return _read_json(legacy)
+        # Fallback: per-applicant file (legacy)
+        if applicant_id:
+            path = self.root / provider / f"{applicant_id}.json"
+            return _read_json(path)
+        return None
 
     def load_internal_file(self, applicant_id):
         path = self.root / "internal" / f"{applicant_id}.json"
         return _read_json(path)
+
+    def load_rates(self):
+        return _read_json(self.root.parent / "rates" / "product_rates.json")
 
     def load_policy(self):
         return _read_json(self.root / "internal" / "policy.json")
@@ -52,32 +68,40 @@ class MockApiData:
     def load_regulatory(self):
         return _read_json(self.root / "internal" / "regulatory.json")
 
-    def available_applicants(self, provider):
-        folder = self.root / provider
-        if not folder.exists():
+    def available_keys(self, provider, response_key):
+        data = self.load_provider_file(provider)
+        if not data:
             return []
-        return [p.stem for p in folder.glob("AP-*.json")]
+        responses = data.get("responses", {})
+        payload = responses.get(response_key, {})
+        if isinstance(payload, dict):
+            return list(payload.keys())
+        return []
 
-    def get_response(self, provider, applicant_id, response_key, input_key=None):
+    def get_response(self, provider, response_key, input_key=None, applicant_id=None):
         data = self.load_provider_file(provider, applicant_id)
         if not data:
             return _soft_error(
-                f"No data for provider {provider} applicant {applicant_id}",
-                self.available_applicants(provider),
+                f"No data for provider {provider}",
+                [],
             )
         responses = data.get("responses", {})
         if response_key not in responses:
             return _soft_error(
-                f"No response key {response_key} for provider {provider} applicant {applicant_id}",
+                f"No response key {response_key} for provider {provider}",
                 responses.keys(),
             )
         payload = responses[response_key]
-        if isinstance(payload, dict) and input_key is not None:
+        if isinstance(payload, dict):
+            if input_key is None:
+                return _soft_error(
+                    f"Missing input key for {provider}.{response_key}",
+                    payload.keys(),
+                )
             norm = _normalize_key(input_key)
-            if norm in {_normalize_key(k) for k in payload.keys()}:
-                for k, v in payload.items():
-                    if _normalize_key(k) == norm:
-                        return {"ok": True, "data": v}
+            for k, v in payload.items():
+                if _normalize_key(k) == norm:
+                    return {"ok": True, "data": v}
             return _soft_error(
                 f"No data for key {input_key} under {provider}.{response_key}",
                 payload.keys(),
@@ -89,7 +113,7 @@ class MockApiData:
         if not data:
             return _soft_error(
                 f"No internal data for applicant {applicant_id}",
-                self.available_applicants("internal"),
+                [],
             )
         accounts = data.get("loan_accounts", {})
         if loan_id not in accounts:
@@ -105,6 +129,16 @@ class MockApiData:
         if section not in responses:
             return _soft_error(f"No policy section {section}", responses.keys())
         return {"ok": True, "data": responses[section]}
+
+    def get_product(self, product_code):
+        data = self.load_rates() or {}
+        products = data.get("products", {})
+        if product_code not in products:
+            return _soft_error(
+                f"No product found for code {product_code}",
+                list(products.keys()),
+            )
+        return {"ok": True, "data": products[product_code]}
 
     def get_internal_regulatory(self, act_section):
         data = self.load_regulatory() or {}

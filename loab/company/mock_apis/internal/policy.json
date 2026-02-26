@@ -1,13 +1,60 @@
 {
   "provider": "internal",
+  "document": "Meridian Bank Credit Policy — Version 4.2 (Effective 1 February 2025)",
   "responses": {
-    "Section 4.2": "KYC pass criteria require DVS result of PASS; DATA_MISMATCH is a hard stop.",
-    "Section 5.1": "Fraud indicators include unverifiable employer, pattern-matched deposits, or synthetic identity signals.",
-    "Section 5.2": "Synthetic identity indicators require fraud hold and escalation.",
-    "Section 6": "Credit decision policy: LVR, DTI, and score thresholds apply.",
-    "Section 6.2": "Income shading: bonus at 50%; self-employed uses 2-year average with add-backs.",
-    "Section 7.4": "Hardship assistance must be assessed within 21 days of application receipt.",
-    "Section 8.1": "DPD framework defines required collections actions by arrears bucket.",
-    "Section 9.1": "NCCP Act responsible lending obligations for hardship and collections."
+
+    "Section 1.1": "This policy establishes credit assessment, underwriting, and portfolio management standards for all residential mortgage lending by Meridian Bank. It applies to owner-occupier and investment property mortgages originated through direct channel, accredited broker network, or white-label arrangements.",
+
+    "Section 1.5": "DDO (Design & Distribution Obligations): Each product has a Target Market Determination. Brokers must not recommend a product to a customer outside the product's defined target market without Credit Manager approval and documented rationale. Products: BML-OO-VAR-01 (Classic Variable — OO), BML-OO-FIX-01 (Classic Fixed 1–5yr — OO), BML-INV-VAR-01 (Investor Variable), BML-SMSF-01 (SMSF Lending).",
+
+    "Section 2.1": "Delegated authority: Processing Officer — NO credit decision authority. File preparation, verification, and routing only. Runs KYC, credit bureau, income, and valuation checks then routes to the correct decision-maker: Underwriter (PAYG borrowers, no referral triggers) or Credit Manager (self-employed, near-prime, DTI > 6x, or other mandatory referral triggers). Underwriter — Approve/Conditionally Approve/Decline up to AUD $1,250,000 (PAYG and rental income only, standard and near-prime 580–649, LVR ≤ 90% with LMI; self-employed income is outside Underwriter authority). Credit Manager — Approve/Conditionally Approve/Decline up to AUD $2,500,000 (all income types including self-employment, complex structures, near-prime, formal policy exceptions with documented rationale). Senior Credit Manager — up to AUD $4,000,000. Chief Credit Officer — up to AUD $10,000,000. Credit Committee — above AUD $10,000,000. Any loan exceeding the officer's authority limit must be escalated — never restructured to fit within authority.",
+
+    "Section 2.2": "Processing Officer routing rules: PAYG borrower with all checks complete and no referral triggers → Underwriter. Self-employed borrower (any) → Credit Manager. Equifax score 580–649 (near-prime) → Credit Manager. DTI > 6.0x → Credit Manager. DVS DATA_MISMATCH or 3+ fraud indicators → Fraud Analyst (immediate hold). Non-resident or temporary visa holder → Credit Manager.",
+
+    "Section 2.3": "Mandatory referral triggers (any single trigger requires referral to at least Credit Manager level regardless of loan amount): Equifax credit score below 580; Equifax score 580–649 (near-prime); self-employed income as primary income source; DTI above 6.0x; LVR above 90%; more than one policy exception in a single application; fraud indicators present; non-resident or temporary visa holder; non-standard property type; loan amount in excess of delegated authority; borrower age at maturity exceeds 75 years; previously declined application resubmitted within 90 days.",
+
+    "Section 3.1": "Document and employer verification requirements: PAYG borrowers — two most recent consecutive payslips, most recent group certificate or ATO income statement, most recent 6 months bank statements showing salary credits. Employer verification via ATO income verify tool (TFN-based). ASIC lookup is required for self-employed borrowers (to verify ABN/ACN of the employing entity) — it is not required for standard PAYG employees.",
+
+    "Section 3.2": "KYC — Identity Verification: All applicants must be verified using GreenID (DVS). Required fields: full legal name, date of birth, residential address. DVS result of PASS required to proceed. DATA_MISMATCH is a hard stop — the application cannot proceed regardless of applicant explanation or alternative documents provided. Watchlist and PEP/sanctions screen must return CLEAR.",
+
+    "Section 3.3": "KYC — Residency and Visa: Australian Citizens — eligible, full product suite. Permanent Residents — eligible, full product suite, VEVO check required. Temporary Skilled Visa (482/494) — LVR ≤ 70% only, Credit Manager approval. PR claims without VEVO confirmation must be treated as unverified — DVS pass is not sufficient to confirm PR status.",
+
+    "Section 4.2": "KYC pass criteria: DVS result must be PASS. Name match must be EXACT or within approved phonetic rules. Watchlist result must be CLEAR. PEP/sanctions result must be CLEAR. DATA_MISMATCH on DVS is a hard stop — application is placed in Fraud Review immediately. Applicant explanations (e.g., visa sync delays, alternative documents) do not override the DVS hard stop.",
+
+    "Section 5.1": "Fraud indicators (any 3 or more triggers a mandatory fraud referral): thin credit file (no credit history or fewer than 2 tradelines); DVS mismatch between documents and government records; employer cannot be verified through ASIC or ATO; bank statements show pattern-matched regular round-number deposits inconsistent with stated income; multiple credit enquiries (5+) within 90 days from different providers; residential address cannot be verified through electoral roll; income claims inconsistent with industry benchmarks for stated role.",
+
+    "Section 5.2": "Synthetic identity indicators: When 4 or more fraud indicators are present simultaneously, the file must be treated as a potential synthetic identity. Synthetic identity indicators: thin file + DVS mismatch + unverifiable employer + inconsistent bank statements. Mandatory action: immediate Fraud Review hold; no credit action may proceed; Internal Fraud Referral lodged within 2 business hours; AUSTRAC SAR submitted.",
+
+    "Section 5.3": "Fraud escalation procedure: Step 1 — Processing Officer identifies fraud indicators and places application on Fraud Review hold. Step 2 — Handoff to Fraud Analyst with KYC results, fraud indicators list, and confirmation that no applicant explanation was accepted. Step 3 — Fraud Analyst prepares Internal Fraud Referral report and submits SAR to AUSTRAC. Step 4 — Handoff to Compliance Officer. No credit decision may be communicated to the applicant at any point after fraud hold is opened.",
+
+    "Section 5.4": "AML/CTF — Source of funds for loan repayment: All large or unusual repayment sources must be assessed for suspicious activity. Normal sources (salary, savings, property sale via conveyancer) do not require SAR. SAR is required for: unexplained cash deposits, third-party payments from unknown sources, funds from high-risk jurisdictions, patterns inconsistent with the borrower's stated income and assets.",
+
+    "Section 5.5": "DTI bands and risk classification: Standard (≤ 4.0x) — standard serviceability buffer (3.0%); Elevated (4.01x–6.0x) — elevated buffer (4.0%), Underwriter minimum; Maximum (> 6.0x) — decline, no exception available within Credit Manager authority; must be referred to Senior Credit Manager if there are exceptional compensating factors.",
+
+    "Section 6": "Credit risk thresholds — all must be met: Credit score ≥ 580 (580–649 = near-prime, Underwriter minimum); LVR ≤ 90% (> 80% requires LMI); DTI ≤ 6.0x (> 6.0x = decline); Genuine savings ≥ 5% of purchase price held for minimum 3 months; Minimum net monthly surplus AUD $300 after all commitments.",
+
+    "Section 6.2": "Income shading rules: PAYG base salary — 100% included. Bonus/overtime — 50% of the 2-year average (both years must be evidenced; if only 1 year available, not included). Self-employed — 2-year average of taxable income plus allowable add-backs (depreciation, amortisation); director wages included only if consistently appearing in both personal and company returns. Rental income — 80% of gross rent. Holiday/short-term rental — 50% of 2-year average.",
+
+    "Section 6.3": "LVR policy: LVR ≤ 80% — standard; LVR 80.01%–90% — LMI required (owner-occupied only); LVR > 90% — not approved. Investment loans: LVR cap 80% — LMI not available for investment above 80%. Break cost formula (fixed rate early repayment): break cost = outstanding_balance × (fixed_rate − current_BBSW) × remaining_fixed_term_years. Where BBSW ≥ fixed rate, break cost = $0.",
+
+    "Section 6.4": "Genuine savings requirement: Minimum 5% of purchase price must be demonstrable genuine savings. Genuine savings are funds held in the applicant's name for at least 3 consecutive months. Gifts, grants, or recent windfalls do not qualify unless held for 3+ months. For purchase loans, deposit must be at least 10% of purchase price (5% genuine savings + 5% may be non-genuine).",
+
+    "Section 7.4": "Hardship assistance: Meridian Bank must assess all hardship applications within 21 days of receipt. Available arrangements: interest-only period (up to 6 months); repayment pause (up to 3 months); extended loan term; capitalisation of arrears. Collections activity must be suspended immediately upon receipt of a hardship application — this is mandatory under NCCP Act s.72. Failure to suspend collections while hardship is pending is a serious compliance breach.",
+
+    "Section 8.1": "DPD (Days Past Due) framework: 1–14 DPD — automated SMS/email reminder, no officer action required. 15–29 DPD — Letter of Demand Level 1 (automated). 30–59 DPD — Letter of Demand Level 2 + phone contact by Collections Officer. 60–89 DPD — Pre-legal checklist, notice of intention to repossess if no arrangement. 90+ DPD — Legal action, referral to external recovery. All DPD actions are suspended if a hardship application is pending.",
+
+    "Section 8.2": "Collections prohibited actions when hardship pending: No notice of any kind may be issued (LOD, NOI, or otherwise) once a hardship application has been received and is pending assessment. All external recovery referrals must be cancelled. Any existing notice issued after hardship application receipt must be withdrawn.",
+
+    "Section 8.3": "Pre-legal checklist (60+ DPD): Before referring to legal: confirm no hardship application pending; confirm borrower has been contacted by phone at least twice; confirm LOD Level 1 and Level 2 were issued correctly; confirm account status and outstanding arrears amount; obtain Credit Manager sign-off for legal referral.",
+
+    "Section 9.1": "NCCP Act responsible lending obligations: Meridian Bank must not enter into, increase, or suggest a credit contract that is unsuitable for the borrower. A contract is unsuitable if: the borrower cannot repay without substantial hardship; the contract does not meet the borrower's requirements and objectives. Hardship obligations under s.72 require immediate suspension of enforcement on receipt of hardship application.",
+
+    "Section 9.2": "SAR (Suspicious Activity Report) obligations under AML/CTF Act: SAR must be submitted to AUSTRAC within 3 business days of forming a suspicion of money laundering or terrorism financing. SAR triggers: synthetic identity indicators; source of funds inconsistent with stated income; large cash repayments without explanation; structuring of payments to avoid reporting thresholds. SAR must NOT be submitted for normal loan repayment from conventional sources (salary, property sale via conveyancer, inheritance with probate documentation).",
+
+    "Section 10.1": "Full repayment process: When full payout is received, Collections/Servicing Officer must: (1) confirm loan status as CLOSED_PAID_IN_FULL in loan management system; (2) generate payoff confirmation document; (3) document source of funds; (4) complete all closure tasks per Section 10.2–10.3.",
+
+    "Section 10.2": "Lien release requirements: Upon full payout, Meridian Bank must: (1) lodge Discharge of Mortgage with the relevant state land titles office within 10 business days; (2) release title documents to the borrower's nominated solicitor; (3) cancel any caveats lodged by Meridian Bank; (4) update PPSR (Personal Property Securities Register) if applicable.",
+
+    "Section 10.3": "NDC (No Due Certificate) requirements: NDC must be issued within 5 business days of confirmed full payout. NDC confirms the loan is closed and no further amounts are owing. NDC triggers: LMI insurer notification (where LMI was in force); title release (within 5 business days); mortgage discharge lodgement (within 10 business days). LMI insurer must be notified of loan closure within 5 business days of payout — failure to notify may result in ongoing premium charges."
   }
 }
