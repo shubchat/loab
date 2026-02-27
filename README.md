@@ -1,7 +1,11 @@
 # LOAB — Lending Operations Agent Benchmark
 
 <p align="center">
-  <img src="./assets/loab-overview.svg" alt="LOAB benchmark overview — multi-agent mortgage lifecycle evaluation" width="100%"/>
+  <img src="./assets/loab-overview-flow.svg" alt="LOAB benchmark flow — multi-agent mortgage lifecycle" width="100%"/>
+</p>
+
+<p align="center">
+  <img src="./assets/loab-overview-scoring.svg" alt="LOAB scoring rubric view" width="100%"/>
 </p>
 
 Evaluates AI agents across the full Australian mortgage lifecycle: origination, credit decisioning, loan servicing, collections, and compliance.
