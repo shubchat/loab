@@ -15,6 +15,27 @@
         "verified_income": 185000,
         "employment_type": "PAYG",
         "status": "CONFIRMED"
+      },
+      "618001": {
+        "tfn": "618001",
+        "last_financial_year": "FY2023-24",
+        "verified_income": 160000,
+        "employment_type": "PAYG",
+        "status": "CONFIRMED"
+      },
+      "718001": {
+        "tfn": "718001",
+        "last_financial_year": "FY2023-24",
+        "verified_income": 120000,
+        "employment_type": "PAYG",
+        "status": "CONFIRMED"
+      },
+      "818001": {
+        "tfn": "818001",
+        "last_financial_year": "FY2023-24",
+        "verified_income": 165000,
+        "employment_type": "PAYG",
+        "status": "CONFIRMED"
       }
     }
   }

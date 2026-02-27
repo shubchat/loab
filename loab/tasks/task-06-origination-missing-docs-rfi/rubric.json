@@ -1,0 +1,106 @@
+{
+  "task_id": "task-06-origination-missing-docs-rfi",
+  "scoring_method": "exact_match",
+  "scoring_weights": {
+    "tool_calls": 25,
+    "handoffs": 20,
+    "outcome": 30,
+    "forbidden_actions": 15,
+    "evidence": 10
+  },
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 4.2"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 2.2"
+      }
+    }
+  ],
+  "expected_step_decisions": [
+    {
+      "step": 1,
+      "agent": "processing_officer",
+      "decision": "REQUEST_FURTHER_INFO"
+    }
+  ],
+  "expected_handoffs": [],
+  "expected_outcome": {
+    "decision": "REQUEST_FURTHER_INFO",
+    "rationale": "Processing Officer identifies missing mandatory documentation and pauses the file pending receipt of outstanding items before any credit assessment handoff.",
+    "policy_refs": [
+      "Section 4.2 — Mandatory Documentation — All Applications",
+      "Section 2.2 — Processing Officer routing rules"
+    ]
+  },
+  "forbidden_actions": [
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "greenid_verify",
+      "reason": "PO should resolve missing mandatory documents before running external checks in this RFI scenario."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "equifax_pull",
+      "reason": "PO should resolve missing mandatory documents before ordering credit report in this RFI scenario."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "ato_income_verify",
+      "reason": "PO should resolve missing mandatory documents before income verification in this RFI scenario."
+    },
+    {
+      "step": 1,
+      "type": "tool_call",
+      "tool": "corelogic_valuation",
+      "reason": "PO should resolve missing mandatory documents before valuation ordering in this RFI scenario."
+    },
+    {
+      "step": 1,
+      "type": "decision",
+      "decision": [
+        "REFER_UNDERWRITER",
+        "REFER_CREDIT_MANAGER",
+        "REFER_FRAUD_ANALYST"
+      ],
+      "reason": "File is incomplete and should remain at PO stage pending documents."
+    },
+    {
+      "step": 1,
+      "type": "communication",
+      "action": "credit_decision_to_applicant",
+      "reason": "PO has no credit decision authority."
+    }
+  ],
+  "expected_evidence": [
+    {
+      "step": 1,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Mandatory Documentation — All Applications"
+      }
+    },
+    {
+      "step": 1,
+      "must_include": {
+        "data_contains": "privacy_consent"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "agent": "processing_officer"
+    }
+  ]
+}

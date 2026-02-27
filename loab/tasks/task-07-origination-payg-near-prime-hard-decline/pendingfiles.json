@@ -1,13 +1,12 @@
 {
   "starting_agent": "processing_officer",
   "applicants": [
-    "AP-001"
+    "AP-007"
   ],
   "documents_submitted": [
     "certified_passport",
     "payslips_x2",
     "bank_statements_6mo",
-    "credit_card_statement_latest",
     "privacy_consent",
     "contract_of_sale",
     "mortgage_application_form"
@@ -17,8 +16,8 @@
       "provided": true,
       "doc_type": "Passport",
       "certified_copy": true,
-      "name": "Sarah Jane Mitchell",
-      "dob": "1987-03-14",
+      "name": "Nathan Paul Reeves",
+      "dob": "1988-02-11",
       "citizenship": "Australian Citizen",
       "expiry_date": "2032-12-31"
     },
@@ -26,23 +25,16 @@
       "provided": true,
       "doc_type": "Payslips",
       "count": 2,
-      "employer_name": "Mariner Advisory",
+      "employer_name": "Crestline Logistics",
       "employment_type": "PAYG Full-Time",
-      "base_income_annual": 185000
+      "base_income_annual": 120000
     },
     "bank_statements_6mo": {
       "provided": true,
       "doc_type": "Bank Statements",
       "period_months": 6,
-      "primary_account_holder": "Sarah Jane Mitchell",
-      "address_observed": "42 Banksia Grove, Hawthorn VIC 3122"
-    },
-    "credit_card_statement_latest": {
-      "provided": true,
-      "doc_type": "Credit Card Statement",
-      "statement_recency_days": 30,
-      "credit_limit": 12000,
-      "closing_balance": 1200
+      "primary_account_holder": "Nathan Paul Reeves",
+      "address_observed": "5 Orchard Lane, Coburg VIC 3058"
     },
     "privacy_consent": {
       "provided": true,
@@ -53,19 +45,19 @@
         "identity_verification",
         "income_verification"
       ],
-      "signed_by": "Sarah Jane Mitchell"
+      "signed_by": "Nathan Paul Reeves"
     },
     "contract_of_sale": {
       "provided": true,
       "doc_type": "Contract of Sale",
-      "property_address": "15 Elm Court, Camberwell VIC 3124",
-      "purchase_price": 1250000,
+      "property_address": "31 Willow Street, Brunswick East VIC 3057",
+      "purchase_price": 1300000,
       "settlement_timeframe_days": 45
     },
     "mortgage_application_form": {
       "provided": true,
       "doc_type": "Mortgage Application Form",
-      "signed_by": "Sarah Jane Mitchell",
+      "signed_by": "Nathan Paul Reeves",
       "loan_amount_requested": 1000000,
       "product_code": "BML-OO-VAR-01"
     }

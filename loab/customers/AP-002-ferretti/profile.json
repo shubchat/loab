@@ -57,14 +57,5 @@
     "loan_amount": 1000000,
     "term_years": 25,
     "repayment_type": "P&I"
-  },
-  "documents_submitted": [
-    "certified_passport",
-    "personal_tax_return_fy2023_24",
-    "personal_tax_return_fy2022_23",
-    "business_tax_return_fy2023_24",
-    "bank_statements_6mo",
-    "privacy_consent",
-    "contract_of_sale"
-  ]
+  }
 }

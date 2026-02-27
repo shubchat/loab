@@ -51,13 +51,5 @@
     "loan_amount": 1000000,
     "term_years": 30,
     "repayment_type": "P&I"
-  },
-  "documents_submitted": [
-    "certified_passport",
-    "payslips_x2",
-    "bank_statements_6mo",
-    "privacy_consent",
-    "contract_of_sale",
-    "mortgage_application_form"
-  ]
+  }
 }

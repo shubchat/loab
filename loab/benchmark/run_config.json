@@ -16,7 +16,12 @@
     "task-02-decisioning",
     "task-03-servicing",
     "task-04-collections",
-    "task-05-compliance"
+    "task-05-compliance",
+    "task-06-origination-missing-docs-rfi",
+    "task-07-origination-payg-near-prime-hard-decline",
+    "task-08-origination-payg-subprime-hard-decline",
+    "task-09-origination-self-employed-dti-hard-decline",
+    "task-10-origination-fraud-thinfile-halt"
   ],
   "notes": ""
 }

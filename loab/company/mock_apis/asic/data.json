@@ -31,6 +31,38 @@
         "entity_type": "Australian Private Company",
         "directors": [],
         "notes": "No directors listed. No ASIC lodgements on record. No business address registered."
+      },
+      "46 220 334 118": {
+        "entity_name": "Northfield Strategy Pty Ltd",
+        "abn": "46 220 334 118",
+        "status": "Active",
+        "registered": "2012-08-21",
+        "entity_type": "Australian Private Company",
+        "directors": [
+          "Olivia Jane Mercer",
+          "Thomas Michael Hart"
+        ]
+      },
+      "52 118 440 902": {
+        "entity_name": "Crestline Logistics Pty Ltd",
+        "abn": "52 118 440 902",
+        "status": "Active",
+        "registered": "2007-03-12",
+        "entity_type": "Australian Private Company",
+        "directors": [
+          "Andrew Paul Wilkes",
+          "Renee Louise Marsh"
+        ]
+      },
+      "63 442 901 554": {
+        "entity_name": "Helix Digital Media Pty Ltd",
+        "abn": "63 442 901 554",
+        "status": "Active",
+        "registered": "2016-11-07",
+        "entity_type": "Australian Private Company",
+        "directors": [
+          "Catherine Anne Doyle"
+        ]
       }
     }
   }

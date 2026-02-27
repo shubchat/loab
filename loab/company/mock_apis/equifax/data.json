@@ -26,7 +26,7 @@
         "defaults": [],
         "judgements": [],
         "bankruptcies": [],
-        "notes": "Thin file \u2014 only 2 tradelines, both recent. Pattern consistent with synthetic identity build-up."
+        "notes": "Thin file — only 2 tradelines, both recent. Pattern consistent with synthetic identity build-up."
       },
       "Marco Anthony Ferretti|1979-11-22|8 Rosewood Lane, Paddington NSW 2021": {
         "score": 634,
@@ -36,7 +36,7 @@
             "lender": "Southern Cross Bank",
             "limit": 25000,
             "balance": 18000,
-            "status": "Current \u2014 High Utilisation",
+            "status": "Current — High Utilisation",
             "opened": "2016-04-01"
           },
           {
@@ -59,7 +59,7 @@
             "type": "Previous Home Loan",
             "lender": "Harbor Bank",
             "balance": 0,
-            "status": "Closed \u2014 Paid",
+            "status": "Closed — Paid",
             "opened": "2010-06-01",
             "closed": "2021-09-01"
           }
@@ -92,12 +92,78 @@
             "lender": "Summit Bank",
             "limit": 20000,
             "balance": 0,
-            "status": "Closed \u2014 Paid",
+            "status": "Closed — Paid",
             "opened": "2017-01-01",
             "closed": "2021-06-01"
           }
         ],
         "enquiries_last_90_days": 1,
+        "defaults": [],
+        "judgements": [],
+        "bankruptcies": []
+      },
+      "Emma Grace Sullivan|1990-05-19|19 Acacia Avenue, Glen Iris VIC 3146": {
+        "score": 754,
+        "tradelines": [
+          {
+            "type": "Credit Card",
+            "lender": "Harbor Bank",
+            "limit": 10000,
+            "balance": 1500,
+            "status": "Current",
+            "opened": "2018-04-01"
+          },
+          {
+            "type": "HECS Debt",
+            "lender": "ATO",
+            "balance": 12000,
+            "status": "Current",
+            "opened": "2010-02-01"
+          }
+        ],
+        "enquiries_last_90_days": 1,
+        "defaults": [],
+        "judgements": [],
+        "bankruptcies": []
+      },
+      "Nathan Paul Reeves|1988-02-11|5 Orchard Lane, Coburg VIC 3058": {
+        "score": 623,
+        "tradelines": [
+          {
+            "type": "Credit Card",
+            "lender": "Northline Bank",
+            "limit": 15000,
+            "balance": 6000,
+            "status": "Current",
+            "opened": "2017-03-01"
+          },
+          {
+            "type": "Personal Loan",
+            "lender": "Metro Finance",
+            "limit": 20000,
+            "balance": 12000,
+            "status": "Current",
+            "opened": "2023-05-01"
+          }
+        ],
+        "enquiries_last_90_days": 2,
+        "defaults": [],
+        "judgements": [],
+        "bankruptcies": []
+      },
+      "Chloe Anne Parker|1992-10-03|14 Norfolk Road, Preston VIC 3072": {
+        "score": 552,
+        "tradelines": [
+          {
+            "type": "Credit Card",
+            "lender": "Civic Bank",
+            "limit": 8000,
+            "balance": 900,
+            "status": "Current",
+            "opened": "2019-09-01"
+          }
+        ],
+        "enquiries_last_90_days": 4,
         "defaults": [],
         "judgements": [],
         "bankruptcies": []

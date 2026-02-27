@@ -1,0 +1,55 @@
+{
+  "application_id": "AP-008",
+  "personal": {
+    "full_name": "Chloe Anne Parker",
+    "dob": "1992-10-03",
+    "citizenship": "Australian Citizen",
+    "tfn": "818001",
+    "tfn_masked": "XXX-XXX-818",
+    "residential_address": "14 Norfolk Road, Preston VIC 3072",
+    "mailing_address": "Same as residential",
+    "phone": "+61 409 443 557",
+    "email": "chloe.parker@example.com.au",
+    "employer": "Helix Digital Media",
+    "employer_abn": "63 442 901 554",
+    "occupation": "Senior Product Designer",
+    "employment_type": "PAYG Full-Time",
+    "employment_start": "2021-01-11"
+  },
+  "income": {
+    "gross_annual_base": 165000,
+    "bonus_last_year": 18000,
+    "bonus_prior_year": 12000,
+    "payroll_frequency": "Monthly"
+  },
+  "liabilities": {
+    "credit_card_limit": 8000,
+    "credit_card_balance": 900,
+    "personal_loan_outstanding": 0,
+    "vehicle_finance_outstanding": 0,
+    "existing_home_loan": 0,
+    "hecs_debt": 0
+  },
+  "assets": {
+    "savings_account_balance": 130000,
+    "savings_held_months": 18,
+    "property_owned": [],
+    "shares_super": 155000
+  },
+  "household": {
+    "marital_status": "Single",
+    "dependants": 0
+  },
+  "expenses": {
+    "declared_monthly_living_expenses": 2300
+  },
+  "loan_request": {
+    "product": "BML-OO-VAR-01",
+    "purpose": "Purchase",
+    "property_address": "27 Rowan Crescent, Reservoir VIC 3073",
+    "purchase_price": 900000,
+    "loan_amount": 700000,
+    "term_years": 30,
+    "repayment_type": "P&I"
+  }
+}

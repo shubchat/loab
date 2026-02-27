@@ -480,6 +480,14 @@ def main():
     if not cust_dir:
         raise SystemExit(f"No customer folder for {applicant_id}")
     applicant_profile = load_json(cust_dir / "profile.json")
+    documents_submitted = pending.get("documents_submitted")
+    application_documents = pending.get("application_documents")
+    if documents_submitted is not None:
+        applicant_profile["documents_submitted"] = documents_submitted
+    elif isinstance(application_documents, dict):
+        applicant_profile["documents_submitted"] = [k for k, v in application_documents.items() if isinstance(v, dict) and v.get("provided") is True]
+    if application_documents is not None:
+        applicant_profile["application_documents"] = application_documents
 
     starting_agent = pending.get("starting_agent")
     if not starting_agent:

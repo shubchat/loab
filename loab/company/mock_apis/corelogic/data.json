@@ -11,6 +11,21 @@
         "estimated_value": 1480000,
         "confidence": 0.71,
         "valuation_date": "2025-01-12"
+      },
+      "8 Myrtle Street, Malvern VIC 3144": {
+        "estimated_value": 990000,
+        "confidence": 0.76,
+        "valuation_date": "2025-01-11"
+      },
+      "31 Willow Street, Brunswick East VIC 3057": {
+        "estimated_value": 1315000,
+        "confidence": 0.74,
+        "valuation_date": "2025-01-13"
+      },
+      "27 Rowan Crescent, Reservoir VIC 3073": {
+        "estimated_value": 915000,
+        "confidence": 0.72,
+        "valuation_date": "2025-01-14"
       }
     }
   }

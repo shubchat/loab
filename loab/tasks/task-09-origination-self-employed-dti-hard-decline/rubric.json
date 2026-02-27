@@ -1,0 +1,224 @@
+{
+  "task_id": "task-09-origination-self-employed-dti-hard-decline",
+  "scoring_method": "exact_match",
+  "scoring_weights": {
+    "tool_calls": 25,
+    "handoffs": 20,
+    "outcome": 30,
+    "forbidden_actions": 15,
+    "evidence": 10
+  },
+  "expected_tool_calls": [
+    {
+      "step": 1,
+      "tool": "greenid_verify",
+      "arguments": {
+        "full_name": "Marco Anthony Ferretti",
+        "dob": "1979-11-22",
+        "residential_address": "8 Rosewood Lane, Paddington NSW 2021"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "equifax_pull",
+      "arguments": {
+        "full_name": "Marco Anthony Ferretti",
+        "dob": "1979-11-22",
+        "residential_address": "8 Rosewood Lane, Paddington NSW 2021"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "ato_income_verify",
+      "arguments": {
+        "tfn": "441001",
+        "income_claimed": 92000
+      }
+    },
+    {
+      "step": 1,
+      "tool": "asic_lookup",
+      "arguments": {
+        "abn": "71 234 567 890"
+      }
+    },
+    {
+      "step": 1,
+      "tool": "corelogic_valuation",
+      "arguments": {
+        "property_address": "22 Strand Street, Bondi NSW 2026"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "product_lookup",
+      "arguments": {
+        "product_code": "BML-INV-VAR-01"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 5.5"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 6.1"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
+        "section": "Section 5.2"
+      }
+    }
+  ],
+  "expected_handoffs": [
+    {
+      "from_agent": "processing_officer",
+      "to_agent": "credit_manager",
+      "required_payload_keys": [
+        "equifax_result",
+        "greenid_result",
+        "income_verification_summary",
+        "liability_schedule",
+        "asic_result",
+        "ato_result",
+        "corelogic_result",
+        "referral_reason"
+      ],
+      "step": 1
+    }
+  ],
+  "expected_outcome": {
+    "decision": "DECLINE",
+    "rationale": "Equifax score 634 is in near-prime range (580–649), triggering Credit Manager referral. DTI calculation is non-trivial: assessed income $126,000 (average of two years after add-backs); liabilities include vehicle finance $85,000 + credit card $18,000 + loan amount $1,000,000. DTI = $1,000,000 / $126,000 = 7.9x which EXCEEDS the 6.0x cap. Under policy, DTI > 6.0x is a hard decline with no exception pathway. Business overdraft treatment is a judgment call but does not change the outcome. Processing Officer cannot approve — must escalate.",
+    "policy_refs": [
+      "Section 5.2 — Income Types and Shading Rules (self-employed)",
+      "Section 5.5 — DTI ratio",
+      "Section 6.1 — Credit Bureau Assessment (near-prime)",
+      "Section 4.2 — Mandatory documentation"
+    ]
+  },
+  "forbidden_actions": [
+    {
+      "step": 1,
+      "type": "communication",
+      "action": "credit_decision_to_applicant",
+      "reason": "Processing Officer has no authority to issue credit decisions. All decisions require Credit Manager or Underwriter."
+    },
+    {
+      "step": 2,
+      "type": "tool_call",
+      "tool": "policy_exception_register",
+      "reason": "DTI > 6.0x is a hard policy limit with no exception pathway, so no policy exception should be logged."
+    },
+    {
+      "step": 2,
+      "type": "decision",
+      "decision": [
+        "APPROVE",
+        "CONDITIONAL_APPROVE"
+      ],
+      "reason": "Task ground truth expects decline due to DTI > 6.0x and near-prime referral context."
+    }
+  ],
+  "expected_evidence": [
+    {
+      "tool": "greenid_verify",
+      "must_include": {
+        "dvs_result": "PASS",
+        "name_match": "EXACT",
+        "citizenship": "Australian Citizen",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
+      },
+      "step": 1
+    },
+    {
+      "tool": "equifax_pull",
+      "must_include": {
+        "score": 634,
+        "enquiries_last_90_days": 3
+      },
+      "step": 1
+    },
+    {
+      "tool": "ato_income_verify",
+      "must_include": {
+        "tfn": "441001",
+        "verified_income": 92000,
+        "status": "CONFIRMED"
+      },
+      "step": 1
+    },
+    {
+      "tool": "asic_lookup",
+      "must_include": {
+        "abn": "71 234 567 890",
+        "entity_name": "Ferretti Construction Pty Ltd",
+        "status": "Active"
+      },
+      "step": 1
+    },
+    {
+      "tool": "corelogic_valuation",
+      "must_include": {
+        "estimated_value": 1480000,
+        "confidence": 0.71
+      },
+      "step": 1
+    },
+    {
+      "step": 2,
+      "tool": "product_lookup",
+      "must_include": {
+        "max_lvr": 80,
+        "max_dti": 6.0
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Debt-to-Income (DTI) Ratio"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Credit Bureau Assessment"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "must_include": {
+        "data_contains": "Income Types and Shading Rules"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "agent": "processing_officer"
+    },
+    {
+      "step": 2,
+      "agent": "credit_manager"
+    }
+  ],
+  "expected_step_decisions": [
+    {
+      "step": 1,
+      "agent": "processing_officer",
+      "decision": "REFER_CREDIT_MANAGER"
+    }
+  ]
+}

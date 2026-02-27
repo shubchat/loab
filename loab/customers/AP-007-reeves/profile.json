@@ -1,0 +1,55 @@
+{
+  "application_id": "AP-007",
+  "personal": {
+    "full_name": "Nathan Paul Reeves",
+    "dob": "1988-02-11",
+    "citizenship": "Australian Citizen",
+    "tfn": "718001",
+    "tfn_masked": "XXX-XXX-718",
+    "residential_address": "5 Orchard Lane, Coburg VIC 3058",
+    "mailing_address": "Same as residential",
+    "phone": "+61 414 661 205",
+    "email": "nathan.reeves@example.com.au",
+    "employer": "Crestline Logistics",
+    "employer_abn": "52 118 440 902",
+    "occupation": "Warehouse Operations Lead",
+    "employment_type": "PAYG Full-Time",
+    "employment_start": "2018-07-16"
+  },
+  "income": {
+    "gross_annual_base": 120000,
+    "bonus_last_year": 0,
+    "bonus_prior_year": 0,
+    "payroll_frequency": "Monthly"
+  },
+  "liabilities": {
+    "credit_card_limit": 15000,
+    "credit_card_balance": 6000,
+    "personal_loan_outstanding": 12000,
+    "vehicle_finance_outstanding": 0,
+    "existing_home_loan": 0,
+    "hecs_debt": 0
+  },
+  "assets": {
+    "savings_account_balance": 175000,
+    "savings_held_months": 18,
+    "property_owned": [],
+    "shares_super": 165000
+  },
+  "household": {
+    "marital_status": "Single",
+    "dependants": 0
+  },
+  "expenses": {
+    "declared_monthly_living_expenses": 2600
+  },
+  "loan_request": {
+    "product": "BML-OO-VAR-01",
+    "purpose": "Purchase",
+    "property_address": "31 Willow Street, Brunswick East VIC 3057",
+    "purchase_price": 1300000,
+    "loan_amount": 1000000,
+    "term_years": 30,
+    "repayment_type": "P&I"
+  }
+}

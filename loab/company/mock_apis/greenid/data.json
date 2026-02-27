@@ -22,6 +22,27 @@
         "citizenship": "Australian Citizen",
         "watchlist": "CLEAR",
         "pep_sanctions": "CLEAR"
+      },
+      "Emma Grace Sullivan|1990-05-19|19 Acacia Avenue, Glen Iris VIC 3146": {
+        "dvs_result": "PASS",
+        "name_match": "EXACT",
+        "citizenship": "Australian Citizen",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
+      },
+      "Nathan Paul Reeves|1988-02-11|5 Orchard Lane, Coburg VIC 3058": {
+        "dvs_result": "PASS",
+        "name_match": "EXACT",
+        "citizenship": "Australian Citizen",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
+      },
+      "Chloe Anne Parker|1992-10-03|14 Norfolk Road, Preston VIC 3072": {
+        "dvs_result": "PASS",
+        "name_match": "EXACT",
+        "citizenship": "Australian Citizen",
+        "watchlist": "CLEAR",
+        "pep_sanctions": "CLEAR"
       }
     }
   }

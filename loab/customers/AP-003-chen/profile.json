@@ -37,13 +37,5 @@
     "loan_amount": 750000,
     "term_years": 30,
     "repayment_type": "P&I"
-  },
-  "documents_submitted": [
-    "passport_copy",
-    "pr_visa_grant_letter",
-    "payslips_x2",
-    "bank_statements_6mo",
-    "privacy_consent",
-    "contract_of_sale"
-  ]
+  }
 }

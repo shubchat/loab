@@ -1,0 +1,55 @@
+{
+  "application_id": "AP-006",
+  "personal": {
+    "full_name": "Emma Grace Sullivan",
+    "dob": "1990-05-19",
+    "citizenship": "Australian Citizen",
+    "tfn": "618001",
+    "tfn_masked": "XXX-XXX-618",
+    "residential_address": "19 Acacia Avenue, Glen Iris VIC 3146",
+    "mailing_address": "Same as residential",
+    "phone": "+61 410 552 884",
+    "email": "emma.sullivan@example.com.au",
+    "employer": "Northfield Strategy",
+    "employer_abn": "46 220 334 118",
+    "occupation": "Operations Manager",
+    "employment_type": "PAYG Full-Time",
+    "employment_start": "2020-02-03"
+  },
+  "income": {
+    "gross_annual_base": 160000,
+    "bonus_last_year": 20000,
+    "bonus_prior_year": 16000,
+    "payroll_frequency": "Monthly"
+  },
+  "liabilities": {
+    "credit_card_limit": 10000,
+    "credit_card_balance": 1500,
+    "personal_loan_outstanding": 0,
+    "vehicle_finance_outstanding": 0,
+    "existing_home_loan": 0,
+    "hecs_debt": 12000
+  },
+  "assets": {
+    "savings_account_balance": 110000,
+    "savings_held_months": 18,
+    "property_owned": [],
+    "shares_super": 210000
+  },
+  "household": {
+    "marital_status": "Single",
+    "dependants": 0
+  },
+  "expenses": {
+    "declared_monthly_living_expenses": 2400
+  },
+  "loan_request": {
+    "product": "BML-OO-VAR-01",
+    "purpose": "Purchase",
+    "property_address": "8 Myrtle Street, Malvern VIC 3144",
+    "purchase_price": 980000,
+    "loan_amount": 760000,
+    "term_years": 30,
+    "repayment_type": "P&I"
+  }
+}
