@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" font-family="'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 55 1160 570" font-family="'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1">
       <stop offset="0%" stop-color="#0c1222"/>
@@ -48,16 +48,16 @@
 
   <!-- ===== HEADER ===== -->
   <text x="600" y="52" text-anchor="middle" fill="#f1f5f9" font-size="38" font-weight="800" letter-spacing="6">LOAB</text>
-  <text x="600" y="78" text-anchor="middle" fill="#64748b" font-size="17.1" font-weight="500" letter-spacing="1">Lending Operations Agent Benchmark</text>
-  <text x="600" y="102" text-anchor="middle" fill="#475569" font-size="16.2">Multi-agent evaluation across the Australian mortgage lifecycle</text>
+  <text x="600" y="78" text-anchor="middle" fill="#64748b" font-size="14" font-weight="500" letter-spacing="1">Lending Operations Agent Benchmark</text>
+  <text x="600" y="102" text-anchor="middle" fill="#475569" font-size="12">Multi-agent evaluation across the Australian mortgage lifecycle</text>
 
   <!-- ===== MAIN FLOW — ROW 1: ORIGINATION PATH ===== -->
 
   <!-- Application input -->
   <rect x="42" y="155" width="120" height="95" rx="10" fill="#1a2332" stroke="#1e293b" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="102" y="193" text-anchor="middle" fill="#94a3b8" font-size="25.3">📋</text>
-  <text x="102" y="218" text-anchor="middle" fill="#cbd5e1" font-size="14.9" font-weight="600">Application</text>
-  <text x="102" y="234" text-anchor="middle" fill="#475569" font-size="13">profile.json</text>
+  <text x="102" y="193" text-anchor="middle" fill="#94a3b8" font-size="22">📋</text>
+  <text x="102" y="218" text-anchor="middle" fill="#cbd5e1" font-size="11" font-weight="600">Application</text>
+  <text x="102" y="234" text-anchor="middle" fill="#475569" font-size="9">profile.json</text>
 
   <!-- Arrow → PO -->
   <line x1="162" y1="202" x2="195" y2="202" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
@@ -65,32 +65,32 @@
   <!-- Processing Officer -->
   <rect x="200" y="148" width="150" height="108" rx="10" fill="url(#blueGlow)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
   <rect x="200" y="148" width="150" height="108" rx="10" fill="#0f1d32" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="275" y="183" text-anchor="middle" fill="#60a5fa" font-size="20.7">🔍</text>
-  <text x="275" y="205" text-anchor="middle" fill="#93c5fd" font-size="16.2" font-weight="700">Processing Officer</text>
-  <text x="275" y="222" text-anchor="middle" fill="#475569" font-size="13">KYC · Credit Bureau</text>
-  <text x="275" y="235" text-anchor="middle" fill="#475569" font-size="13">Income · Valuation</text>
-  <text x="275" y="248" text-anchor="middle" fill="#334155" font-size="11.6" font-style="italic">routes per policy</text>
+  <text x="275" y="183" text-anchor="middle" fill="#60a5fa" font-size="18">🔍</text>
+  <text x="275" y="205" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="700">Processing Officer</text>
+  <text x="275" y="222" text-anchor="middle" fill="#475569" font-size="9">KYC · Credit Bureau</text>
+  <text x="275" y="235" text-anchor="middle" fill="#475569" font-size="9">Income · Valuation</text>
+  <text x="275" y="248" text-anchor="middle" fill="#334155" font-size="8" font-style="italic">routes per policy</text>
 
   <!-- Arrow PO → UW (main path) -->
   <line x1="350" y1="190" x2="398" y2="190" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
 
   <!-- Underwriter -->
   <rect x="403" y="148" width="150" height="108" rx="10" fill="#0f1d20" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="478" y="183" text-anchor="middle" fill="#4ade80" font-size="20.7">⚖️</text>
-  <text x="478" y="205" text-anchor="middle" fill="#86efac" font-size="16.2" font-weight="700">Underwriter</text>
-  <text x="478" y="222" text-anchor="middle" fill="#475569" font-size="13">Serviceability · DTI</text>
-  <text x="478" y="235" text-anchor="middle" fill="#475569" font-size="13">LVR · Income Shading</text>
-  <text x="478" y="248" text-anchor="middle" fill="#334155" font-size="11.6" font-style="italic">PAYG prime files</text>
+  <text x="478" y="183" text-anchor="middle" fill="#4ade80" font-size="18">⚖️</text>
+  <text x="478" y="205" text-anchor="middle" fill="#86efac" font-size="12" font-weight="700">Underwriter</text>
+  <text x="478" y="222" text-anchor="middle" fill="#475569" font-size="9">Serviceability · DTI</text>
+  <text x="478" y="235" text-anchor="middle" fill="#475569" font-size="9">LVR · Income Shading</text>
+  <text x="478" y="248" text-anchor="middle" fill="#334155" font-size="8" font-style="italic">PAYG prime files</text>
 
   <!-- Arrow UW → Decision -->
   <line x1="553" y1="190" x2="598" y2="190" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-green)"/>
 
   <!-- Decision box -->
   <rect x="603" y="155" width="118" height="95" rx="10" fill="#1a2332" stroke="#1e293b" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="662" y="184" text-anchor="middle" fill="#e2e8f0" font-size="14.9" font-weight="700">Decision</text>
-  <text x="662" y="204" text-anchor="middle" fill="#4ade80" font-size="14.5" font-weight="600">✓ APPROVE</text>
-  <text x="662" y="220" text-anchor="middle" fill="#fbbf24" font-size="14.5" font-weight="600">⚠ CONDITIONAL</text>
-  <text x="662" y="236" text-anchor="middle" fill="#f87171" font-size="14.5" font-weight="600">✗ DECLINE</text>
+  <text x="662" y="184" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="700">Decision</text>
+  <text x="662" y="204" text-anchor="middle" fill="#4ade80" font-size="10" font-weight="600">✓ APPROVE</text>
+  <text x="662" y="220" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="600">⚠ CONDITIONAL</text>
+  <text x="662" y="236" text-anchor="middle" fill="#f87171" font-size="10" font-weight="600">✗ DECLINE</text>
 
   <!-- ===== ROW 2: ESCALATION PATHS ===== -->
 
@@ -105,110 +105,110 @@
 
   <!-- Fraud Analyst -->
   <rect x="185" y="303" width="140" height="80" rx="10" fill="#1d1608" stroke="#d97706" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="255" y="333" text-anchor="middle" fill="#fbbf24" font-size="19.5">🚨</text>
-  <text x="255" y="353" text-anchor="middle" fill="#fcd34d" font-size="14.9" font-weight="700">Fraud Analyst</text>
-  <text x="255" y="370" text-anchor="middle" fill="#475569" font-size="13">DVS mismatch · SAR · Synthetic ID</text>
+  <text x="255" y="333" text-anchor="middle" fill="#fbbf24" font-size="16">🚨</text>
+  <text x="255" y="353" text-anchor="middle" fill="#fcd34d" font-size="11" font-weight="700">Fraud Analyst</text>
+  <text x="255" y="370" text-anchor="middle" fill="#475569" font-size="9">DVS mismatch · SAR · Synthetic ID</text>
 
   <!-- Credit Manager -->
   <rect x="393" y="303" width="170" height="80" rx="10" fill="#160d2e" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="478" y="333" text-anchor="middle" fill="#c4b5fd" font-size="19.5">👔</text>
-  <text x="478" y="353" text-anchor="middle" fill="#c4b5fd" font-size="14.9" font-weight="700">Credit Manager</text>
-  <text x="478" y="370" text-anchor="middle" fill="#475569" font-size="13">Self-employed · Near-prime · Exceptions</text>
+  <text x="478" y="333" text-anchor="middle" fill="#c4b5fd" font-size="16">👔</text>
+  <text x="478" y="353" text-anchor="middle" fill="#c4b5fd" font-size="11" font-weight="700">Credit Manager</text>
+  <text x="478" y="370" text-anchor="middle" fill="#475569" font-size="9">Self-employed · Near-prime · Exceptions</text>
 
   <!-- ===== ROW 3: SERVICING ===== -->
 
   <rect x="42" y="415" width="520" height="65" rx="10" fill="#1a2332" stroke="#1e293b" stroke-width="1" filter="url(#shadow)"/>
-  <text x="52" y="438" fill="#64748b" font-size="14.5" font-weight="600" letter-spacing="1">POST-SETTLEMENT</text>
+  <text x="52" y="438" fill="#64748b" font-size="10" font-weight="600" letter-spacing="1">POST-SETTLEMENT</text>
 
   <!-- Collections -->
   <rect x="60" y="445" width="100" height="26" rx="5" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
-  <text x="110" y="462" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="600">Collections</text>
+  <text x="110" y="462" text-anchor="middle" fill="#93c5fd" font-size="9" font-weight="600">Collections</text>
 
   <!-- Hardship -->
   <rect x="175" y="445" width="115" height="26" rx="5" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
-  <text x="232" y="462" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="600">Hardship Assessor</text>
+  <text x="232" y="462" text-anchor="middle" fill="#93c5fd" font-size="9" font-weight="600">Hardship Assessor</text>
 
   <!-- Compliance -->
   <rect x="305" y="445" width="100" height="26" rx="5" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
-  <text x="355" y="462" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="600">Compliance</text>
+  <text x="355" y="462" text-anchor="middle" fill="#93c5fd" font-size="9" font-weight="600">Compliance</text>
 
   <!-- Closure -->
   <rect x="420" y="445" width="125" height="26" rx="5" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
-  <text x="482" y="462" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="600">Closure &amp; Discharge</text>
+  <text x="482" y="462" text-anchor="middle" fill="#93c5fd" font-size="9" font-weight="600">Closure &amp; Discharge</text>
 
   <!-- ===== RIGHT PANEL: SCORING ===== -->
 
   <rect x="760" y="148" width="400" height="340" rx="12" fill="#111827" stroke="#1e293b" stroke-width="1.5" filter="url(#shadow)"/>
 
-  <text x="960" y="178" text-anchor="middle" fill="#e2e8f0" font-size="18.3" font-weight="700" letter-spacing="1">SCORING RUBRIC</text>
+  <text x="960" y="178" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="700" letter-spacing="1">SCORING RUBRIC</text>
   <line x1="785" y1="192" x2="1135" y2="192" stroke="#1e293b" stroke-width="1"/>
 
   <!-- Score bars -->
   <!-- Tool Calls -->
-  <text x="800" y="222" fill="#94a3b8" font-size="14.9" font-weight="500">Tool Calls</text>
+  <text x="800" y="222" fill="#94a3b8" font-size="11" font-weight="500">Tool Calls</text>
   <rect x="905" y="210" width="200" height="16" rx="4" fill="#1e293b"/>
   <rect x="905" y="210" width="50" height="16" rx="4" fill="#3b82f6"/>
-  <text x="1120" y="222" text-anchor="end" fill="#64748b" font-size="14.5" font-weight="600">25%</text>
+  <text x="1120" y="222" text-anchor="end" fill="#64748b" font-size="10" font-weight="600">25%</text>
 
   <!-- Outcome -->
-  <text x="800" y="252" fill="#94a3b8" font-size="14.9" font-weight="500">Outcome</text>
+  <text x="800" y="252" fill="#94a3b8" font-size="11" font-weight="500">Outcome</text>
   <rect x="905" y="240" width="200" height="16" rx="4" fill="#1e293b"/>
   <rect x="905" y="240" width="60" height="16" rx="4" fill="#22c55e"/>
-  <text x="1120" y="252" text-anchor="end" fill="#64748b" font-size="14.5" font-weight="600">30%</text>
+  <text x="1120" y="252" text-anchor="end" fill="#64748b" font-size="10" font-weight="600">30%</text>
 
   <!-- Handoffs -->
-  <text x="800" y="282" fill="#94a3b8" font-size="14.9" font-weight="500">Handoffs</text>
+  <text x="800" y="282" fill="#94a3b8" font-size="11" font-weight="500">Handoffs</text>
   <rect x="905" y="270" width="200" height="16" rx="4" fill="#1e293b"/>
   <rect x="905" y="270" width="40" height="16" rx="4" fill="#a78bfa"/>
-  <text x="1120" y="282" text-anchor="end" fill="#64748b" font-size="14.5" font-weight="600">20%</text>
+  <text x="1120" y="282" text-anchor="end" fill="#64748b" font-size="10" font-weight="600">20%</text>
 
   <!-- Forbidden Actions -->
-  <text x="800" y="312" fill="#94a3b8" font-size="14.9" font-weight="500">Forbidden Actions</text>
+  <text x="800" y="312" fill="#94a3b8" font-size="11" font-weight="500">Forbidden Actions</text>
   <rect x="905" y="300" width="200" height="16" rx="4" fill="#1e293b"/>
   <rect x="905" y="300" width="30" height="16" rx="4" fill="#f59e0b"/>
-  <text x="1120" y="312" text-anchor="end" fill="#64748b" font-size="14.5" font-weight="600">15%</text>
+  <text x="1120" y="312" text-anchor="end" fill="#64748b" font-size="10" font-weight="600">15%</text>
 
   <!-- Evidence -->
-  <text x="800" y="342" fill="#94a3b8" font-size="14.9" font-weight="500">Evidence</text>
+  <text x="800" y="342" fill="#94a3b8" font-size="11" font-weight="500">Evidence</text>
   <rect x="905" y="330" width="200" height="16" rx="4" fill="#1e293b"/>
   <rect x="905" y="330" width="20" height="16" rx="4" fill="#64748b"/>
-  <text x="1120" y="342" text-anchor="end" fill="#64748b" font-size="14.5" font-weight="600">10%</text>
+  <text x="1120" y="342" text-anchor="end" fill="#64748b" font-size="10" font-weight="600">10%</text>
 
   <line x1="785" y1="360" x2="1135" y2="360" stroke="#1e293b" stroke-width="1"/>
 
   <!-- Key insight -->
-  <text x="960" y="385" text-anchor="middle" fill="#94a3b8" font-size="14.5" font-weight="500">Scored against ground-truth rubrics</text>
-  <text x="960" y="402" text-anchor="middle" fill="#64748b" font-size="14.5">per task  ·  per agent  ·  per step</text>
+  <text x="960" y="385" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="500">Scored against ground-truth rubrics</text>
+  <text x="960" y="402" text-anchor="middle" fill="#64748b" font-size="10">per task  ·  per agent  ·  per step</text>
 
   <!-- LLM callout -->
   <rect x="828" y="420" width="264" height="48" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
-  <text x="960" y="441" text-anchor="middle" fill="#cbd5e1" font-size="14.9" font-weight="600">Any LLM can play any role</text>
-  <text x="960" y="457" text-anchor="middle" fill="#475569" font-size="13">Configure per-agent model in run_config.json</text>
+  <text x="960" y="441" text-anchor="middle" fill="#cbd5e1" font-size="11" font-weight="600">Any LLM can play any role</text>
+  <text x="960" y="457" text-anchor="middle" fill="#475569" font-size="9">Configure per-agent model in run_config.json</text>
 
   <!-- ===== SCENARIO PILLS ===== -->
 
-  <text x="600" y="530" text-anchor="middle" fill="#475569" font-size="14.5" font-weight="600" letter-spacing="2">SCENARIOS</text>
+  <text x="600" y="530" text-anchor="middle" fill="#475569" font-size="10" font-weight="600" letter-spacing="2">SCENARIOS</text>
 
   <rect x="178" y="545" width="130" height="28" rx="14" fill="#0f2518" stroke="#22c55e" stroke-width="1"/>
-  <text x="243" y="563" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="600">PAYG Prime</text>
+  <text x="243" y="563" text-anchor="middle" fill="#4ade80" font-size="9" font-weight="600">PAYG Prime</text>
 
   <rect x="323" y="545" width="130" height="28" rx="14" fill="#1f1506" stroke="#d97706" stroke-width="1"/>
-  <text x="388" y="563" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="600">Self-Employed</text>
+  <text x="388" y="563" text-anchor="middle" fill="#fbbf24" font-size="9" font-weight="600">Self-Employed</text>
 
   <rect x="468" y="545" width="130" height="28" rx="14" fill="#2a0a0a" stroke="#ef4444" stroke-width="1"/>
-  <text x="533" y="563" text-anchor="middle" fill="#f87171" font-size="13" font-weight="600">Synthetic Identity</text>
+  <text x="533" y="563" text-anchor="middle" fill="#f87171" font-size="9" font-weight="600">Synthetic Identity</text>
 
   <rect x="613" y="545" width="130" height="28" rx="14" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
-  <text x="678" y="563" text-anchor="middle" fill="#60a5fa" font-size="13" font-weight="600">Hardship</text>
+  <text x="678" y="563" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="600">Hardship</text>
 
   <rect x="758" y="545" width="130" height="28" rx="14" fill="#1e1b2e" stroke="#8b5cf6" stroke-width="1"/>
-  <text x="823" y="563" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600">Loan Closure</text>
+  <text x="823" y="563" text-anchor="middle" fill="#c4b5fd" font-size="9" font-weight="600">Loan Closure</text>
 
   <!-- ===== FOOTER ===== -->
   <line x1="60" y1="595" x2="1140" y2="595" stroke="#1e293b" stroke-width="0.5"/>
-  <text x="600" y="618" text-anchor="middle" fill="#334155" font-size="14.5">5 applicant scenarios  ·  7 agent roles  ·  policy-driven handoffs  ·  ground-truth scoring</text>
+  <text x="600" y="618" text-anchor="middle" fill="#334155" font-size="10">5 applicant scenarios  ·  7 agent roles  ·  policy-driven handoffs  ·  ground-truth scoring</text>
 
   <!-- Dashed-line legend -->
   <line x1="870" y1="618" x2="892" y2="618" stroke="#64748b" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="898" y="621" fill="#475569" font-size="11.6">= escalation path</text>
+  <text x="898" y="621" fill="#475569" font-size="8">= escalation path</text>
 </svg>
