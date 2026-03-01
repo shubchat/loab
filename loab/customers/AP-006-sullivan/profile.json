@@ -20,7 +20,15 @@
     "gross_annual_base": 160000,
     "bonus_last_year": 20000,
     "bonus_prior_year": 16000,
-    "payroll_frequency": "Monthly"
+    "payroll_frequency": "Monthly",
+    "payslip": {
+      "payslip_date": "2025-02-14",
+      "pay_frequency": "Monthly",
+      "employer_name": "Northfield Strategy",
+      "gross_base_salary_annualised": 160000,
+      "gross_pay_this_period": 13333,
+      "bonus_ytd": 12000
+    }
   },
   "liabilities": {
     "credit_card_limit": 10000,

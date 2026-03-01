@@ -20,7 +20,15 @@
     "gross_annual_base": 120000,
     "bonus_last_year": 0,
     "bonus_prior_year": 0,
-    "payroll_frequency": "Monthly"
+    "payroll_frequency": "Monthly",
+    "payslip": {
+      "payslip_date": "2025-02-14",
+      "pay_frequency": "Monthly",
+      "employer_name": "Crestline Logistics",
+      "gross_base_salary_annualised": 120000,
+      "gross_pay_this_period": 10000,
+      "bonus_ytd": 0
+    }
   },
   "liabilities": {
     "credit_card_limit": 15000,

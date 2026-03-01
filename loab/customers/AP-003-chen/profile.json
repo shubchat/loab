@@ -15,7 +15,15 @@
   },
   "income": {
     "gross_annual_base": 180000,
-    "payroll_frequency": "Fortnightly"
+    "payroll_frequency": "Fortnightly",
+    "payslip": {
+      "payslip_date": "2025-02-07",
+      "pay_frequency": "Fortnightly",
+      "employer_name": "Bluegate Capital Partners Pty Ltd",
+      "gross_base_salary_annualised": 180000,
+      "gross_pay_this_period": 6923,
+      "bonus_ytd": 0
+    }
   },
   "liabilities": {
     "credit_card_limit": 5000,
