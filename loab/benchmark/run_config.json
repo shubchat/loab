@@ -10,6 +10,17 @@
     "fraud_analyst": "azure/gpt-5.2",
     "compliance_officer": "azure/gpt-5.2"
   },
+  "provider_settings": {
+    "azure": {
+      "api_key_env": "AZURE_API_KEY",
+      "api_base_env": "AZURE_API_BASE",
+      "api_version_env": "AZURE_API_VERSION"
+    },
+    "azure_ai": {
+      "api_key_env": "AZURE_API_KEY",
+      "api_base_env": "AZURE_ANTHROPIC_API_BASE"
+    }
+  },
   "customer_simulation_model": "<model-id>",
   "tasks_run": [
     "origination/task-01",

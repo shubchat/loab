@@ -128,6 +128,8 @@ At runtime, document fields from `pendingfiles.json` are injected into the appli
 
 Benchmark-wide model behavior can also be configured in `loab/benchmark/run_config.json`. If `reasoning_effort` is unset there, the runner uses the provider's default behavior. `LOAB_REASONING_EFFORT` overrides this at runtime.
 
+Provider connectivity is also configured in `loab/benchmark/run_config.json` under `provider_settings`. The runner reads provider-specific env var names from there (for example `azure/...` vs `azure_ai/...`) instead of hardcoding endpoint branches.
+
 Rubrics support:
 - step-scoped tool/evidence checks
 - forbidden action checks

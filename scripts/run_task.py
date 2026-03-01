@@ -139,6 +139,37 @@ def write_progress(path, payload):
     Path(path).write_text(json.dumps(payload, indent=2) + "\n")
 
 
+def build_completion_kwargs(model, provider_settings, reasoning_effort):
+    kwargs = {}
+    provider = model.split("/", 1)[0] if "/" in model else ""
+    settings = provider_settings.get(provider, {})
+    if not isinstance(settings, dict):
+        settings = {}
+
+    env_key_map = {
+        "api_key": "api_key_env",
+        "api_base": "api_base_env",
+        "api_version": "api_version_env",
+    }
+    for param_name, env_key_name in env_key_map.items():
+        env_var = settings.get(env_key_name)
+        if env_var:
+            value = os.getenv(env_var)
+            if value:
+                kwargs[param_name] = value
+
+    static_kwargs = settings.get("completion_kwargs", {})
+    if isinstance(static_kwargs, dict):
+        for key, value in static_kwargs.items():
+            if value is not None:
+                kwargs[key] = value
+
+    if reasoning_effort is not None:
+        kwargs["reasoning_effort"] = reasoning_effort
+
+    return kwargs
+
+
 def resolve_task_dir(task_id):
     direct = ROOT / "loab/tasks" / task_id
     if direct.exists():
@@ -504,6 +535,7 @@ def main():
 
     run_config = load_json(ROOT / "loab/benchmark/run_config.json")
     model_assignments = run_config.get("model_assignments", {})
+    provider_settings = run_config.get("provider_settings", {})
     reasoning_effort = os.getenv("LOAB_REASONING_EFFORT") or run_config.get("reasoning_effort")
 
     task_dir = resolve_task_dir(args.task)
@@ -623,25 +655,14 @@ def main():
                         "steps_completed": len(transcript),
                     },
                 )
-                if model.startswith("azure/"):
-                    resp = litellm.completion(
-                        model=model,
-                        messages=messages,
-                        tools=agent_tools,
-                        tool_choice="auto",
-                        api_key=os.getenv("AZURE_API_KEY"),
-                        api_base=os.getenv("AZURE_API_BASE"),
-                        api_version=os.getenv("AZURE_API_VERSION"),
-                        reasoning_effort=reasoning_effort,
-                    )
-                else:
-                    resp = litellm.completion(
-                        model=model,
-                        messages=messages,
-                        tools=agent_tools,
-                        tool_choice="auto",
-                        reasoning_effort=reasoning_effort,
-                    )
+                completion_kwargs = build_completion_kwargs(model, provider_settings, reasoning_effort)
+                resp = litellm.completion(
+                    model=model,
+                    messages=messages,
+                    tools=agent_tools,
+                    tool_choice="auto",
+                    **completion_kwargs,
+                )
 
                 msg = resp["choices"][0]["message"]
                 elapsed = round(time.time() - iter_started, 2)

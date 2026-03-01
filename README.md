@@ -49,4 +49,6 @@ loab/
 
 Tasks live under taxonomy subfolders (for example `loab/tasks/origination/task-01`). Use taxonomy-qualified task ids in the CLI, for example `--task origination/task-01`.
 
+Provider connection settings live in `loab/benchmark/run_config.json` under `provider_settings`, so the runner can switch between providers such as `azure/...` and `azure_ai/...` without hardcoded endpoint branches.
+
 See `CLAUDE.md` at the repo root for full architecture detail.
