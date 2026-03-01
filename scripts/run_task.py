@@ -4,6 +4,7 @@ import json
 import os
 import re
 import subprocess
+import time
 from pathlib import Path
 
 import litellm
@@ -117,6 +118,25 @@ def mcp_tools_to_openai(tools):
 
 def load_json(path):
     return json.loads(Path(path).read_text())
+
+
+def load_dotenv(path):
+    p = Path(path)
+    if not p.exists():
+        return
+    for raw in p.read_text().splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k = k.strip()
+        v = v.strip().strip('"').strip("'")
+        if k and k not in os.environ:
+            os.environ[k] = v
+
+
+def write_progress(path, payload):
+    Path(path).write_text(json.dumps(payload, indent=2) + "\n")
 
 
 def resolve_task_dir(task_id):
@@ -479,9 +499,12 @@ def main():
     parser.add_argument("--run_id", required=True)
     args = parser.parse_args()
 
+    load_dotenv(ROOT / "loab/.env")
+    load_dotenv(ROOT / ".env")
+
     run_config = load_json(ROOT / "loab/benchmark/run_config.json")
     model_assignments = run_config.get("model_assignments", {})
-    reasoning_effort = os.getenv("LOAB_REASONING_EFFORT")
+    reasoning_effort = os.getenv("LOAB_REASONING_EFFORT") or run_config.get("reasoning_effort")
 
     task_dir = resolve_task_dir(args.task)
     pending = load_json(task_dir / "pendingfiles.json")
@@ -512,6 +535,17 @@ def main():
 
     results_dir = ROOT / "loab/results" / args.run_id / args.task
     results_dir.mkdir(parents=True, exist_ok=True)
+    progress_path = results_dir / "progress.json"
+    write_progress(
+        progress_path,
+        {
+            "run_id": args.run_id,
+            "task": args.task,
+            "status": "starting",
+            "steps_completed": 0,
+        },
+    )
+    print(f"[{args.run_id}] task_start task={args.task}", flush=True)
 
     mcp = MCPClient()
     mcp.start()
@@ -529,6 +563,22 @@ def main():
         while current_agent and step_num <= max_workflow_steps:
             agent = current_agent
             objective = f"Execute step {step_num} as {agent}. Make a valid role decision and hand off only if the decision requires it."
+            model = model_assignments.get(agent)
+            if not model:
+                raise SystemExit(f"Missing model assignment for {agent}")
+            print(f"[{args.run_id}] step_start step={step_num} agent={agent} model={model}", flush=True)
+            write_progress(
+                progress_path,
+                {
+                    "run_id": args.run_id,
+                    "task": args.task,
+                    "status": "step_start",
+                    "current_step": step_num,
+                    "current_agent": agent,
+                    "model": model,
+                    "steps_completed": len(transcript),
+                },
+            )
 
             agent_prompt, decision_contract = load_agent_prompt_and_contract(agent)
             allowed_tool_names = extract_allowed_tool_names(agent_prompt)
@@ -557,10 +607,22 @@ def main():
             max_iters = 6
             assistant_response = ""
             loop_exhausted = True
-            for _ in range(max_iters):
-                model = model_assignments.get(agent)
-                if not model:
-                    raise SystemExit(f"Missing model assignment for {agent}")
+            for iter_num in range(1, max_iters + 1):
+                iter_started = time.time()
+                print(f"[{args.run_id}] llm_call step={step_num} iter={iter_num}", flush=True)
+                write_progress(
+                    progress_path,
+                    {
+                        "run_id": args.run_id,
+                        "task": args.task,
+                        "status": "llm_call",
+                        "current_step": step_num,
+                        "current_agent": agent,
+                        "iteration": iter_num,
+                        "model": model,
+                        "steps_completed": len(transcript),
+                    },
+                )
                 if model.startswith("azure/"):
                     resp = litellm.completion(
                         model=model,
@@ -582,8 +644,31 @@ def main():
                     )
 
                 msg = resp["choices"][0]["message"]
+                elapsed = round(time.time() - iter_started, 2)
 
                 if msg.get("tool_calls"):
+                    tool_names = [tool_call["function"]["name"] for tool_call in msg["tool_calls"]]
+                    print(
+                        f"[{args.run_id}] tool_calls step={step_num} iter={iter_num} "
+                        f"count={len(tool_names)} tools={','.join(tool_names)} llm_s={elapsed}",
+                        flush=True,
+                    )
+                    write_progress(
+                        progress_path,
+                        {
+                            "run_id": args.run_id,
+                            "task": args.task,
+                            "status": "tool_calls",
+                            "current_step": step_num,
+                            "current_agent": agent,
+                            "iteration": iter_num,
+                            "model": model,
+                            "llm_seconds": elapsed,
+                            "tool_names": tool_names,
+                            "tool_call_count_total": len(tool_calls_log) + len(tool_names),
+                            "steps_completed": len(transcript),
+                        },
+                    )
                     messages.append(msg)
                     for tool_call in msg["tool_calls"]:
                         name = tool_call["function"]["name"]
@@ -599,6 +684,24 @@ def main():
                     continue
                 else:
                     assistant_response = msg.get("content", "")
+                    print(
+                        f"[{args.run_id}] llm_final step={step_num} iter={iter_num} llm_s={elapsed}",
+                        flush=True,
+                    )
+                    write_progress(
+                        progress_path,
+                        {
+                            "run_id": args.run_id,
+                            "task": args.task,
+                            "status": "llm_final",
+                            "current_step": step_num,
+                            "current_agent": agent,
+                            "iteration": iter_num,
+                            "model": model,
+                            "llm_seconds": elapsed,
+                            "steps_completed": len(transcript),
+                        },
+                    )
                     loop_exhausted = False
                     break
 
@@ -635,6 +738,7 @@ def main():
                 "decision_contract_rule": decision_rule,
                 "protocol_error": protocol_error,
             })
+            (results_dir / "agent_transcript.partial.json").write_text(json.dumps(transcript, indent=2) + "\n")
 
             next_agent = decision_rule.get("next_agent") if decision_rule else None
             if isinstance(handoff_payload, dict):
@@ -646,6 +750,27 @@ def main():
                 }
                 handoffs.append(handoff_entry)
                 prior_handoffs.append(handoff_entry)
+                (results_dir / "handoffs.partial.json").write_text(json.dumps(handoffs, indent=2) + "\n")
+
+            print(
+                f"[{args.run_id}] step_end step={step_num} agent={agent} "
+                f"decision={decision_value} next={next_agent} protocol_error={protocol_error}",
+                flush=True,
+            )
+            write_progress(
+                progress_path,
+                {
+                    "run_id": args.run_id,
+                    "task": args.task,
+                    "status": "step_end",
+                    "current_step": step_num,
+                    "current_agent": agent,
+                    "decision": decision_value,
+                    "next_agent": next_agent,
+                    "protocol_error": protocol_error,
+                    "steps_completed": len(transcript),
+                },
+            )
 
             if protocol_error:
                 workflow_stop_reason = protocol_error
@@ -672,6 +797,17 @@ def main():
         if step_num > max_workflow_steps and current_agent:
             workflow_stop_reason = f"max_steps_exceeded:{max_workflow_steps}"
 
+        write_progress(
+            progress_path,
+            {
+                "run_id": args.run_id,
+                "task": args.task,
+                "status": "completed",
+                "steps_completed": len(transcript),
+                "stop_reason": workflow_stop_reason,
+            },
+        )
+
         (results_dir / "agent_transcript.json").write_text(json.dumps(transcript, indent=2) + "\n")
         (results_dir / "handoffs.json").write_text(json.dumps(handoffs, indent=2) + "\n")
         (results_dir / "orchestrator.json").write_text(
@@ -689,6 +825,22 @@ def main():
 
         score = score_run(rubric, transcript, handoffs)
         (results_dir / "score.json").write_text(json.dumps(score, indent=2) + "\n")
+
+        final_decision = None
+        if transcript:
+            final_decision = (transcript[-1].get("decision_json") or {}).get("decision")
+        print(
+            json.dumps(
+                {
+                    "run_id": args.run_id,
+                    "task": args.task,
+                    "steps_executed": len(transcript),
+                    "final_decision": final_decision,
+                    "passed": score.get("passed"),
+                    "score_path": str(results_dir / "score.json"),
+                }
+            )
+        )
 
     finally:
         mcp.stop()

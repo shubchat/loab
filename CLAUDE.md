@@ -126,6 +126,8 @@ Tasks live under taxonomy folders (for example `loab/tasks/origination/task-01`)
 
 At runtime, document fields from `pendingfiles.json` are injected into the applicant file seen by agents.
 
+Benchmark-wide model behavior can also be configured in `loab/benchmark/run_config.json`. Current default: `reasoning_effort: "xhigh"` for GPT-5.2 benchmark runs. `LOAB_REASONING_EFFORT` overrides this at runtime.
+
 Rubrics support:
 - step-scoped tool/evidence checks
 - forbidden action checks
