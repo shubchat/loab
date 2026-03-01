@@ -10,7 +10,6 @@
     "fraud_analyst": "azure/gpt-5.2",
     "compliance_officer": "azure/gpt-5.2"
   },
-  "reasoning_effort": "xhigh",
   "customer_simulation_model": "<model-id>",
   "tasks_run": [
     "origination/task-01",
