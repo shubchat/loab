@@ -119,6 +119,21 @@ def load_json(path):
     return json.loads(Path(path).read_text())
 
 
+def resolve_task_dir(task_id):
+    direct = ROOT / "loab/tasks" / task_id
+    if direct.exists():
+        return direct
+    matches = [p for p in (ROOT / "loab/tasks").rglob(task_id) if p.is_dir()]
+    if not matches:
+        raise SystemExit(f"Task not found: {task_id}")
+    if len(matches) > 1:
+        raise SystemExit(
+            f"Task id is ambiguous ({task_id}); use a taxonomy-qualified id such as "
+            f"'origination/task-01': {[str(p) for p in matches]}"
+        )
+    return matches[0]
+
+
 def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs):
     prompt = []
     prompt.append(f"Current Step Objective: {objective}\n")
@@ -460,14 +475,15 @@ def score_run(rubric, transcript, handoffs):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", required=True)
+    parser.add_argument("--task", required=True, help="Taxonomy-qualified task id, e.g. origination/task-01")
     parser.add_argument("--run_id", required=True)
     args = parser.parse_args()
 
     run_config = load_json(ROOT / "loab/benchmark/run_config.json")
     model_assignments = run_config.get("model_assignments", {})
+    reasoning_effort = os.getenv("LOAB_REASONING_EFFORT")
 
-    task_dir = ROOT / "loab/tasks" / args.task
+    task_dir = resolve_task_dir(args.task)
     pending = load_json(task_dir / "pendingfiles.json")
     rubric = load_json(task_dir / "rubric.json")
     task_md = (task_dir / "task.md").read_text()
@@ -554,9 +570,16 @@ def main():
                         api_key=os.getenv("AZURE_API_KEY"),
                         api_base=os.getenv("AZURE_API_BASE"),
                         api_version=os.getenv("AZURE_API_VERSION"),
+                        reasoning_effort=reasoning_effort,
                     )
                 else:
-                    resp = litellm.completion(model=model, messages=messages, tools=agent_tools, tool_choice="auto")
+                    resp = litellm.completion(
+                        model=model,
+                        messages=messages,
+                        tools=agent_tools,
+                        tool_choice="auto",
+                        reasoning_effort=reasoning_effort,
+                    )
 
                 msg = resp["choices"][0]["message"]
 

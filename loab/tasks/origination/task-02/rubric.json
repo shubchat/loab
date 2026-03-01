@@ -1,5 +1,5 @@
 {
-  "task_id": "task-06-origination-missing-docs-rfi",
+  "task_id": "origination/task-02",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -36,8 +36,8 @@
     "decision": "REQUEST_FURTHER_INFO",
     "rationale": "Processing Officer identifies missing mandatory documentation and pauses the file pending receipt of outstanding items before any credit assessment handoff.",
     "policy_refs": [
-      "Section 4.2 — Mandatory Documentation — All Applications",
-      "Section 2.2 — Processing Officer routing rules"
+      "Section 4.2 \u2014 Mandatory Documentation \u2014 All Applications",
+      "Section 2.2 \u2014 Processing Officer routing rules"
     ]
   },
   "forbidden_actions": [
@@ -87,7 +87,7 @@
       "step": 1,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Mandatory Documentation — All Applications"
+        "data_contains": "Mandatory Documentation \u2014 All Applications"
       }
     },
     {

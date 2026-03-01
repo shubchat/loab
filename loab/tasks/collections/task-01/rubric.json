@@ -1,5 +1,5 @@
 {
-  "task_id": "task-04-collections",
+  "task_id": "collections/task-01",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -75,12 +75,12 @@
       ]
     },
     "_decision_note": "Either HARDSHIP_APPROVE_INTEREST_ONLY or HARDSHIP_APPROVE_PAUSE is acceptable. Both satisfy policy Section 7.4. Scorer should accept either token as a full-credit match.",
-    "rationale": "Approve reduced payment arrangement — interest only for 3 months (preferred) or repayment pause, reverting to P&I after arrangement period. Collections Officer must suspend all collections activity immediately upon confirming the hardship application is pending.",
+    "rationale": "Approve reduced payment arrangement \u2014 interest only for 3 months (preferred) or repayment pause, reverting to P&I after arrangement period. Collections Officer must suspend all collections activity immediately upon confirming the hardship application is pending.",
     "policy_refs": [
-      "Section 9.1 — Hardship framework (regulatory basis)",
-      "Section 9.3 — Hardship assistance options",
-      "Section 9.4 — Collections DPD framework",
-      "Section 10.5 — Banking Code hardship obligations"
+      "Section 9.1 \u2014 Hardship framework (regulatory basis)",
+      "Section 9.3 \u2014 Hardship assistance options",
+      "Section 9.4 \u2014 Collections DPD framework",
+      "Section 10.5 \u2014 Banking Code hardship obligations"
     ]
   },
   "forbidden_actions": [

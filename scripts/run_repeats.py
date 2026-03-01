@@ -12,6 +12,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def slugify_task(task: str) -> str:
+    return task.strip().replace("/", "-")
+
+
 def load_dotenv(path: Path):
     if not path.exists():
         return
@@ -102,7 +106,7 @@ def summarize(runs):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--task", required=True, help="Task folder name, e.g. task-01-origination")
+    parser.add_argument("--task", required=True, help="Taxonomy-qualified task id, e.g. origination/task-01")
     parser.add_argument("--n", type=int, default=5, help="Number of repeated runs")
     parser.add_argument("--prefix", default="batch", help="Run id prefix")
     parser.add_argument("--python-bin", default=sys.executable, help="Python binary for run_task.py")
@@ -110,10 +114,12 @@ def main():
     args = parser.parse_args()
 
     if args.load_env:
+        load_dotenv(ROOT / "loab/.env")
         load_dotenv(ROOT / ".env")
 
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
-    batch_id = f"{args.prefix}-{args.task}-{ts}"
+    task_slug = slugify_task(args.task)
+    batch_id = f"{args.prefix}-{task_slug}-{ts}"
     print(f"Batch: {batch_id}")
     print(f"Task:  {args.task}")
     print(f"Runs:  {args.n}")

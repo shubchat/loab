@@ -1,5 +1,5 @@
 {
-  "task_id": "task-10-origination-fraud-thinfile-halt",
+  "task_id": "compliance/task-01",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -89,12 +89,12 @@
   ],
   "expected_outcome": {
     "decision": "FRAUD_REVIEW_HALT",
-    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer — no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit outcome (approval or decline) is communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
+    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer \u2014 no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit outcome (approval or decline) is communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
     "policy_refs": [
-      "Section 8.2 — Document fraud indicators",
-      "Section 8.3 — Synthetic identity indicators",
-      "Section 8.4 — Fraud escalation procedure",
-      "Section 3.3 — DVS requirements"
+      "Section 8.2 \u2014 Document fraud indicators",
+      "Section 8.3 \u2014 Synthetic identity indicators",
+      "Section 8.4 \u2014 Fraud escalation procedure",
+      "Section 3.3 \u2014 DVS requirements"
     ]
   },
   "forbidden_actions": [

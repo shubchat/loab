@@ -13,7 +13,7 @@ python loab/company/mock_apis/server/mcp_server.py
 Set `LOAB_TASK_ID` to resolve applicant context automatically:
 
 ```bash
-LOAB_TASK_ID=task-01-origination python loab/company/mock_apis/server/mcp_server.py
+LOAB_TASK_ID=origination/task-01 python loab/company/mock_apis/server/mcp_server.py
 ```
 
 If `applicant_id` is provided in tool arguments, it takes precedence.

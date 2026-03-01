@@ -1,5 +1,5 @@
 {
-  "task_id": "task-01-origination",
+  "task_id": "origination/task-01",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -96,13 +96,13 @@
     "decision": "APPROVE",
     "rationale": "All primary checks pass: DVS PASS, watchlist/PEP CLEAR, Equifax 782, ATO income confirmed $185,000, CoreLogic valuation $1,260,000, LVR 80%, DTI 5.1x. PAYG employment verified via payslips/payroll deposits; no escalation required.",
     "policy_refs": [
-      "Section 4.2 — Mandatory documentation",
-      "Section 5.2 — Income Types and Shading Rules",
-      "Section 5.5 — DTI ratio and elevated buffer",
-      "Section 5.7 — Genuine savings",
-      "Section 6.1 — Credit Bureau Assessment",
-      "Section 6.3 — LVR policy",
-      "Section 2.1 — Delegated authority framework"
+      "Section 4.2 \u2014 Mandatory documentation",
+      "Section 5.2 \u2014 Income Types and Shading Rules",
+      "Section 5.5 \u2014 DTI ratio and elevated buffer",
+      "Section 5.7 \u2014 Genuine savings",
+      "Section 6.1 \u2014 Credit Bureau Assessment",
+      "Section 6.3 \u2014 LVR policy",
+      "Section 2.1 \u2014 Delegated authority framework"
     ]
   },
   "expected_outcome_fields": {

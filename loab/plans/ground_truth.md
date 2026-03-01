@@ -6,15 +6,14 @@ Moved decision ground truth from applicant profiles into task rubrics, fixed tas
 ## What Changed
 - Task rubrics are now the single source of truth for expected tool calls, handoffs, outcomes, and evidence.
 - Applicant profiles no longer contain `expected_*` fields.
-- `task-03-servicing/context/applicant.json` aligned to AP-005 to match `agents.json`.
+- Servicing scenario aligned to AP-005 under `loab/tasks/servicing/task-01/`.
 
 ## Files Updated
-- `loab/tasks/task-01-origination/rubric.json`
-- `loab/tasks/task-02-decisioning/rubric.json`
-- `loab/tasks/task-03-servicing/rubric.json`
-- `loab/tasks/task-04-collections/rubric.json`
-- `loab/tasks/task-05-compliance/rubric.json`
-- `loab/tasks/task-03-servicing/context/applicant.json`
+- `loab/tasks/origination/task-01/rubric.json`
+- `loab/tasks/decisioning/task-01/rubric.json`
+- `loab/tasks/servicing/task-01/rubric.json`
+- `loab/tasks/collections/task-01/rubric.json`
+- `loab/tasks/compliance/task-01/rubric.json`
 - `loab/customers/AP-001-mitchell/profile.json`
 - `loab/customers/AP-002-ferretti/profile.json`
 - `loab/customers/AP-003-chen/profile.json`
@@ -38,6 +37,6 @@ Each `expected_evidence` entry includes:
 
 ## Decisions / Conventions
 - Ground truth is stored in tasks only (not profiles).
-- `agents.json` is the canonical task→applicant mapping.
+- `pendingfiles.json` is the canonical task→applicant runtime mapping.
 - Strict matching for tool call arguments.
 - Evidence-based validation required for correct tool use.

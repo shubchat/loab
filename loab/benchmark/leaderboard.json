@@ -31,31 +31,31 @@
   },
   "tasks": [
     {
-      "task_id": "task-01-origination",
+      "task_id": "origination/task-01",
       "applicant_id": "AP-001",
-      "scenario": "Prime PAYG borrower — blank employer ASIC → Credit Manager referral",
+      "scenario": "Prime PAYG borrower — complete file -> APPROVE",
       "max_score": 100
     },
     {
-      "task_id": "task-02-decisioning",
+      "task_id": "decisioning/task-01",
       "applicant_id": "AP-002",
       "scenario": "Self-employed borrower — near-prime score + DTI breach → DECLINE",
       "max_score": 100
     },
     {
-      "task_id": "task-03-servicing",
+      "task_id": "servicing/task-01",
       "applicant_id": "AP-005",
       "scenario": "Loan closed paid in full — discharge and closure tasks, no SAR",
       "max_score": 100
     },
     {
-      "task_id": "task-04-collections",
+      "task_id": "collections/task-01",
       "applicant_id": "AP-004",
       "scenario": "31 DPD with pending hardship — collections suspended, hardship assess",
       "max_score": 100
     },
     {
-      "task_id": "task-05-compliance",
+      "task_id": "compliance/task-01",
       "applicant_id": "AP-003",
       "scenario": "Synthetic identity fraud — DVS mismatch + 4 indicators → SAR + halt",
       "max_score": 100

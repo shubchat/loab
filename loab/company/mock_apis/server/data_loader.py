@@ -33,7 +33,16 @@ class MockApiData:
         task_id = task_id or os.environ.get("LOAB_TASK_ID")
         if not task_id:
             return None
-        pending = self.root.parent.parent / "tasks" / task_id / "pendingfiles.json"
+        tasks_root = self.root.parent.parent / "tasks"
+        direct = tasks_root / task_id / "pendingfiles.json"
+        if direct.exists():
+            pending = direct
+        else:
+            matches = [p / "pendingfiles.json" for p in tasks_root.rglob(task_id) if p.is_dir() and (p / "pendingfiles.json").exists()]
+            if len(matches) == 1:
+                pending = matches[0]
+            else:
+                return None
         data = _read_json(pending)
         if not data:
             return None

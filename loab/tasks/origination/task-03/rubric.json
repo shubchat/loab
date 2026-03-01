@@ -1,5 +1,5 @@
 {
-  "task_id": "task-08-origination-payg-subprime-hard-decline",
+  "task_id": "origination/task-03",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -13,33 +13,33 @@
       "step": 1,
       "tool": "greenid_verify",
       "arguments": {
-        "full_name": "Chloe Anne Parker",
-        "dob": "1992-10-03",
-        "residential_address": "14 Norfolk Road, Preston VIC 3072"
+        "full_name": "Nathan Paul Reeves",
+        "dob": "1988-02-11",
+        "residential_address": "5 Orchard Lane, Coburg VIC 3058"
       }
     },
     {
       "step": 1,
       "tool": "equifax_pull",
       "arguments": {
-        "full_name": "Chloe Anne Parker",
-        "dob": "1992-10-03",
-        "residential_address": "14 Norfolk Road, Preston VIC 3072"
+        "full_name": "Nathan Paul Reeves",
+        "dob": "1988-02-11",
+        "residential_address": "5 Orchard Lane, Coburg VIC 3058"
       }
     },
     {
       "step": 1,
       "tool": "corelogic_valuation",
       "arguments": {
-        "property_address": "27 Rowan Crescent, Reservoir VIC 3073"
+        "property_address": "31 Willow Street, Brunswick East VIC 3057"
       }
     },
     {
       "step": 1,
       "tool": "ato_income_verify",
       "arguments": {
-        "tfn": "818001",
-        "income_claimed": 165000
+        "tfn": "718001",
+        "income_claimed": 120000
       }
     },
     {
@@ -53,6 +53,13 @@
       "step": 2,
       "tool": "policy_lookup",
       "arguments": {
+        "section": "Section 5.5"
+      }
+    },
+    {
+      "step": 2,
+      "tool": "policy_lookup",
+      "arguments": {
         "section": "Section 6.1"
       }
     },
@@ -60,7 +67,7 @@
       "step": 2,
       "tool": "policy_lookup",
       "arguments": {
-        "section": "Section 2.3"
+        "section": "Section 5.2"
       }
     }
   ],
@@ -88,10 +95,11 @@
   ],
   "expected_outcome": {
     "decision": "DECLINE",
-    "rationale": "Equifax score below 580 is a hard decline under policy. Processing Officer must refer to Credit Manager for hard-decline finalisation; no exception pathway is available.",
+    "rationale": "Near-prime score (580\u2013649) requires Credit Manager authority and assessed DTI exceeds the 6.0x hard limit, resulting in decline with no exception pathway.",
     "policy_refs": [
-      "Section 2.3 — Mandatory Referral Triggers",
-      "Section 6.1 — Credit Bureau Assessment"
+      "Section 2.3 \u2014 Mandatory Referral Triggers",
+      "Section 6.1 \u2014 Credit Bureau Assessment",
+      "Section 5.5 \u2014 Debt-to-Income (DTI) Ratio"
     ]
   },
   "forbidden_actions": [
@@ -111,7 +119,7 @@
       "step": 2,
       "type": "tool_call",
       "tool": "policy_exception_register",
-      "reason": "Sub-prime score < 580 is a hard policy limit with no exception pathway."
+      "reason": "DTI > 6.0x is a hard policy limit with no exception pathway."
     },
     {
       "step": 2,
@@ -120,7 +128,7 @@
         "APPROVE",
         "CONDITIONAL_APPROVE"
       ],
-      "reason": "Sub-prime score < 580 must be declined under Section 6.1."
+      "reason": "Task ground truth expects decline due to near-prime routing and DTI > 6.0x hard limit."
     }
   ],
   "expected_evidence": [
@@ -137,15 +145,15 @@
       "step": 1,
       "tool": "equifax_pull",
       "must_include": {
-        "score": 552
+        "score": 623
       }
     },
     {
       "step": 1,
       "tool": "ato_income_verify",
       "must_include": {
-        "tfn": "818001",
-        "verified_income": 165000,
+        "tfn": "718001",
+        "verified_income": 120000,
         "status": "CONFIRMED"
       }
     },
@@ -153,13 +161,14 @@
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Credit Bureau Assessment"
+        "data_contains": "Debt-to-Income (DTI) Ratio"
       }
     },
     {
       "step": 2,
+      "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "No exceptions"
+        "data_contains": "Credit Bureau Assessment"
       }
     }
   ],

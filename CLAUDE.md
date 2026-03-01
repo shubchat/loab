@@ -43,10 +43,11 @@ Customer simulation prompts exist (`simulation_prompt.md`) but a live customer-s
     │       ├── backstory.md
     │       └── simulation_prompt.md
     ├── tasks/
-    │   └── task-0N-<domain>/
-    │       ├── task.md
-    │       ├── pendingfiles.json
-    │       └── rubric.json
+    │   ├── <taxonomy>/
+    │   │   └── task-0N/
+    │   │       ├── task.md
+    │   │       ├── pendingfiles.json
+    │   │       └── rubric.json
     └── results/                ← run outputs (gitignored)
 ```
 
@@ -82,10 +83,10 @@ Example model assignment: `azure/gpt-5.2`
 python loab/company/mock_apis/server/mcp_server.py
 
 # Resolve applicant context from task
-LOAB_TASK_ID=task-01-origination python loab/company/mock_apis/server/mcp_server.py
+LOAB_TASK_ID=origination/task-01 python loab/company/mock_apis/server/mcp_server.py
 
 # Enable write-tool audit logging
-LOAB_TASK_ID=task-04-collections LOAB_RUN_ID=run-20250224-001 \
+LOAB_TASK_ID=collections/task-01 LOAB_RUN_ID=run-20250224-001 \
   python loab/company/mock_apis/server/mcp_server.py
 ```
 
@@ -113,6 +114,8 @@ Each task folder contains:
 - `task.md` — scenario description (`Situation` only; no rubric/checklist leakage)
 - `pendingfiles.json` — runtime application context
 - `rubric.json` — scoring ground truth
+
+Tasks live under taxonomy folders (for example `loab/tasks/origination/task-01`). Use taxonomy-qualified task ids in the CLI, for example `--task origination/task-01`.
 
 `pendingfiles.json` currently supports:
 - `starting_agent`
@@ -186,7 +189,7 @@ All policy, rate, and product references use fictional **Meridian Bank**.
 ## Adding new content
 
 - **New applicant**: add `loab/customers/AP-00N-<surname>/` with `profile.json`, `backstory.md`, `simulation_prompt.md`
-- **New task**: add `loab/tasks/task-0N-<domain>/` with `task.md`, `pendingfiles.json`, `rubric.json`
+- **New task**: add `loab/tasks/<taxonomy>/task-0N/` with `task.md`, `pendingfiles.json`, `rubric.json`; keep numbering sequential within each taxonomy
 - **New agent role**: add `loab/agents/<role>/prompt.md`
 - **New mock API data**: update `loab/company/mock_apis/<provider>/data.json` using realistic query keys (not applicant IDs)
 - **Application document context**: keep document availability/extracted fields in `pendingfiles.json` (`documents_submitted`, `application_documents`), not in customer profile files

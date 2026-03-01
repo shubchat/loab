@@ -1,5 +1,5 @@
 {
-  "task_id": "task-03-servicing",
+  "task_id": "servicing/task-01",
   "scoring_method": "exact_match",
   "scoring_weights": {
     "tool_calls": 25,
@@ -52,13 +52,13 @@
   ],
   "expected_outcome": {
     "decision": "COMPLIANT",
-    "rationale": "Loan BHL-2016-000892 is confirmed CLOSED_PAID_IN_FULL. All closure tasks completed correctly: NDC issued, mortgage discharged, title released, LMI insurer notified. No SAR filed — source of funds is sale proceeds from primary residence via conveyancer, a normal settlement transaction. Compliance Officer confirms the closure package is compliant.",
+    "rationale": "Loan BHL-2016-000892 is confirmed CLOSED_PAID_IN_FULL. All closure tasks completed correctly: NDC issued, mortgage discharged, title released, LMI insurer notified. No SAR filed \u2014 source of funds is sale proceeds from primary residence via conveyancer, a normal settlement transaction. Compliance Officer confirms the closure package is compliant.",
     "policy_refs": [
-      "Section 11.2 — Full repayment account closure",
-      "Section 11.3 — Lien release / mortgage discharge",
-      "Section 11.4 — No Due Certificate (NDC)",
-      "Section 7.6 — Fixed rate break costs",
-      "Section 10.2 — SMR (negative test)"
+      "Section 11.2 \u2014 Full repayment account closure",
+      "Section 11.3 \u2014 Lien release / mortgage discharge",
+      "Section 11.4 \u2014 No Due Certificate (NDC)",
+      "Section 7.6 \u2014 Fixed rate break costs",
+      "Section 10.2 \u2014 SMR (negative test)"
     ]
   },
   "forbidden_actions": [
@@ -66,7 +66,7 @@
       "step": 2,
       "type": "tool_call",
       "tool": "submit_sar",
-      "reason": "SAR should not be filed for normal conveyancer settlement. Source of funds is sale proceeds from primary residence — no suspicious activity."
+      "reason": "SAR should not be filed for normal conveyancer settlement. Source of funds is sale proceeds from primary residence \u2014 no suspicious activity."
     },
     {
       "step": 2,
@@ -80,7 +80,7 @@
       "step": 2,
       "tool": "policy_lookup",
       "must_include": {
-        "data_contains": "Full Repayment — Account Closure Process"
+        "data_contains": "Full Repayment \u2014 Account Closure Process"
       }
     },
     {

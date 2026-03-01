@@ -42,9 +42,11 @@ loab/
 ├── company/                  ← Meridian Bank artefacts + mock APIs
 ├── customers/                ← synthetic applicant profiles + simulation prompts
 ├── agents/                   ← bank role definitions (prompt.md per role)
-├── tasks/                    ← task definitions (`task.md`, `pendingfiles.json`, `rubric.json`)
+├── tasks/                    ← task taxonomies + task definitions (`task.md`, `pendingfiles.json`, `rubric.json`)
 ├── results/                  ← run outputs (gitignored)
 └── benchmark/                ← run_config.json, scoring rubric, leaderboard
 ```
+
+Tasks live under taxonomy subfolders (for example `loab/tasks/origination/task-01`). Use taxonomy-qualified task ids in the CLI, for example `--task origination/task-01`.
 
 See `CLAUDE.md` at the repo root for full architecture detail.
