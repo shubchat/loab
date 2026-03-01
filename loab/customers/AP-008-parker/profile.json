@@ -20,15 +20,7 @@
     "gross_annual_base": 165000,
     "bonus_last_year": 18000,
     "bonus_prior_year": 12000,
-    "payroll_frequency": "Monthly",
-    "payslip": {
-      "payslip_date": "2025-02-14",
-      "pay_frequency": "Monthly",
-      "employer_name": "Helix Digital Media",
-      "gross_base_salary_annualised": 165000,
-      "gross_pay_this_period": 13750,
-      "bonus_ytd": 9000
-    }
+    "payroll_frequency": "Monthly"
   },
   "liabilities": {
     "credit_card_limit": 8000,

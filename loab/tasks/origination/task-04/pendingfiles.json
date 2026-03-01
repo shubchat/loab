@@ -27,7 +27,12 @@
       "count": 2,
       "employer_name": "Helix Digital Media",
       "employment_type": "PAYG Full-Time",
-      "base_income_annual": 165000
+      "base_income_annual": 165000,
+      "latest_payslip_date": "2025-02-14",
+      "pay_frequency": "Monthly",
+      "gross_base_salary_annualised": 165000,
+      "gross_pay_this_period": 13750,
+      "bonus_ytd": 9000
     },
     "bank_statements_6mo": {
       "provided": true,

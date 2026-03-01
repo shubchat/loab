@@ -33,7 +33,12 @@
       "count": 2,
       "employer_name": "Bluegate Capital Partners Pty Ltd",
       "employment_type": "PAYG Full-Time",
-      "base_income_annual": 180000
+      "base_income_annual": 180000,
+      "latest_payslip_date": "2025-02-07",
+      "pay_frequency": "Fortnightly",
+      "gross_base_salary_annualised": 180000,
+      "gross_pay_this_period": 6923,
+      "bonus_ytd": 0
     },
     "bank_statements_6mo": {
       "provided": true,

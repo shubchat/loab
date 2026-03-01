@@ -28,7 +28,12 @@
       "count": 2,
       "employer_name": "Mariner Advisory",
       "employment_type": "PAYG Full-Time",
-      "base_income_annual": 185000
+      "base_income_annual": 185000,
+      "latest_payslip_date": "2025-02-14",
+      "pay_frequency": "Monthly",
+      "gross_base_salary_annualised": 185000,
+      "gross_pay_this_period": 15417,
+      "bonus_ytd": 28000
     },
     "bank_statements_6mo": {
       "provided": true,

@@ -20,15 +20,7 @@
     "gross_annual_base": 185000,
     "bonus_last_year": 42000,
     "bonus_prior_year": 36000,
-    "payroll_frequency": "Monthly",
-    "payslip": {
-      "payslip_date": "2025-02-14",
-      "pay_frequency": "Monthly",
-      "employer_name": "Mariner Advisory",
-      "gross_base_salary_annualised": 185000,
-      "gross_pay_this_period": 15417,
-      "bonus_ytd": 28000
-    }
+    "payroll_frequency": "Monthly"
   },
   "liabilities": {
     "credit_card_limit": 12000,
