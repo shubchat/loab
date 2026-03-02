@@ -180,6 +180,31 @@ python scripts/export_benchmark_comparison.py \
 
 ---
 
+## Citation
+
+If you use LOAB in research, evaluation infrastructure, benchmark derivatives, or public writeups, cite the repository and link back to it.
+
+Suggested citation:
+
+```bibtex
+@misc{loab2026,
+  title        = {LOAB: Lending Operations Agent Benchmark},
+  author       = {Shubh Chatterjee},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  note         = {Benchmark for multi-agent, tool-using lending workflows}
+}
+```
+
+At minimum, include:
+- `LOAB — Lending Operations Agent Benchmark`
+- the repository link
+- the date or commit used for the evaluation
+
+---
+
 ## License
 
-[Add license info]
+This repository is released under the MIT License.
+
+You may use, modify, and build on LOAB, including for commercial use, provided the license and copyright notice are preserved.
