@@ -1,0 +1,16 @@
+{
+  "suite_name": "origination-poc-3x4-claude",
+  "prefix": "suite",
+  "tasks": [
+    "origination/task-01",
+    "origination/task-02",
+    "origination/task-03"
+  ],
+  "simulations_per_task": 4,
+  "model_runs": [
+    {
+      "label": "claude-opus-4.6",
+      "run_config": "loab/benchmark/run_configs/claude_opus_4_6_all.json"
+    }
+  ]
+}

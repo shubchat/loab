@@ -471,7 +471,7 @@ def score_run(rubric, transcript, handoffs):
         ev_tool = ev.get("tool")
         found = False
         for step in (_step_transcript(ev_step, transcript) if ev_step is not None else transcript):
-            text = step.get("assistant_response", "") + json.dumps(step.get("handoff_payload", {}))
+            text = step.get("assistant_response", "") + json.dumps(step.get("handoff_payload", {}), ensure_ascii=False)
             tool_calls = [tc for tc in step.get("tool_calls", []) if tc.get("name")]
 
             # If rubric names a tool, evaluate evidence against each matching call result
@@ -479,7 +479,7 @@ def score_run(rubric, transcript, handoffs):
             if ev_tool:
                 matching_calls = [tc for tc in tool_calls if tc.get("name") == ev_tool]
                 for tc in matching_calls:
-                    tool_result_text = json.dumps(tc.get("result", {}))
+                    tool_result_text = json.dumps(tc.get("result", {}), ensure_ascii=False)
                     if _evidence_checks_pass(must_include, text, tool_result_text):
                         found = True
                         break
@@ -488,7 +488,7 @@ def score_run(rubric, transcript, handoffs):
                 continue
 
             # Tool-agnostic evidence: search all tool results for the step plus assistant/handoff text.
-            tool_result_text = json.dumps([tc.get("result", {}) for tc in tool_calls])
+            tool_result_text = json.dumps([tc.get("result", {}) for tc in tool_calls], ensure_ascii=False)
             if _evidence_checks_pass(must_include, text, tool_result_text):
                 found = True
                 break
@@ -529,12 +529,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--task", required=True, help="Taxonomy-qualified task id, e.g. origination/task-01")
     parser.add_argument("--run_id", required=True)
+    parser.add_argument(
+        "--run-config",
+        default=str(ROOT / "loab/benchmark/run_config.json"),
+        help="Path to benchmark run config JSON (defaults to loab/benchmark/run_config.json)",
+    )
     args = parser.parse_args()
 
     load_dotenv(ROOT / "loab/.env")
     load_dotenv(ROOT / ".env")
 
-    run_config = load_json(ROOT / "loab/benchmark/run_config.json")
+    run_config = load_json(args.run_config)
     model_assignments = run_config.get("model_assignments", {})
     provider_settings = run_config.get("provider_settings", {})
     reasoning_effort = os.getenv("LOAB_REASONING_EFFORT") or run_config.get("reasoning_effort")

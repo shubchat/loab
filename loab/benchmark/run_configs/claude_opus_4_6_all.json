@@ -1,0 +1,38 @@
+{
+  "run_id": "claude-opus-4.6-all",
+  "date": "YYYY-MM-DD",
+  "model_assignments": {
+    "collections_officer": "azure_ai/claude-opus-4-6-2",
+    "compliance_officer": "azure_ai/claude-opus-4-6-2",
+    "credit_manager": "azure_ai/claude-opus-4-6-2",
+    "fraud_analyst": "azure_ai/claude-opus-4-6-2",
+    "hardship_assessor": "azure_ai/claude-opus-4-6-2",
+    "processing_officer": "azure_ai/claude-opus-4-6-2",
+    "underwriter": "azure_ai/claude-opus-4-6-2"
+  },
+  "provider_settings": {
+    "azure": {
+      "api_key_env": "AZURE_API_KEY",
+      "api_base_env": "AZURE_API_BASE",
+      "api_version_env": "AZURE_API_VERSION"
+    },
+    "azure_ai": {
+      "api_key_env": "AZURE_API_KEY",
+      "api_base_env": "AZURE_ANTHROPIC_API_BASE"
+    }
+  },
+  "customer_simulation_model": "<model-id>",
+  "tasks_run": [
+    "origination/task-01",
+    "origination/task-02",
+    "origination/task-03",
+    "origination/task-04",
+    "origination/task-05",
+    "origination/task-06",
+    "decisioning/task-01",
+    "servicing/task-01",
+    "collections/task-01",
+    "compliance/task-01"
+  ],
+  "notes": ""
+}

@@ -93,7 +93,7 @@
     {
       "step": 1,
       "must_include": {
-        "data_contains": "privacy_consent"
+        "data_contains": "Privacy Consent"
       }
     }
   ],
