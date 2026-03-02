@@ -210,6 +210,7 @@ A DVS result of 'Matched' is required for KYC to pass. 'Not Matched' or 'Data Un
 | Application Form | Fully completed MBL-APP-RESI-V2 (or broker equivalent capturing all required fields) | All fields mandatory; unsigned applications not accepted |
 | Identity — Primary | As per Section 3.2 | Minimum 100 points; at least one Primary document |
 | Identity — Address Confirmation | Utility bill or bank statement within 90 days, OR current driver's licence showing current address | Must show applicant's current residential address |
+| Privacy Consent | Signed consent authorising credit checking, identity verification, income verification, and disclosure to relevant third-party service providers | Must be signed before any external verification, credit bureau check, valuation order, or income verification is initiated |
 | Bank Statements | 90 continuous days from ALL transaction accounts, savings accounts, offset accounts, and credit card accounts | No gaps exceeding 7 calendar days; must cover full 90-day period ending within 30 days of application date |
 | Income Evidence | As per Section 5 (income-type specific) | See Section 5 for full requirements by income type |
 | Liability Statements | Most recent statement for all credit facilities not evident in bank statements | All liabilities must be declared regardless of ownership |
@@ -229,8 +230,9 @@ A DVS result of 'Matched' is required for KYC to pass. 'Not Matched' or 'Data Un
 1. Processing Officer completes the Document Completeness Checklist (DCC) within 1 business day of receipt.
 2. If all documents are present and meet integrity standards: application progresses to KYC and credit assessment.
 3. If documents are outstanding: application is placed in 'Outstanding Documents' status. Applicant or broker is notified within 1 business day specifying exactly which documents are required.
-4. Applications in 'Outstanding Documents' status for more than **21 calendar days** are automatically withdrawn. A new application must be lodged.
-5. Brokers who submit incomplete applications on three or more occasions within a 90-day period are subject to a formal review of their accreditation status.
+4. If Privacy Consent is missing, no external verification, credit bureau check, valuation order, or income verification may be initiated until signed consent is received.
+5. Applications in 'Outstanding Documents' status for more than **21 calendar days** are automatically withdrawn. A new application must be lodged.
+6. Brokers who submit incomplete applications on three or more occasions within a 90-day period are subject to a formal review of their accreditation status.
 
 ---
 
