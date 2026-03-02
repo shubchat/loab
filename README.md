@@ -1,8 +1,11 @@
 # LOAB — Lending Operations Agent Benchmark
+<p align="center">
+  <img src="./assets/loab-overview-flow.svg" alt="LOAB benchmark flow — multi-agent mortgage lifecycle" width="100%"/>
+</p>
 
-
-
-
+<p align="center">
+  <img src="./assets/loab-overview-scoring.svg" alt="LOAB scoring rubric view" width="100%"/>
+</p>
 
 **LOAB** (Lending Operations Agent Benchmark) tests whether AI agents can run a real mortgage process end-to-end — not just get the right decision, but follow the right *process*: correct tool use, policy compliance, agent handoffs, and hard regulatory constraints. Getting the answer right while skipping KYC isn't a pass. The current release covers three origination tasks as a proof-of-concept, with credit decisioning, servicing, collections, and compliance tasks in development. Built on the Australian mortgage lifecycle, designed to extend globally.
 
