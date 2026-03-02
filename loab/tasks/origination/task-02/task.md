@@ -1,4 +1,4 @@
-# Task 02 — Origination: Missing Mandatory Documentation
+# Task 02: Origination
 
 ## Situation
 

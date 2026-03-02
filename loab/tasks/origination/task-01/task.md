@@ -1,4 +1,4 @@
-# Task 01 — Origination
+# Task 01: Origination
 
 ## Situation
 

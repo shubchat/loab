@@ -2,7 +2,7 @@
   "run_id": "run-example",
   "date": "YYYY-MM-DD",
   "model_assignments": {
-    "processing_officer": "azure_ai/claude-opus-4-6-2",
+    "processing_officer": "azure/gpt-5.2",
     "underwriter": "azure_ai/claude-opus-4-6-2",
     "credit_manager": "azure/gpt-5.2",
     "collections_officer": "azure/gpt-5.2",

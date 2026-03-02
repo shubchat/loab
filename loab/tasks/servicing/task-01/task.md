@@ -1,4 +1,4 @@
-# Task 03 — Loan Servicing: Full Repayment and Discharge
+# Task 01: Servicing
 
 ## Situation
 
