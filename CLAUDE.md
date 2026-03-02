@@ -25,12 +25,13 @@ Customer simulation prompts exist (`simulation_prompt.md`) but a live customer-s
 ├── plans/                      ← one markdown file per implementation plan
 ├── scripts/
 │   ├── run_task.py             ← task runner + scorer
-│   ├── run_repeats.py          ← repeated-run evaluator (variance/pass-rate)
+│   ├── run_repeats.py          ← repeated-run evaluator (single-task + suite mode)
+│   ├── export_benchmark_comparison.py ← suite summary -> comparison CSV
 │   └── test_mock_api.py
 └── loab/
     ├── .env.example
     ├── agents/                 ← bank role prompts (`prompt.md` per role)
-    ├── benchmark/              ← run config + leaderboard artifacts
+    ├── benchmark/              ← run config + leaderboard + run_configs/ + suites/
     ├── company/
     │   ├── policy/             ← `meridian_bank_credit_policy.md` (source of truth)
     │   ├── rates/
@@ -57,13 +58,13 @@ Customer simulation prompts exist (`simulation_prompt.md`) but a live customer-s
 python -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
-cp loab/.env.example .env
+cp loab/.env.example loab/.env
 # Fill in provider keys + model settings
 ```
 
 `.env` supports multiple providers via LiteLLM (OpenAI, Anthropic, Gemini, Azure OpenAI, etc.). Use `provider/model-id` format in model assignments (for Azure: `azure/<deployment-name>`).
 
-`run_task.py` does not auto-load `.env`; export vars in shell first (or use `scripts/run_repeats.py --load-env`).
+`run_task.py` auto-loads `loab/.env` first, then `./.env`. `scripts/run_repeats.py --load-env` does the same.
 
 ### Azure OpenAI (LiteLLM)
 
@@ -130,6 +131,10 @@ Benchmark-wide model behavior can also be configured in `loab/benchmark/run_conf
 
 Provider connectivity is also configured in `loab/benchmark/run_config.json` under `provider_settings`. The runner reads provider-specific env var names from there (for example `azure/...` vs `azure_ai/...`) instead of hardcoding endpoint branches.
 
+Dedicated benchmark variants can be stored in:
+- `loab/benchmark/run_configs/*.json` — model-specific run configs
+- `loab/benchmark/suites/*.json` — multi-task, multi-model suite definitions
+
 Rubrics support:
 - step-scoped tool/evidence checks
 - forbidden action checks
@@ -172,6 +177,13 @@ Typical files:
 - `loab/results/<run-id>/<task-id>/orchestrator.json` — dynamic orchestration summary (`starting_agent`, `steps_executed`, `stop_reason`)
 - `loab/results/<run-id>/<task-id>/score.json` — scorer output vs rubric
 - `loab/results/<batch-id>-summary.json` — repeated-run summary from `scripts/run_repeats.py`
+- `loab/results/<suite-id>-suite-summary.json` — multi-task suite summary from `scripts/run_repeats.py --config`
+- `loab/results/benchmark-comparison-<timestamp>.csv` — exported comparison artifact from `scripts/export_benchmark_comparison.py`
+
+`scripts/run_task.py` also writes live progress artifacts while a run is executing:
+- `progress.json`
+- `agent_transcript.partial.json`
+- `handoffs.partial.json`
 
 ## Orchestration contracts
 
