@@ -9,7 +9,9 @@
     "bank_statements_6mo",
     "privacy_consent",
     "contract_of_sale",
-    "mortgage_application_form"
+    "mortgage_application_form",
+    "credit_card_statement_latest",
+    "personal_loan_statement_latest"
   ],
   "application_documents": {
     "certified_passport": {
@@ -65,6 +67,24 @@
       "signed_by": "Nathan Paul Reeves",
       "loan_amount_requested": 1000000,
       "product_code": "BML-OO-VAR-01"
+    },
+    "credit_card_statement_latest": {
+      "provided": true,
+      "doc_type": "Credit Card Statement",
+      "issuer": "Harbor Bank",
+      "statement_date": "2025-02-03",
+      "credit_limit": 15000,
+      "closing_balance": 6000,
+      "minimum_due": 180
+    },
+    "personal_loan_statement_latest": {
+      "provided": true,
+      "doc_type": "Personal Loan Statement",
+      "lender": "Summit Finance",
+      "statement_date": "2025-02-01",
+      "outstanding_balance": 12000,
+      "monthly_repayment": 420,
+      "remaining_term_months": 34
     }
   }
 }
