@@ -134,6 +134,7 @@ Provider connectivity is also configured in `loab/benchmark/run_config.json` und
 Dedicated benchmark variants can be stored in:
 - `loab/benchmark/run_configs/*.json` — model-specific run configs
 - `loab/benchmark/suites/*.json` — multi-task, multi-model suite definitions
+- `loab/benchmark/VERSION` — benchmark semantic version source of truth
 
 Rubrics support:
 - step-scoped tool/evidence checks

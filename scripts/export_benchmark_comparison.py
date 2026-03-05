@@ -21,6 +21,7 @@ def dominant_key(values: dict):
 
 def flatten_suite_summary(path: Path):
     data = load_json(path)
+    metadata = data.get("metadata") or {}
     rows = []
     for entry in data.get("results", []):
         summary = entry.get("summary") or {}
@@ -29,6 +30,11 @@ def flatten_suite_summary(path: Path):
             "suite_id": data.get("suite_id", ""),
             "suite_name": data.get("suite_name", ""),
             "suite_summary": str(path),
+            "benchmark_version": metadata.get("benchmark_version", ""),
+            "git_commit": metadata.get("git_commit", ""),
+            "policy_document": metadata.get("policy_document", ""),
+            "policy_effective_date": metadata.get("policy_effective_date", ""),
+            "policy_next_review": metadata.get("policy_next_review", ""),
             "model_label": entry.get("model_label", ""),
             "task": entry.get("task", ""),
             "run_config": entry.get("run_config", ""),
@@ -87,6 +93,11 @@ def main():
         "suite_id",
         "suite_name",
         "suite_summary",
+        "benchmark_version",
+        "git_commit",
+        "policy_document",
+        "policy_effective_date",
+        "policy_next_review",
         "model_label",
         "task",
         "run_config",

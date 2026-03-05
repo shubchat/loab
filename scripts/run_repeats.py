@@ -11,6 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_RUN_CONFIG = ROOT / "loab/benchmark/run_config.json"
+DEFAULT_VERSION_FILE = ROOT / "loab/benchmark/VERSION"
+DEFAULT_POLICY_FILE = ROOT / "loab/company/policy/meridian_bank_credit_policy.md"
 
 
 def slugify_task(task: str) -> str:
@@ -31,6 +33,46 @@ def slugify_label(label: str) -> str:
 
 def load_json(path: Path):
     return json.loads(path.read_text())
+
+
+def read_benchmark_version() -> str:
+    if DEFAULT_VERSION_FILE.exists():
+        return DEFAULT_VERSION_FILE.read_text().strip()
+    return "v0.0.0"
+
+
+def get_git_commit() -> str:
+    try:
+        return (
+            subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True)
+            .strip()
+        )
+    except Exception:
+        return ""
+
+
+def parse_policy_metadata():
+    out = {
+        "policy_document": "",
+        "policy_effective_date": "",
+        "policy_next_review": "",
+        "policy_source": str(DEFAULT_POLICY_FILE),
+    }
+    if not DEFAULT_POLICY_FILE.exists():
+        return out
+    text = DEFAULT_POLICY_FILE.read_text()
+    for raw in text.splitlines():
+        line = raw.strip().strip("*")
+        if "MBL-POL-CREDIT-RESI-" in line and "|" in line:
+            parts = [p.strip() for p in line.split("|")]
+            if parts:
+                out["policy_document"] = parts[0]
+            for p in parts:
+                if p.lower().startswith("effective "):
+                    out["policy_effective_date"] = p.replace("Effective ", "", 1).strip()
+        if line.lower().startswith("next review:"):
+            out["policy_next_review"] = line.split(":", 1)[1].strip().split(".")[0].strip()
+    return out
 
 
 def load_dotenv(path: Path):
@@ -148,9 +190,25 @@ def run_single_task_mode(args):
             )
 
     summary = summarize(runs)
+    metadata = {
+        "benchmark_version": read_benchmark_version(),
+        "git_commit": get_git_commit(),
+        **parse_policy_metadata(),
+    }
     out_path = ROOT / "loab/results" / f"{batch_id}-summary.json"
     out_path.write_text(
-        json.dumps({"batch_id": batch_id, "task": args.task, "runs": runs, "summary": summary}, indent=2, ensure_ascii=False)
+        json.dumps(
+            {
+                "batch_id": batch_id,
+                "task": args.task,
+                "generated_at": ts,
+                "metadata": metadata,
+                "runs": runs,
+                "summary": summary,
+            },
+            indent=2,
+            ensure_ascii=False,
+        )
         + "\n"
     )
 
@@ -180,6 +238,11 @@ def run_suite_mode(args):
 
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     suite_id = f"{suite_cfg.get('prefix', 'suite')}-{slugify_label(suite_name)}-{ts}"
+    metadata = {
+        "benchmark_version": suite_cfg.get("benchmark_version") or read_benchmark_version(),
+        "git_commit": get_git_commit(),
+        **parse_policy_metadata(),
+    }
     print(f"Suite: {suite_id}", flush=True)
     print(f"Config: {suite_cfg_path}", flush=True)
     print(f"Tasks: {tasks}", flush=True)
@@ -244,6 +307,7 @@ def run_suite_mode(args):
         "suite_id": suite_id,
         "suite_name": suite_name,
         "generated_at": ts,
+        "metadata": metadata,
         "suite_config": str(suite_cfg_path),
         "tasks": tasks,
         "simulations_per_task": simulations_per_task,

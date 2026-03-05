@@ -6,6 +6,10 @@
 
 **LOAB** tests whether AI agents can run a real mortgage process end-to-end — not just get the right decision, but follow the right *process*: correct tool use, policy compliance, agent handoffs, and hard regulatory constraints. Getting the answer right while skipping KYC isn't a pass. The current release covers three origination tasks as a proof-of-concept, with credit decisioning, servicing, collections, and compliance tasks in development. Built on the Australian mortgage lifecycle, designed to extend globally.
 
+**Current benchmark version:** `v0.1.0`  
+**Policy baseline:** `MBL-POL-CREDIT-RESI-V3.2` (Effective `1 February 2025`)  
+**Change log:** `CHANGELOG.md`
+
 ---
 
 ## Why This Exists
@@ -162,7 +166,7 @@ cp loab/.env.example loab/.env   # Add your provider API keys
 python scripts/run_task.py --task origination/task-01
 
 # Run a full suite (repeated runs)
-python scripts/run_repeats.py --config loab/benchmark/suites/origination-poc.json --load-env
+python scripts/run_repeats.py --config loab/benchmark/suites/origination_poc_3x4.json --load-env
 
 # Export comparison CSV
 python scripts/export_benchmark_comparison.py \
@@ -182,14 +186,51 @@ python scripts/export_benchmark_comparison.py \
 
 ## Citation
 
+If you use LOAB in research, evaluation infrastructure, benchmark derivatives, or public writeups, cite the repository and link back to it.
+
 ```bibtex
 @misc{loab2026,
   title        = {LOAB: Lending Operations Agent Benchmark},
-  author       = {Shubh Chatterjee},
+  author       = {LOAB contributors},
   year         = {2026},
   howpublished = {GitHub repository},
   note         = {Benchmark for multi-agent, tool-using lending workflows}
 }
 ```
+
+At minimum, include:
+- `LOAB — Lending Operations Agent Benchmark`
+- the repository link
+- the date or commit used for the evaluation
+
 ---
 
+## Versioning
+
+LOAB uses semantic versioning for benchmark comparability:
+- `MAJOR`: breaking changes to benchmark semantics (scoring/orchestration/policy baseline that invalidate prior comparisons)
+- `MINOR`: additive comparable changes (new tasks, suites, models, charts, tooling)
+- `PATCH`: bug fixes and documentation updates that do not intentionally change benchmark semantics
+
+Version source of truth:
+- `loab/benchmark/VERSION`
+
+Every suite summary and exported comparison CSV includes metadata for:
+- benchmark version
+- git commit
+- policy document and effective date
+
+Tag a release:
+
+```bash
+git tag -a v0.1.0 -m "LOAB benchmark v0.1.0"
+git push origin v0.1.0
+```
+
+---
+
+## License
+
+This repository is released under the MIT License.
+
+You may use, modify, and build on LOAB, including commercial use, provided the license and copyright notice are preserved.
