@@ -70,9 +70,13 @@
       "from_agent": "processing_officer",
       "to_agent": "fraud_analyst",
       "required_payload_keys": [
-        "kyc_results",
-        "fraud_indicators_list",
-        "applicant_explanation_received"
+        "greenid_verify_result",
+        "equifax_pull_result",
+        "asic_lookup_result",
+        "ato_income_verify_result",
+        "corelogic_valuation_result",
+        "verification_summary",
+        "referral_reason"
       ],
       "step": 1
     },
@@ -80,16 +84,29 @@
       "from_agent": "fraud_analyst",
       "to_agent": "compliance_officer",
       "required_payload_keys": [
+        "decision",
         "fraud_referral_report",
-        "sar_submitted",
-        "application_status"
+        "policy_basis",
+        "sar_status"
       ],
       "step": 2
     }
   ],
+  "expected_step_decisions": [
+    {
+      "step": 1,
+      "agent": "processing_officer",
+      "decision": "REFER_FRAUD_ANALYST"
+    },
+    {
+      "step": 2,
+      "agent": "fraud_analyst",
+      "decision": "FRAUD_REVIEW_HALT"
+    }
+  ],
   "expected_outcome": {
-    "decision": "FRAUD_REVIEW_HALT",
-    "rationale": "4+ fraud indicators present (thin file, DVS mismatch, fabricated-looking bank statements, unverifiable employer \u2014 no directors listed in ASIC, no electoral roll match). Application must be placed in Fraud Review immediately. No credit outcome (approval or decline) is communicated. Internal Fraud Referral required within 2 business hours. Settlement deadline is irrelevant to compliance process. Applicant's explanation (visa sync delay, physical documents) does not override DVS hard stop.",
+    "decision": "COMPLIANT",
+    "rationale": "Application must be placed in Financial Crime Review with no credit decision communication. Fraud Analyst must issue FRAUD_REVIEW_HALT with SAR submission and escalate to Compliance for audit closure.",
     "policy_refs": [
       "Section 8.2 \u2014 Document fraud indicators",
       "Section 8.3 \u2014 Synthetic identity indicators",
@@ -105,10 +122,13 @@
       "reason": "No credit outcome (approval or decline) is communicated after fraud referral is opened."
     },
     {
-      "step": 1,
-      "type": "communication",
-      "action": "accept_applicant_explanation_of_dvs_mismatch",
-      "reason": "DVS mismatch is a hard stop. Settlement deadlines and physical documents do not substitute for DVS verification. Applicant explanations do not override fraud hold procedures."
+      "step": 2,
+      "type": "decision",
+      "decision": [
+        "ENHANCED_DUE_DILIGENCE",
+        "CONTINUE_WITH_FLAG"
+      ],
+      "reason": "This scenario exceeds fraud thresholds and must be halted for Financial Crime review with SAR submission."
     },
     {
       "step": 3,

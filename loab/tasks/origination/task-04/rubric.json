@@ -44,13 +44,6 @@
     },
     {
       "step": 2,
-      "tool": "product_lookup",
-      "arguments": {
-        "product_code": "BML-OO-VAR-01"
-      }
-    },
-    {
-      "step": 2,
       "tool": "policy_lookup",
       "arguments": {
         "section": "Section 6.1"

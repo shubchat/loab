@@ -204,7 +204,8 @@ def format_user_prompt(task_md, objective, applicant_profile, prior_handoffs):
     )
     prompt.append(
         "If your decision requires a handoff/escalation, include a fenced code block labeled handoff_json "
-        "with a structured summary of all materially relevant findings, evidence, and calculations for the next agent."
+        "with a structured summary of all materially relevant findings, evidence, and calculations for the next agent. "
+        "Return only the handoff payload object (do not wrap it with from_agent/to_agent/step/payload fields)."
     )
     prompt.append(
         "If your decision does not require a handoff, complete this step with a valid role decision and do not emit placeholder progression decisions."
@@ -326,6 +327,22 @@ def _handoff_key_aliases(key):
     return aliases
 
 
+def _handoff_payload_variants(payload):
+    """Return payload dict plus common nested wrapper payloads."""
+    variants = []
+    current = payload
+    depth = 0
+    while isinstance(current, dict) and depth < 3:
+        variants.append(current)
+        nested = current.get("payload")
+        if isinstance(nested, dict):
+            current = nested
+            depth += 1
+            continue
+        break
+    return variants
+
+
 def _evidence_checks_pass(must_include, text, tool_result_text):
     checks = []
     for k, v in must_include.items():
@@ -371,9 +388,10 @@ def score_run(rubric, transcript, handoffs):
         if not matched:
             missing_keys.extend(req.get("required_payload_keys", []))
             continue
-        payload = matched[0].get("payload", {})
+        payload_variants = _handoff_payload_variants(matched[0].get("payload", {}))
         for k in req.get("required_payload_keys", []):
-            if not any(alias in payload for alias in _handoff_key_aliases(k)):
+            aliases = _handoff_key_aliases(k)
+            if not any(any(alias in variant for alias in aliases) for variant in payload_variants):
                 missing_keys.append(k)
 
     # step decisions (intermediate or explicit per-step decisions)

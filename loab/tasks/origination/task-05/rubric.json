@@ -85,11 +85,10 @@
       "required_payload_keys": [
         "equifax_result",
         "greenid_result",
-        "income_verification_summary",
-        "liability_schedule",
         "asic_result",
         "ato_result",
         "corelogic_result",
+        "verification_summary",
         "referral_reason"
       ],
       "step": 1
