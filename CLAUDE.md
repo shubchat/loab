@@ -78,6 +78,19 @@ AZURE_API_VERSION=2024-12-01-preview
 
 Example model assignment: `azure/gpt-5.2`
 
+### MiniMax (LiteLLM)
+
+Set these in `.env`:
+
+```env
+MINIMAX_API_KEY=...
+MINIMAX_API_BASE=https://api.minimax.io/v1
+```
+
+Example model assignment: `openai/MiniMax-M2.5`
+
+Pre-built run config: `loab/benchmark/run_configs/minimax_m2_5_all.json`
+
 ## Running the MCP server (manual testing)
 
 ```bash

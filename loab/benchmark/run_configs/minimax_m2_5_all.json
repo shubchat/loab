@@ -1,0 +1,33 @@
+{
+  "run_id": "minimax-m2.5-all",
+  "date": "YYYY-MM-DD",
+  "model_assignments": {
+    "collections_officer": "openai/MiniMax-M2.5",
+    "compliance_officer": "openai/MiniMax-M2.5",
+    "credit_manager": "openai/MiniMax-M2.5",
+    "fraud_analyst": "openai/MiniMax-M2.5",
+    "hardship_assessor": "openai/MiniMax-M2.5",
+    "processing_officer": "openai/MiniMax-M2.5",
+    "underwriter": "openai/MiniMax-M2.5"
+  },
+  "provider_settings": {
+    "openai": {
+      "api_key_env": "MINIMAX_API_KEY",
+      "api_base_env": "MINIMAX_API_BASE"
+    }
+  },
+  "customer_simulation_model": "openai/MiniMax-M2.5",
+  "tasks_run": [
+    "origination/task-01",
+    "origination/task-02",
+    "origination/task-03",
+    "origination/task-04",
+    "origination/task-05",
+    "origination/task-06",
+    "decisioning/task-01",
+    "servicing/task-01",
+    "collections/task-01",
+    "compliance/task-01"
+  ],
+  "notes": "MiniMax M2.5 via OpenAI-compatible API (https://api.minimax.io/v1). 204K context window."
+}
