@@ -165,6 +165,10 @@ cp loab/.env.example loab/.env   # Add your provider API keys
 # Run a single task
 python scripts/run_task.py --task origination/task-01
 
+# Run with a specific model config (e.g. MiniMax M2.5)
+python scripts/run_task.py --task origination/task-01 \
+  --run-config loab/benchmark/run_configs/minimax_m2_5_all.json --run_id minimax-test
+
 # Run a full suite (repeated runs)
 python scripts/run_repeats.py --config loab/benchmark/suites/origination_poc_3x4.json --load-env
 
@@ -172,6 +176,18 @@ python scripts/run_repeats.py --config loab/benchmark/suites/origination_poc_3x4
 python scripts/export_benchmark_comparison.py \
   --suite-summary results/suite-summary-a.json results/suite-summary-b.json
 ```
+
+### Supported Providers
+
+LOAB uses [LiteLLM](https://github.com/BerriAI/litellm) for provider abstraction. Any LiteLLM-supported provider works out of the box. Pre-built run configs are included for:
+
+| Provider | Run Config | Model String |
+|---|---|---|
+| Azure OpenAI (GPT-5.2) | `run_configs/gpt_5_2_all.json` | `azure/gpt-5.2` |
+| Azure AI (Claude Opus 4.6) | `run_configs/claude_opus_4_6_all.json` | `azure_ai/claude-opus-4-6-2` |
+| [MiniMax](https://platform.minimaxi.com/) (M2.5) | `run_configs/minimax_m2_5_all.json` | `openai/MiniMax-M2.5` |
+
+To add a new provider, create a JSON file in `loab/benchmark/run_configs/` following the existing examples. Set `api_key_env` and `api_base_env` in `provider_settings` to point to the correct environment variables.
 
 ---
 
