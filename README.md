@@ -165,8 +165,15 @@ cp loab/.env.example loab/.env   # Add your provider API keys
 # Run a single task
 python scripts/run_task.py --task origination/task-01
 
+# Run a single task with MiniMax-M2.5
+python scripts/run_task.py --task origination/task-01 \
+  --run-config loab/benchmark/run_configs/minimax_m2_5_all.json --run_id minimax-test-01
+
 # Run a full suite (repeated runs)
 python scripts/run_repeats.py --config loab/benchmark/suites/origination_poc_3x4.json --load-env
+
+# Run MiniMax-only suite
+python scripts/run_repeats.py --config loab/benchmark/suites/origination_poc_3x4_minimax.json --load-env
 
 # Export comparison CSV
 python scripts/export_benchmark_comparison.py \
