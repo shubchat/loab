@@ -89,7 +89,7 @@ MINIMAX_API_BASE=https://api.minimax.io/v1
 
 Example model assignment: `openai/MiniMax-M2.5`
 
-Note: MiniMax rejects `temperature=0`. The provided run config uses `temperature=0.01` as a near-deterministic alternative.
+Note: MiniMax rejects `temperature=0`. The provided run config uses `temperature=0.1` as a near-deterministic alternative.
 
 ## Running the MCP server (manual testing)
 
