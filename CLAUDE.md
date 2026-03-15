@@ -62,7 +62,7 @@ cp loab/.env.example loab/.env
 # Fill in provider keys + model settings
 ```
 
-`.env` supports multiple providers via LiteLLM (OpenAI, Anthropic, Gemini, Azure OpenAI, etc.). Use `provider/model-id` format in model assignments (for Azure: `azure/<deployment-name>`).
+`.env` supports multiple providers via LiteLLM (OpenAI, Anthropic, Gemini, Azure OpenAI, MiniMax, etc.). Use `provider/model-id` format in model assignments (for Azure: `azure/<deployment-name>`, for MiniMax: `openai/MiniMax-M2.5`).
 
 `run_task.py` auto-loads `loab/.env` first, then `./.env`. `scripts/run_repeats.py --load-env` does the same.
 
@@ -77,6 +77,19 @@ AZURE_API_VERSION=2024-12-01-preview
 ```
 
 Example model assignment: `azure/gpt-5.2`
+
+### MiniMax (LiteLLM)
+
+MiniMax provides an OpenAI-compatible API. Set these in `.env`:
+
+```env
+MINIMAX_API_KEY=...
+MINIMAX_API_BASE=https://api.minimax.io/v1
+```
+
+Example model assignment: `openai/MiniMax-M2.5`
+
+Note: MiniMax rejects `temperature=0`. The provided run config uses `temperature=0.01` as a near-deterministic alternative.
 
 ## Running the MCP server (manual testing)
 
