@@ -30,6 +30,13 @@
         "employment_type": "PAYG",
         "status": "CONFIRMED"
       },
+      "318001": {
+        "tfn": "318001",
+        "last_financial_year": "FY2023-24",
+        "verified_income": 180000,
+        "employment_type": "PAYG",
+        "status": "CONFIRMED"
+      },
       "818001": {
         "tfn": "818001",
         "last_financial_year": "FY2023-24",
