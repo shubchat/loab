@@ -29,6 +29,21 @@
     },
     {
       "step": 1,
+      "tool": "ato_income_verify",
+      "arguments": {
+        "tfn": "318001",
+        "income_claimed": 180000
+      }
+    },
+    {
+      "step": 1,
+      "tool": "corelogic_valuation",
+      "arguments": {
+        "property_address": "12 Elgin Street, Carlton VIC 3053"
+      }
+    },
+    {
+      "step": 1,
       "tool": "asic_lookup",
       "arguments": {
         "abn": "99 887 654 321"
@@ -158,6 +173,23 @@
       "step": 1
     },
     {
+      "tool": "ato_income_verify",
+      "must_include": {
+        "tfn": "318001",
+        "verified_income": 180000,
+        "status": "CONFIRMED"
+      },
+      "step": 1
+    },
+    {
+      "tool": "corelogic_valuation",
+      "must_include": {
+        "estimated_value": 960000,
+        "confidence": 0.73
+      },
+      "step": 1
+    },
+    {
       "tool": "asic_lookup",
       "must_include": {
         "abn": "99 887 654 321",
@@ -165,6 +197,14 @@
         "status": "Active"
       },
       "step": 1
+    },
+    {
+      "tool": "electoral_roll_check",
+      "must_include": {
+        "enrolled": false,
+        "reason": "NO_MATCH"
+      },
+      "step": 2
     },
     {
       "tool": "submit_sar",

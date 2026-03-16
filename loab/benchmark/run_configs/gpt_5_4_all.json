@@ -1,0 +1,31 @@
+{
+  "run_id": "gpt-5.4-all-tmp",
+  "date": "YYYY-MM-DD",
+  "model_assignments": {
+    "collections_officer": "azure/gpt-5.4",
+    "compliance_officer": "azure/gpt-5.4",
+    "credit_manager": "azure/gpt-5.4",
+    "fraud_analyst": "azure/gpt-5.4",
+    "hardship_assessor": "azure/gpt-5.4",
+    "processing_officer": "azure/gpt-5.4",
+    "underwriter": "azure/gpt-5.4"
+  },
+  "provider_settings": {
+    "azure": {
+      "api_key_env": "AZURE_API_KEY",
+      "api_base_env": "AZURE_API_BASE",
+      "api_version_env": "AZURE_API_VERSION"
+    },
+    "azure_ai": {
+      "api_key_env": "AZURE_API_KEY",
+      "api_base_env": "AZURE_ANTHROPIC_API_BASE"
+    }
+  },
+  "customer_simulation_model": "<model-id>",
+  "tasks_run": [
+    "origination/task-01",
+    "origination/task-02",
+    "origination/task-03"
+  ],
+  "notes": "Temporary one-pass config for GPT 5.4 validation."
+}

@@ -44,6 +44,12 @@
         "watchlist": "CLEAR",
         "pep_sanctions": "CLEAR"
       }
+    },
+    "electoral_roll": {
+      "David Andrew Chen::Unit 4, 88 Mercer Street, Carlton VIC 3053": {
+        "enrolled": false,
+        "reason": "NO_MATCH"
+      }
     }
   }
 }
