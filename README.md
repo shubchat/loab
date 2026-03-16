@@ -54,71 +54,123 @@ The proof-of-concept covers three origination scenarios, each designed to test a
 
 ## Benchmark Results — Origination PoC
 
-> **Run config:** 4 simulations per task × 2 models = 24 total runs
+> **Run configs now compared:** 4 simulations per task × 6 evaluated settings = 72 total scored runs
 
-### Full-Rubric Pass Rate
+### Baseline Comparison
+
+This is the current baseline across the original two models plus GPT-5.4 with no explicit reasoning override.
+
+| Model | Outcome Accuracy | Full-Rubric Pass | Gap |
+|---|:---:|:---:|:---:|
+| GPT-5.2 | 8/12 (66.7%) | 3/12 (25.0%) | **−41.7pp** |
+| GPT-5.4 (default / unset) | 8/12 (66.7%) | 4/12 (33.3%) | **−33.3pp** |
+| Claude Opus 4.6 | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
+
+GPT-5.4 default improves on GPT-5.2 overall, but it still lags Claude on full-rubric pass rate.
+
+### GPT-5.4 Reasoning Effort Sweep
+
+The same 3-task origination suite was rerun for GPT-5.4 with explicit reasoning-effort settings:
+
+| GPT-5.4 Setting | Outcome Accuracy | Full-Rubric Pass | Gap |
+|---|:---:|:---:|:---:|
+| Default / unset | 8/12 (66.7%) | 4/12 (33.3%) | **−33.3pp** |
+| Low | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
+| Medium | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
+| High | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
+
+Low and medium are the strongest GPT-5.4 settings tested. High improves outcome accuracy over the default run, but loses much of the process-fidelity benefit.
+
+### Full-Rubric Pass Rate by Task
 
 This is the headline metric. A run only counts as a pass when every rubric component is satisfied:
 
-| Task | Expected | GPT-5.2 | Claude Opus 4.6 |
-|---|:---:|:---:|:---:|
-| `task-01` — Clean approve | `APPROVE` | **3/4 (75%)** | 0/4 (0%) |
-| `task-02` — Missing docs gate | `REQUEST_FURTHER_INFO` | 0/4 (0%) | **1/4 (25%)** |
-| `task-03` — Hard DTI decline | `DECLINE` | 0/4 (0%) | **4/4 (100%)** |
+| Task | Expected | GPT-5.2 | GPT-5.4 Default | GPT-5.4 Low | GPT-5.4 Medium | GPT-5.4 High | Claude Opus 4.6 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `task-01` — Clean approve | `APPROVE` | **3/4 (75%)** | **3/4 (75%)** | 1/4 (25%) | 1/4 (25%) | 0/4 (0%) | 0/4 (0%) |
+| `task-02` — Missing docs gate | `REQUEST_FURTHER_INFO` | 0/4 (0%) | 0/4 (0%) | **4/4 (100%)** | **4/4 (100%)** | 3/4 (75%) | 1/4 (25%) |
+| `task-03` — Hard DTI decline | `DECLINE` | 0/4 (0%) | 1/4 (25%) | 3/4 (75%) | 3/4 (75%) | 2/4 (50%) | **4/4 (100%)** |
 
 ### The Key Insight: Outcome ≠ Process
 
 A model can reach the right answer through the wrong process and still fail. This table shows how much they diverge:
 
-| Model | Outcome Accuracy | Full-Rubric Pass | Gap |
+| Setting | Outcome Accuracy | Full-Rubric Pass | Gap |
 |---|:---:|:---:|:---:|
 | GPT-5.2 | 8/12 (66.7%) | 3/12 (25.0%) | **−41.7pp** |
+| GPT-5.4 Default | 8/12 (66.7%) | 4/12 (33.3%) | **−33.3pp** |
+| GPT-5.4 Low | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
+| GPT-5.4 Medium | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
+| GPT-5.4 High | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
 | Claude Opus 4.6 | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
 
-Both models lose substantial pass rates when process fidelity is required — this is the core signal LOAB is designed to surface.
+The key result is not just that GPT-5.4 improves with explicit reasoning control — it is that low/medium reasoning reduce the outcome-vs-process gap dramatically.
 
-### Decision Distribution
+### GPT-5.4 Decision Distribution by Setting
 
-How each model actually decided across 4 runs per task:
+How GPT-5.4 actually decided across 4 runs per task under each reasoning configuration:
 
-| Task | GPT-5.2 | Claude Opus 4.6 |
-|---|---|---|
-| `task-01` | APPROVE ×4 | CONDITIONAL_APPROVE ×3, APPROVE ×1 |
-| `task-02` | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 |
-| `task-03` | APPROVE ×2, CONDITIONAL_APPROVE ×2 | DECLINE ×4 |
+| Task | Default / Unset | Low | Medium | High |
+|---|---|---|---|---|
+| `task-01` | APPROVE ×3, CONDITIONAL_APPROVE ×1 | APPROVE ×1, DECLINE ×1, CONDITIONAL_APPROVE ×2 | APPROVE ×1, DECLINE ×2, CONDITIONAL_APPROVE ×1 | APPROVE ×1, CONDITIONAL_APPROVE ×3 |
+| `task-02` | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 |
+| `task-03` | CONDITIONAL_APPROVE ×3, DECLINE ×1 | DECLINE ×4 | DECLINE ×4 | DECLINE ×4 |
 
 ### Component-Level Pass Rates
 
-Where exactly each model breaks down:
+Where exactly the main models and GPT-5.4 settings break down:
 
-| Component | GPT-5.2 | Claude Opus 4.6 |
-|---|:---:|:---:|
-| Tool Calls | 100% | 83.3% |
-| Handoffs | 100% | 100% |
-| Step Decisions | 100% | 100% |
-| Outcome | 66.7% | 75.0% |
-| Forbidden Actions | 25.0% | 66.7% |
-| Evidence | 100% | 100% |
+| Component | GPT-5.2 | GPT-5.4 Default | GPT-5.4 Low | GPT-5.4 Medium | GPT-5.4 High | Claude Opus 4.6 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Tool Calls | 100.0% | 75.0% | 100.0% | 100.0% | 100.0% | 83.3% |
+| Handoffs | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% |
+| Step Decisions | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% |
+| Outcome | 66.7% | 66.7% | 75.0% | 75.0% | 75.0% | 75.0% |
+| Forbidden Actions | 25.0% | 66.7% | 75.0% | 75.0% | 66.7% | 66.7% |
+| Evidence | 100.0% | 75.0% | 100.0% | 100.0% | 100.0% | 100.0% |
 
 ---
 
 ## Key Findings
 
-### 1. GPT-5.2 is stronger on clean approval paths
+### 1. GPT-5.4 low/medium are the current best GPT settings
 
-On `task-01`, GPT passed 75% of runs. It reliably reached APPROVE and handled the multi-step Processing Officer → Underwriter flow well. Failures came from process discipline, not from the credit answer itself. This suggests GPT is currently better aligned to straightforward prime-file progression.
+With explicit reasoning effort set to `low` or `medium`, GPT-5.4 reached **8/12 (66.7%)** full-rubric pass rate, up from **4/12 (33.3%)** at the default setting and **3/12 (25.0%)** for GPT-5.2. The improvement came from much stronger process fidelity on the missing-doc and hard-decline tasks.
 
-### 2. Claude Opus 4.6 is stronger on hard-policy enforcement
+### 2. The improvement is driven by task-02 and task-03, not task-01
 
-On `task-03`, Claude passed 100% of runs. It always routed correctly to Credit Manager, always issued the hard decline, and consistently respected the DTI > 6.0× no-exception rule. This suggests Claude is currently better aligned to strict policy enforcement.
+Default GPT-5.4 was still weak on process gating and hard-limit enforcement:
+- `task-02`: **0/4**
+- `task-03`: **1/4**
 
-### 3. Task-02 is the process fidelity stress test
+At `low` and `medium`, those same tasks improved to:
+- `task-02`: **4/4**
+- `task-03`: **3/4**
 
-Both models always reached the correct outcome (`REQUEST_FURTHER_INFO`). But the full rubric required no external checks before resolving the missing privacy consent. GPT failed all 4 runs by performing external checks too early. Claude passed 1/4, failing the others for missing policy lookups or premature external checks. This is exactly the kind of separation LOAB is designed to create.
+The tradeoff is that `task-01` regressed from **3/4** at default to **1/4** at both `low` and `medium`.
 
-### 4. Run-to-run variance is a real deployment concern
+### 3. High reasoning effort is worse than low/medium
 
-GPT-5.2 split 50/50 between APPROVE and CONDITIONAL_APPROVE on `task-03` — a task with a hard decline policy. Claude showed 3:1 CONDITIONAL_APPROVE vs APPROVE variance on `task-01`. Neither model produces deterministic behavior, which is a significant issue for production lending systems.
+`high` preserved the same 75.0% outcome accuracy as `low` and `medium`, but full-rubric pass rate dropped to **5/12 (41.7%)**. The main regression was clean-approve handling:
+- `task-01`: **0/4**
+- `task-02`: **3/4**
+- `task-03`: **2/4**
+
+### 4. Claude remains the strongest hard-policy model
+
+Claude Opus 4.6 still leads on the strict hard-decline path:
+- `task-03`: **4/4**
+- overall full-rubric pass: **5/12 (41.7%)**
+
+GPT-5.4 low/medium beat Claude overall, but Claude remains the most reliable model in the suite on the hardest no-exception policy path.
+
+### 5. Run-to-run variance is still a deployment concern
+
+Even at the stronger GPT-5.4 settings, the model still varied materially on `task-01`:
+- `low`: APPROVE ×1, DECLINE ×1, CONDITIONAL_APPROVE ×2
+- `medium`: APPROVE ×1, DECLINE ×2, CONDITIONAL_APPROVE ×1
+
+So reasoning control improved process compliance overall, but did not eliminate variance on the clean-file approval scenario.
 
 ---
 
