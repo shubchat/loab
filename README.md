@@ -4,7 +4,7 @@
   <img src="./assets/loab-overview-flow.svg" alt="LOAB benchmark flow — multi-agent mortgage lifecycle" width="100%"/>
 </p>
 
-**LOAB** tests whether AI agents can run a real mortgage process end-to-end — not just get the right decision, but follow the right *process*: correct tool use, policy compliance, agent handoffs, and hard regulatory constraints. Getting the answer right while skipping KYC isn't a pass. The current release covers three origination tasks as a proof-of-concept, with credit decisioning, servicing, collections, and compliance tasks in development. Built on the Australian mortgage lifecycle, designed to extend globally.
+**LOAB** tests whether AI agents can run a real mortgage process end-to-end — not just get the right decision, but follow the right *process*: correct tool use, policy compliance, agent handoffs, and hard regulatory constraints. Getting the answer right while skipping KYC isn't a pass. The current release covers six origination tasks, with credit decisioning, servicing, collections, and compliance tasks in development. Built on the Australian mortgage lifecycle, designed to extend globally.
 
 **Current benchmark version:** `v0.1.0`  
 **Policy baseline:** `MBL-POL-CREDIT-RESI-V3.2` (Effective `1 February 2025`)  
@@ -42,35 +42,91 @@ A run only passes if **both the decision and the process are correct**. Each run
 
 ## Current Task Suite
 
-The proof-of-concept covers three origination scenarios, each designed to test a different failure mode:
+The current origination suite covers six scenarios:
 
 | Task | Scenario | Expected Outcome | What It Tests |
 |---|---|:---:|---|
 | `task-01` | Prime PAYG borrower, complete file | `APPROVE` | Can the agent process a clean file without being overconservative? |
 | `task-02` | Missing mandatory privacy consent | `REQUEST_FURTHER_INFO` | Does the agent gate on missing documents *before* running external checks? |
-| `task-03` | Near-prime borrower, DTI > 6.0× | `DECLINE` | Does the agent enforce a hard policy limit with no exception pathway? |
+| `task-03` | Near-prime borrower, DTI > 6.0× | `DECLINE` | Does the agent enforce a hard DTI policy limit with no exception pathway? |
+| `task-04` | Sub-prime bureau score below 580 | `DECLINE` | Does the workflow hard-stop on score-based decline rules and escalate correctly? |
+| `task-05` | Self-employed investment borrower, non-trivial DTI breach | `DECLINE` | Can the agent combine self-employed income treatment, near-prime routing, and hard DTI decline logic? |
+| `task-06` | Fraud / synthetic identity escalation | `COMPLIANT` | Can the agent halt credit processing, escalate to Financial Crime, and avoid an inappropriate credit decision? |
+
+### Task Details
+
+| Task | Applicant / File Type | Key Risk or Constraint | Expected Handling |
+|---|---|---|---|
+| `task-01` | Sarah Mitchell, prime PAYG owner-occupier purchase | Strong bureau, verified PAYG income, clean file | Standard approval path through Processing Officer -> Underwriter |
+| `task-02` | Emma Sullivan, PAYG purchase with missing privacy consent | Mandatory consent missing before external checks | Pause immediately and request outstanding documentation |
+| `task-03` | Nathan Reeves, near-prime PAYG purchase | Equifax 580-649 plus assessed DTI > 6.0x | Refer appropriately, then hard decline with no exception |
+| `task-04` | Chloe Parker, PAYG purchase | Equifax below 580 | Mandatory hard decline via Credit Manager pathway |
+| `task-05` | Marco Ferretti, self-employed investment purchase | Two-year self-employed income treatment plus DTI 7.9x | Escalate and decline; no exception path on DTI > 6.0x |
+| `task-06` | David Chen, fraud / financial crime scenario | Synthetic identity / document integrity escalation | Stop credit processing, submit SAR path, close as compliant fraud handling |
 
 ---
 
-## Benchmark Results — Origination PoC
+## Benchmark Results — Origination (Updated 17 March 2026)
 
-> **Run configs now compared:** 4 simulations per task × 6 evaluated settings = 72 total scored runs
+> **Today's main comparison:** 6 origination tasks × 4 simulations per task. GPT-5.4 was run at `medium` reasoning effort because that was the strongest GPT-5.4 setting in the earlier 3-task sweep.
 
-### Baseline Comparison
+<p align="center">
+  <img src="./assets/origination-expanded-benchmark-20260317.svg" alt="Expanded 6-task origination benchmark comparison — GPT-5.4 medium vs Claude Opus 4.6" width="100%"/>
+</p>
 
-This is the current baseline across the original two models plus GPT-5.4 with no explicit reasoning override.
+### Current Headline Result
 
-| Model | Outcome Accuracy | Full-Rubric Pass | Gap |
+On the expanded 6-task origination suite, Claude Opus 4.6 outperformed GPT-5.4 medium.
+
+| Model | Completed Runs | Outcome Accuracy | Full-Rubric Pass | Gap |
+|---|:---:|:---:|:---:|:---:|
+| GPT-5.4 (`medium`) | 24/24 | 12/24 (50.0%) | 8/24 (33.3%) | **−16.7pp** |
+| Claude Opus 4.6 | 23/24 | 20/23 (87.0%) | 12/23 (52.2%) | **−34.8pp** |
+
+Claude had one infrastructure timeout on `task-05`, so its aggregate is calculated over 23 scored runs rather than 24.
+
+### Full-Rubric Pass Rate by Task
+
+This is the headline metric. A run only counts as a pass when every rubric component is satisfied:
+
+| Task | Expected | GPT-5.4 Medium | Claude Opus 4.6 |
 |---|:---:|:---:|:---:|
-| GPT-5.2 | 8/12 (66.7%) | 3/12 (25.0%) | **−41.7pp** |
-| GPT-5.4 (default / unset) | 8/12 (66.7%) | 4/12 (33.3%) | **−33.3pp** |
-| Claude Opus 4.6 | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
+| `task-01` — Clean approve | `APPROVE` | 0/4 (0%) | 1/4 (25%) |
+| `task-02` — Missing docs gate | `REQUEST_FURTHER_INFO` | **4/4 (100%)** | 0/4 (0%) |
+| `task-03` — Hard DTI decline | `DECLINE` | 3/4 (75%) | **4/4 (100%)** |
+| `task-04` — Sub-prime hard decline | `DECLINE` | 1/4 (25%) | **4/4 (100%)** |
+| `task-05` — Self-employed DTI hard decline | `DECLINE` | 0/4 (0%) | **3/3 completed (100%)** |
+| `task-06` — Fraud / SAR compliance flow | `COMPLIANT` | 0/4 (0%) | 0/4 (0%) |
 
-GPT-5.4 default improves on GPT-5.2 overall, but it still lags Claude on full-rubric pass rate.
+### Decision Distribution
 
-### GPT-5.4 Reasoning Effort Sweep
+How each model actually decided across four runs per task:
 
-The same 3-task origination suite was rerun for GPT-5.4 with explicit reasoning-effort settings:
+| Task | GPT-5.4 Medium | Claude Opus 4.6 |
+|---|---|---|
+| `task-01` | DECLINE ×3, APPROVE ×1 | CONDITIONAL_APPROVE ×3, APPROVE ×1 |
+| `task-02` | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 |
+| `task-03` | DECLINE ×4 | DECLINE ×4 |
+| `task-04` | DECLINE ×3, REQUEST_FURTHER_INFO ×1 | DECLINE ×4 |
+| `task-05` | REQUEST_FURTHER_INFO ×4 | DECLINE ×3, timeout ×1 |
+| `task-06` | PROCESS_FAILURE ×4 | COMPLIANT ×4 |
+
+### Component-Level Pass Rates
+
+Where exactly each model breaks down on the 6-task suite:
+
+| Component | GPT-5.4 Medium | Claude Opus 4.6 |
+|---|:---:|:---:|
+| Tool Calls | 66.7% | 95.7% |
+| Handoffs | 62.5% | 82.6% |
+| Step Decisions | 75.0% | 100.0% |
+| Outcome | 50.0% | 87.0% |
+| Forbidden Actions | 54.2% | 82.6% |
+| Evidence | 62.5% | 82.6% |
+
+### Earlier GPT-5.4 Reasoning Sweep
+
+Before expanding to six tasks, the original 3-task suite was used to choose the strongest GPT-5.4 setting:
 
 | GPT-5.4 Setting | Outcome Accuracy | Full-Rubric Pass | Gap |
 |---|:---:|:---:|:---:|
@@ -79,98 +135,59 @@ The same 3-task origination suite was rerun for GPT-5.4 with explicit reasoning-
 | Medium | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
 | High | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
 
-Low and medium are the strongest GPT-5.4 settings tested. High improves outcome accuracy over the default run, but loses much of the process-fidelity benefit.
-
-### Full-Rubric Pass Rate by Task
-
-This is the headline metric. A run only counts as a pass when every rubric component is satisfied:
-
-| Task | Expected | GPT-5.2 | GPT-5.4 Default | GPT-5.4 Low | GPT-5.4 Medium | GPT-5.4 High | Claude Opus 4.6 |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `task-01` — Clean approve | `APPROVE` | **3/4 (75%)** | **3/4 (75%)** | 1/4 (25%) | 1/4 (25%) | 0/4 (0%) | 0/4 (0%) |
-| `task-02` — Missing docs gate | `REQUEST_FURTHER_INFO` | 0/4 (0%) | 0/4 (0%) | **4/4 (100%)** | **4/4 (100%)** | 3/4 (75%) | 1/4 (25%) |
-| `task-03` — Hard DTI decline | `DECLINE` | 0/4 (0%) | 1/4 (25%) | 3/4 (75%) | 3/4 (75%) | 2/4 (50%) | **4/4 (100%)** |
-
-### The Key Insight: Outcome ≠ Process
-
-A model can reach the right answer through the wrong process and still fail. This table shows how much they diverge:
-
-| Setting | Outcome Accuracy | Full-Rubric Pass | Gap |
-|---|:---:|:---:|:---:|
-| GPT-5.2 | 8/12 (66.7%) | 3/12 (25.0%) | **−41.7pp** |
-| GPT-5.4 Default | 8/12 (66.7%) | 4/12 (33.3%) | **−33.3pp** |
-| GPT-5.4 Low | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
-| GPT-5.4 Medium | 9/12 (75.0%) | 8/12 (66.7%) | **−8.3pp** |
-| GPT-5.4 High | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
-| Claude Opus 4.6 | 9/12 (75.0%) | 5/12 (41.7%) | **−33.3pp** |
-
-The key result is not just that GPT-5.4 improves with explicit reasoning control — it is that low/medium reasoning reduce the outcome-vs-process gap dramatically.
-
-### GPT-5.4 Decision Distribution by Setting
-
-How GPT-5.4 actually decided across 4 runs per task under each reasoning configuration:
-
-| Task | Default / Unset | Low | Medium | High |
-|---|---|---|---|---|
-| `task-01` | APPROVE ×3, CONDITIONAL_APPROVE ×1 | APPROVE ×1, DECLINE ×1, CONDITIONAL_APPROVE ×2 | APPROVE ×1, DECLINE ×2, CONDITIONAL_APPROVE ×1 | APPROVE ×1, CONDITIONAL_APPROVE ×3 |
-| `task-02` | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 | REQUEST_FURTHER_INFO ×4 |
-| `task-03` | CONDITIONAL_APPROVE ×3, DECLINE ×1 | DECLINE ×4 | DECLINE ×4 | DECLINE ×4 |
-
-### Component-Level Pass Rates
-
-Where exactly the main models and GPT-5.4 settings break down:
-
-| Component | GPT-5.2 | GPT-5.4 Default | GPT-5.4 Low | GPT-5.4 Medium | GPT-5.4 High | Claude Opus 4.6 |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Tool Calls | 100.0% | 75.0% | 100.0% | 100.0% | 100.0% | 83.3% |
-| Handoffs | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% |
-| Step Decisions | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% |
-| Outcome | 66.7% | 66.7% | 75.0% | 75.0% | 75.0% | 75.0% |
-| Forbidden Actions | 25.0% | 66.7% | 75.0% | 75.0% | 66.7% | 66.7% |
-| Evidence | 100.0% | 75.0% | 100.0% | 100.0% | 100.0% | 100.0% |
+Low and medium were the strongest GPT-5.4 settings on the original 3-task suite, which is why `medium` was selected for the 6-task expansion run.
 
 ---
 
 ## Key Findings
 
-### 1. GPT-5.4 low/medium are the current best GPT settings
+### 1. GPT-5.4 medium is still excellent at the missing-doc gate
 
-With explicit reasoning effort set to `low` or `medium`, GPT-5.4 reached **8/12 (66.7%)** full-rubric pass rate, up from **4/12 (33.3%)** at the default setting and **3/12 (25.0%)** for GPT-5.2. The improvement came from much stronger process fidelity on the missing-doc and hard-decline tasks.
-
-### 2. The improvement is driven by task-02 and task-03, not task-01
-
-Default GPT-5.4 was still weak on process gating and hard-limit enforcement:
-- `task-02`: **0/4**
-- `task-03`: **1/4**
-
-At `low` and `medium`, those same tasks improved to:
+GPT-5.4 medium was perfect on `task-02`:
 - `task-02`: **4/4**
-- `task-03`: **3/4**
 
-The tradeoff is that `task-01` regressed from **3/4** at default to **1/4** at both `low` and `medium`.
+Claude reached the correct surface outcome (`REQUEST_FURTHER_INFO`) but still failed every full-rubric run, showing that this task remains a strong process-fidelity discriminator.
 
-### 3. High reasoning effort is worse than low/medium
+### 2. Claude is much stronger on the expanded hard-decline set
 
-`high` preserved the same 75.0% outcome accuracy as `low` and `medium`, but full-rubric pass rate dropped to **5/12 (41.7%)**. The main regression was clean-approve handling:
-- `task-01`: **0/4**
-- `task-02`: **3/4**
-- `task-03`: **2/4**
-
-### 4. Claude remains the strongest hard-policy model
-
-Claude Opus 4.6 still leads on the strict hard-decline path:
+Once `task-04` and `task-05` were added, Claude opened a wide lead:
 - `task-03`: **4/4**
-- overall full-rubric pass: **5/12 (41.7%)**
+- `task-04`: **4/4**
+- `task-05`: **3/3 completed** with one timeout
 
-GPT-5.4 low/medium beat Claude overall, but Claude remains the most reliable model in the suite on the hardest no-exception policy path.
+GPT-5.4 medium, by contrast, managed:
+- `task-03`: **3/4**
+- `task-04`: **1/4**
+- `task-05`: **0/4**
 
-### 5. Run-to-run variance is still a deployment concern
+### 3. GPT-5.4 medium regressed badly on the clean approval path
 
-Even at the stronger GPT-5.4 settings, the model still varied materially on `task-01`:
-- `low`: APPROVE ×1, DECLINE ×1, CONDITIONAL_APPROVE ×2
-- `medium`: APPROVE ×1, DECLINE ×2, CONDITIONAL_APPROVE ×1
+On `task-01`, GPT-5.4 medium produced:
+- DECLINE ×3
+- APPROVE ×1
+- full-rubric pass: **0/4**
 
-So reasoning control improved process compliance overall, but did not eliminate variance on the clean-file approval scenario.
+That is a substantial regression from the earlier 3-task sweep, where the main GPT-5.4 tradeoff was already over-conservatism on the clean approve file.
+
+### 4. Both models currently fail the fraud / compliance origination path
+
+`task-06` is currently unsolved by both models:
+- GPT-5.4 medium: `PROCESS_FAILURE ×4`
+- Claude Opus 4.6: `COMPLIANT ×4`, but all four still failed the rubric
+
+This suggests the Financial Crime / SAR closure workflow is now one of the benchmark's hardest orchestration tests.
+
+### 5. Process compliance remains the real separator
+
+The suite expansion reinforces LOAB's core point: outcome accuracy alone is not enough.
+
+Claude's lead came from stronger end-to-end process fidelity:
+- better tool-call compliance
+- better handoff payload quality
+- better evidence capture
+- fewer forbidden actions
+
+GPT-5.4 medium could still reach the correct high-level direction on several tasks, but often failed on the controlled workflow details that matter in production lending systems.
 
 ---
 
@@ -180,7 +197,7 @@ The full LOAB lifecycle suite is in active development:
 
 | Stage | Status | Example Scenario |
 |---|:---:|---|
-| **Origination** | ✅ PoC live | Prime approve, missing docs gate, hard decline |
+| **Origination** | ✅ Expanded suite live | Clean approve, missing docs gate, DTI hard decline, score-based hard decline, self-employed decline, fraud escalation |
 | **Credit Decisioning** | 🔧 In dev | Self-employed DTI breach, sub-prime hard decline |
 | **Servicing** | 🔧 In dev | Loan discharge, closure tasks |
 | **Collections** | 🔧 In dev | Hardship assessment, collections suspension |
@@ -200,7 +217,10 @@ loab/
 │   └── origination/
 │       ├── task-01/  ← Clean PAYG approval
 │       ├── task-02/  ← Missing privacy consent
-│       └── task-03/  ← Hard DTI decline
+│       ├── task-03/  ← Near-prime hard DTI decline
+│       ├── task-04/  ← Sub-prime hard decline
+│       ├── task-05/  ← Self-employed investment decline
+│       └── task-06/  ← Fraud / SAR compliance flow
 └── results/          ← Run outputs (gitignored)
 ```
 
