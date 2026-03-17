@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#f7fafc"/>
+<stop offset="100%" stop-color="#eef6f1"/>
+</linearGradient>
+</defs>
+<rect width="1200" height="720" fill="url(#bg)"/>
+<rect x="32" y="28" width="1136" height="664" rx="26" fill="#ffffff" stroke="#dbe7df"/>
+
+<text x="70" y="82" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#0f172a">Expanded Origination Benchmark — 17 March 2026</text>
+<text x="70" y="114" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#475569">6 tasks x 4 simulations. Full-rubric pass requires the right decision and the right process.</text>
+
+<text x="70" y="162" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">Overall Full-Rubric Pass</text>
+<rect x="70" y="184" width="1060" height="96" rx="18" fill="#f8fafc" stroke="#e2e8f0"/>
+
+<text x="90" y="236" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#0f172a">GPT-5.4 Medium</text>
+<rect x="290" y="214" width="520" height="22" rx="11" fill="#e2e8f0"/>
+<rect x="290" y="214" width="173" height="22" rx="11" fill="#c2410c"/>
+<text x="830" y="231" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#9a3412">8/24  (33.3%)</text>
+
+<text x="90" y="266" font-family="Helvetica, Arial, sans-serif" font-size="19" fill="#0f172a">Claude Opus 4.6</text>
+<rect x="290" y="244" width="520" height="22" rx="11" fill="#e2e8f0"/>
+<rect x="290" y="244" width="271" height="22" rx="11" fill="#0f766e"/>
+<text x="830" y="261" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="700" fill="#115e59">12/23  (52.2%)</text>
+<text x="970" y="261" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#64748b">one timeout on task-05</text>
+
+<text x="70" y="334" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0f172a">Task-Level Full-Rubric Pass Rate</text>
+
+<g font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#334155">
+  <text x="70" y="380">task-01</text>
+  <text x="70" y="430">task-02</text>
+  <text x="70" y="480">task-03</text>
+  <text x="70" y="530">task-04</text>
+  <text x="70" y="580">task-05</text>
+  <text x="70" y="630">task-06</text>
+</g>
+
+<g font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#64748b">
+  <text x="175" y="354">GPT-5.4 Medium</text>
+  <text x="405" y="354">Claude Opus 4.6</text>
+</g>
+
+<g>
+  <rect x="170" y="364" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="170" y="364" width="0" height="24" rx="12" fill="#c2410c"/><text x="350" y="381" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#9a3412">0/4</text>
+  <rect x="400" y="364" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="400" y="364" width="43" height="24" rx="12" fill="#0f766e"/><text x="580" y="381" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#115e59">1/4</text>
+
+  <rect x="170" y="414" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="170" y="414" width="170" height="24" rx="12" fill="#c2410c"/><text x="350" y="431" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#9a3412">4/4</text>
+  <rect x="400" y="414" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="400" y="414" width="0" height="24" rx="12" fill="#0f766e"/><text x="580" y="431" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#115e59">0/4</text>
+
+  <rect x="170" y="464" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="170" y="464" width="128" height="24" rx="12" fill="#c2410c"/><text x="350" y="481" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#9a3412">3/4</text>
+  <rect x="400" y="464" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="400" y="464" width="170" height="24" rx="12" fill="#0f766e"/><text x="580" y="481" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#115e59">4/4</text>
+
+  <rect x="170" y="514" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="170" y="514" width="43" height="24" rx="12" fill="#c2410c"/><text x="350" y="531" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#9a3412">1/4</text>
+  <rect x="400" y="514" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="400" y="514" width="170" height="24" rx="12" fill="#0f766e"/><text x="580" y="531" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#115e59">4/4</text>
+
+  <rect x="170" y="564" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="170" y="564" width="0" height="24" rx="12" fill="#c2410c"/><text x="350" y="581" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#9a3412">0/4</text>
+  <rect x="400" y="564" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="400" y="564" width="128" height="24" rx="12" fill="#0f766e"/><text x="580" y="581" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#115e59">3/3</text>
+
+  <rect x="170" y="614" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="170" y="614" width="0" height="24" rx="12" fill="#c2410c"/><text x="350" y="631" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#9a3412">0/4</text>
+  <rect x="400" y="614" width="170" height="24" rx="12" fill="#e2e8f0"/><rect x="400" y="614" width="0" height="24" rx="12" fill="#0f766e"/><text x="580" y="631" font-family="Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#115e59">0/4</text>
+</g>
+
+<rect x="640" y="364" width="490" height="274" rx="18" fill="#fff7ed" stroke="#fed7aa"/>
+<text x="664" y="398" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#9a3412">Takeaways</text>
+<text x="664" y="434" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7c2d12">• GPT-5.4 medium still dominates the missing-doc gate (task-02).</text>
+<text x="664" y="468" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7c2d12">• Claude is much stronger on the expanded hard-decline set</text>
+<text x="684" y="494" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7c2d12">(tasks 03, 04, 05).</text>
+<text x="664" y="534" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7c2d12">• Both models currently fail the fraud / SAR workflow</text>
+<text x="684" y="560" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7c2d12">(task-06).</text>
+<text x="664" y="600" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#7c2d12">• Expanded coverage changes the leaderboard.</text>
+</svg>
