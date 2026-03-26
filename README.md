@@ -193,15 +193,61 @@ GPT-5.4 medium could still reach the correct high-level direction on several tas
 
 ## Roadmap
 
-The full LOAB lifecycle suite is in active development:
+The full LOAB lifecycle suite is in active development. Each new task ships on its own feature branch (`task/<taxonomy>-task-NN`).
 
-| Stage | Status | Example Scenario |
-|---|:---:|---|
-| **Origination** | ✅ Expanded suite live | Clean approve, missing docs gate, DTI hard decline, score-based hard decline, self-employed decline, fraud escalation |
-| **Credit Decisioning** | 🔧 In dev | Self-employed DTI breach, sub-prime hard decline |
-| **Servicing** | 🔧 In dev | Loan discharge, closure tasks |
-| **Collections** | 🔧 In dev | Hardship assessment, collections suspension |
-| **Compliance** | 🔧 In dev | Synthetic identity fraud detection, SAR filing |
+### Origination (6 live · 4 planned)
+
+| Task | Status | Scenario | Expected Outcome |
+|---|:---:|---|:---:|
+| `task-01` | ✅ Live | Prime PAYG borrower, complete file | `APPROVE` |
+| `task-02` | ✅ Live | Missing mandatory privacy consent | `REQUEST_FURTHER_INFO` |
+| `task-03` | ✅ Live | Near-prime borrower, DTI > 6.0× | `DECLINE` |
+| `task-04` | ✅ Live | Sub-prime bureau score below 580 | `DECLINE` |
+| `task-05` | ✅ Live | Self-employed investment borrower, DTI breach | `DECLINE` |
+| `task-06` | ✅ Live | Fraud / synthetic identity escalation | `COMPLIANT` |
+| `task-07` | 📋 Planned | Joint applicants — adverse credit on secondary applicant | `REFER_CREDIT_MANAGER` |
+| `task-08` | 📋 Planned | High-LVR purchase — LMI required above 80% | `APPROVE` (with LMI) |
+| `task-09` | 📋 Planned | Interest-only investment loan — correct product and assessment rate | `APPROVE` |
+| `task-10` | 📋 Planned | Construction loan — staged drawdown, on-completion valuation | `APPROVE` |
+
+### Credit Decisioning (1 in dev · 4 planned)
+
+| Task | Status | Scenario | Expected Outcome |
+|---|:---:|---|:---:|
+| `task-01` | 🔧 In dev | Self-employed DTI breach / sub-prime hard decline | `DECLINE` |
+| `task-02` | 📋 Planned | Borderline near-prime, within credit manager delegated authority | `APPROVE` |
+| `task-03` | 📋 Planned | Investment property refinance — rental income treatment, existing liabilities | `APPROVE` |
+| `task-04` | 📋 Planned | Policy exception request denied — DTI > 6.0× hard limit, no exception pathway | `DECLINE` |
+| `task-05` | 📋 Planned | Self-employed with declining income trend — lower-of-two-years treatment | `REQUEST_FURTHER_INFO` |
+
+### Servicing (1 in dev · 3 planned)
+
+| Task | Status | Scenario | Expected Outcome |
+|---|:---:|---|:---:|
+| `task-01` | 🔧 In dev | Loan discharge / closure | `COMPLIANT` |
+| `task-02` | 📋 Planned | Hardship variation routing — medical leave, no payment arrangement at processing stage | Handoff to `hardship_assessor` |
+| `task-03` | 📋 Planned | Fixed-to-variable rate rollover — product lookup, no serviceability re-assessment | `COMPLIANT` |
+| `task-04` | 📋 Planned | Loan discharge — discharge authority verification, statutory 10-day window | `COMPLIANT` |
+
+### Collections (1 in dev · 3 planned)
+
+| Task | Status | Scenario | Expected Outcome |
+|---|:---:|---|:---:|
+| `task-01` | 🔧 In dev | Hardship assessment / collections suspension | `COMPLIANT` |
+| `task-02` | 📋 Planned | Payment arrangement breach — third consecutive miss, legal escalation | `REFER_LEGAL` |
+| `task-03` | 📋 Planned | Hardship exit — income recovered, return to normal repayment schedule | `COMPLIANT` |
+| `task-04` | 📋 Planned | Deceased estate protocol — account freeze, no payment demand before probate | `COMPLIANT` |
+
+### Compliance (1 in dev · 3 planned)
+
+| Task | Status | Scenario | Expected Outcome |
+|---|:---:|---|:---:|
+| `task-01` | 🔧 In dev | Synthetic identity fraud detection / SAR filing | `COMPLIANT` |
+| `task-02` | 📋 Planned | AML transaction monitoring — cash structuring pattern, SAR required | `COMPLIANT` |
+| `task-03` | 📋 Planned | Credit file dispute resolution — adverse listing, 30-day response window | `COMPLIANT` |
+| `task-04` | 📋 Planned | Privacy breach notification — NDB threshold assessment, OAIC reporting | `COMPLIANT` |
+
+> Full task specifications for all planned items are in [`plans/task_roadmap.md`](plans/task_roadmap.md).
 
 ---
 
